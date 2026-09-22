@@ -1,0 +1,5 @@
+PACCHETTO DI PUBBLICAZIONE — GPJ VISUALS
+Creato il 22/09/2026, 08:26:38
+
+1. Copia le cartelle projects, images e data nella cartella del sito.
+   Accetta di sostituire i file con lo stesso nome.

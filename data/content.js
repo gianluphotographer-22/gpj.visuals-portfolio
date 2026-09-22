@@ -1,6 +1,12 @@
-/* Generato dall'admin — non modificare a mano. */
+/* Generato dall’admin — non modificare a mano. */
 window.GPJ_CONTENT = {
-  siteImageDefaults: {
+  "version": 1,
+  "categories": [],
+  "pages": [],
+  "home": {
+    "sections": []
+  },
+  "siteImageDefaults": {
     "hero": "images/hero.png",
     "about": "images/about.png",
     "cover-matchday-stories": "images/matchdaystoriescover.png",
@@ -16,8 +22,11 @@ window.GPJ_CONTENT = {
     "review-3": "images/reviews/persona-03.jpg",
     "review-4": "images/reviews/persona-01.jpg"
   },
-  "version": 1,
-  "categories": [],
-  "pages": [],
-  "home": { "sections": [] }
+  "siteImages": {
+    "review-1": "images/uploads/davide-nore.webp",
+    "review-2": "images/uploads/ale-gelsi-6j9r.webp",
+    "review-3": "images/uploads/paul-sl2u.webp",
+    "review-4": "images/uploads/ale-marcone-79av.webp",
+    "cover-live-atmosphere": "images/uploads/win-or-go-homr-qtyf.webp"
+  }
 };
