@@ -1,0 +1,2522 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta
+  name="theme-color"
+  content="#e10600"
+>
+
+<meta
+  name="description"
+  content="Portfolio fotografico e video professionale."
+>
+
+<title>
+GPJ.VISUALS-Portfolio
+</title>
+
+
+<!-- LOGO / ICONA DEL SITO -->
+
+<link
+  rel="icon"
+  type="image/png"
+  href="images/GPJ pos.png"
+>
+
+<link
+  rel="apple-touch-icon"
+  href="images/GPJ pos.png"
+>
+
+
+<!-- GOOGLE FONTS -->
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+
+<!-- CSS PRINCIPALE -->
+
+<link
+  rel="stylesheet"
+  href="assets/css/style.css"
+>
+
+<!-- STILE SEZIONI EXTRA (create dall'admin) -->
+
+<link
+  rel="stylesheet"
+  href="assets/css/pages.css"
+>
+
+
+<!-- =====================================================
+     CSS RECENSIONI
+===================================================== -->
+
+<style>
+
+
+/* =========================================================
+   LOGO NELL'HEADER
+========================================================= */
+
+.brand-mark img {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  border-radius: inherit;
+
+}
+
+
+/* =========================================================
+   REVIEWS
+========================================================= */
+
+.reviews {
+
+  padding: 88px 0;
+
+  background: var(--paper);
+
+}
+
+
+.reviews .section-head {
+
+  margin-bottom: 30px;
+
+}
+
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.reviews-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+
+}
+
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.review-card {
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 20px;
+
+  background: #ffffff;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 15px;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+
+}
+
+
+.review-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  border-color:
+    rgba(225, 6, 0, .28);
+
+  box-shadow:
+    0 14px 40px
+    rgba(0, 0, 0, .06);
+
+}
+
+
+
+/* =========================================================
+   USER
+========================================================= */
+
+.review-header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+}
+
+
+.review-avatar {
+
+  width: 50px;
+
+  height: 50px;
+
+  flex:
+    0 0 50px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  background: #dddddd;
+
+}
+
+
+.review-user {
+
+  min-width: 0;
+
+}
+
+
+.review-user h3 {
+
+  font-family:
+    Manrope,
+    sans-serif;
+
+  font-size: 15px;
+
+  line-height: 1.1;
+
+  letter-spacing:
+    -.025em;
+
+}
+
+
+.review-user p {
+
+  margin-top: 4px;
+
+  color:
+    var(--muted);
+
+  font-size: 10px;
+
+  line-height: 1.4;
+
+}
+
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.review-rating {
+
+  margin-top: 20px;
+
+  color:
+    var(--red);
+
+  font-size: 13px;
+
+  letter-spacing: 2px;
+
+}
+
+
+
+/* =========================================================
+   TESTO RECENSIONE
+========================================================= */
+
+.review-card blockquote {
+
+  flex: 1;
+
+  margin-top: 15px;
+
+  font-family:
+    Manrope,
+    sans-serif;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  line-height: 1.45;
+
+  letter-spacing:
+    -.025em;
+
+}
+
+
+
+/* =========================================================
+   FOOTER RECENSIONE
+========================================================= */
+
+.review-footer {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 15px;
+
+  margin-top: 26px;
+
+  padding-top: 12px;
+
+  border-top:
+    1px solid var(--line);
+
+  color:
+    var(--muted);
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing:
+    .09em;
+
+  text-transform:
+    uppercase;
+
+}
+
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media
+(
+  min-width: 761px
+)
+and
+(
+  max-width: 1050px
+) {
+
+  .reviews {
+
+    padding: 70px 0;
+
+  }
+
+
+  .reviews-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+  }
+
+}
+
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media
+(
+  max-width: 760px
+) {
+
+  .reviews {
+
+    padding: 48px 0;
+
+  }
+
+
+  .reviews .section-head {
+
+    margin-bottom: 18px;
+
+  }
+
+
+  /*
+     Slider orizzontale
+     ottimizzato per smartphone
+  */
+
+  .reviews-grid {
+
+    display: flex;
+
+    overflow-x: auto;
+
+    gap: 10px;
+
+    margin-right: -15px;
+
+    padding-right: 15px;
+
+    padding-bottom: 6px;
+
+    scroll-snap-type:
+      x mandatory;
+
+    overscroll-behavior-x:
+      contain;
+
+    scrollbar-width:
+      none;
+
+  }
+
+
+  .reviews-grid::-webkit-scrollbar {
+
+    display: none;
+
+  }
+
+
+  .review-card {
+
+    flex:
+      0 0
+      min(82vw, 330px);
+
+    min-height: 0;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    scroll-snap-align:
+      start;
+
+  }
+
+
+  .review-avatar {
+
+    width: 42px;
+
+    height: 42px;
+
+    flex-basis: 42px;
+
+  }
+
+
+  .review-user h3 {
+
+    font-size: 13px;
+
+  }
+
+
+  .review-user p {
+
+    font-size: 9px;
+
+  }
+
+
+  .review-rating {
+
+    margin-top: 14px;
+
+    font-size: 11px;
+
+  }
+
+
+  .review-card blockquote {
+
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+  }
+
+
+  .review-footer {
+
+    margin-top: 16px;
+
+    padding-top: 9px;
+
+    font-size: 7px;
+
+  }
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+
+  <a
+    class="brand"
+    href="#top"
+    aria-label="GPJ Visuals - Torna all'inizio"
+  >
+
+    <span class="brand-mark">
+
+      <img
+        src="images/GPJ neg.png"
+        alt=""
+        width="64"
+        height="64"
+      >
+
+    </span>
+
+    <span class="brand-name">
+    GIANLUCA PAGLIONICO
+    </span>
+
+  </a>
+
+
+
+  <nav class="nav" aria-label="Navigazione principale">
+
+    <a href="#work">
+      Portfolio
+    </a>
+
+    <a href="#about">
+      Chi sono
+    </a>
+
+    <a href="#services">
+      Servizi
+    </a>
+
+    <a href="#reviews">
+      Recensioni
+    </a>
+
+    <a href="#contact">
+      Contatti
+    </a>
+
+  </nav>
+
+
+
+  <a
+    class="header-contact"
+    href="#contact"
+  >
+
+    Parliamone
+
+  </a>
+
+
+
+  <button
+    class="menu-btn"
+    type="button"
+    aria-label="Menu"
+  >
+
+    ☰
+
+  </button>
+
+
+</header>
+
+
+
+<main id="top">
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+
+  <div class="hero-media">
+
+    <img
+      src="images/hero.png"
+      alt="Hero portfolio"
+            data-gx-img="hero"
+    >
+
+  </div>
+
+
+
+  <div class="hero-content reveal">
+
+
+    <div class="eyebrow">
+
+      Photography • Video • Visual Storytelling
+
+    </div>
+
+
+    <h1>
+
+      <span>
+        Il mondo
+      </span>
+
+      <span>
+        attraverso la mia lente
+      </span>
+
+    </h1>
+
+
+    <p>
+
+      Scopri la mia visione
+
+    </p>
+
+
+    <div class="hero-actions">
+
+
+      <a
+        class="btn btn-red"
+        href="#work"
+      >
+
+        Esplora i lavori
+
+      </a>
+
+
+      <a
+        class="btn btn-outline"
+        href="#contact"
+      >
+
+        Contattami
+
+      </a>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="intro">
+
+
+  <div class="container intro-grid">
+
+
+    <div class="kicker reveal">
+
+      <b>
+        01
+      </b>
+
+      <span>
+        Portfolio
+      </span>
+
+    </div>
+
+
+
+    <div class="reveal">
+
+
+      <h2 class="big-copy">
+
+        Non una semplice gallery.
+        Ogni progetto ha il suo spazio.
+
+      </h2>
+
+
+      <p class="body-copy">
+
+        Scrolla tra i miei lavori
+        e scoprine i dettagli uno per uno.
+
+      </p>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     PORTFOLIO
+===================================================== -->
+
+<section
+  class="work"
+  id="work"
+>
+
+
+  <div class="container">
+
+
+    <div class="section-head reveal">
+
+
+      <div>
+
+        <div class="eyebrow red">
+
+          Selected work
+
+        </div>
+
+
+        <h2>
+
+          Progetti.
+
+        </h2>
+
+      </div>
+
+
+      <p>
+
+        Clicca su un progetto per entrare
+        nella pagina dedicata.
+
+      </p>
+
+
+    </div>
+
+
+
+    <!-- FILTER -->
+
+
+    <div class="filters reveal">
+
+
+      <button
+        class="filter active"
+        type="button"
+        data-filter="all"
+      >
+
+        Tutto
+
+      </button>
+
+
+      <button
+        class="filter"
+        type="button"
+        data-filter="sport"
+      >
+
+        Sport / Video
+
+      </button>
+
+
+      <button
+        class="filter"
+        type="button"
+        data-filter="portrait"
+      >
+
+        Ritratti
+
+      </button>
+
+
+      <button
+        class="filter"
+        type="button"
+        data-filter="content"
+      >
+
+        Content
+
+      </button>
+      <button
+        class="filter"
+        type="button"
+        data-filter="drone"
+      >
+
+        Drone Works
+
+      </button>
+
+    </div>
+
+
+
+    <!-- PROGETTI -->
+
+
+    <div class="projects">
+
+
+
+      <!-- PROGETTO 1 -->
+
+
+      <a
+        class="project wide reveal"
+        data-category="sport"
+        href="projects/matchday-stories.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/matchdaystoriescover.png"
+            alt="Matchday Stories"
+            data-gx-img="cover-matchday-stories"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              IDEALE BARI CALCIO
+
+            </div>
+
+
+            <h3>
+
+              T'IMMAGINI
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
+
+      <!-- PROGETTO 2 -->
+
+
+      <a
+        class="project reveal"
+        data-category="sport"
+        href="projects/athlete-portraits.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/athleteportraitscover.png"
+            alt="Athlete Portraits"
+            data-gx-img="cover-athlete-portraits"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              KINGS LEAGUE
+
+            </div>
+
+
+            <h3>
+
+              SCATTI DA RE
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
+
+      <!-- PROGETTO 3 -->
+
+
+      <a
+        class="project reveal"
+        data-category="sport"
+        href="projects/live-atmosphere.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/live-atmosphere-cover.svg"
+            alt="sport"
+            data-gx-img="cover-live-atmosphere"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              EMOZIONI CHE VALGONO UNA STAGIONE
+
+            </div>
+
+
+            <h3>
+
+              WIN OR GO HOME
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
+
+      <!-- PROGETTO 4 -->
+
+
+      <a
+        class="project wide reveal"
+        data-category="content"
+        href="projects/visual-campaign.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/visual-campaign-cover.svg"
+            alt="Visual Campaign"
+            data-gx-img="cover-visual-campaign"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              BRAND CONTENT
+
+            </div>
+
+
+            <h3>
+
+              Visual Campaign
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
+
+      <!-- PROGETTO 5 -->
+
+
+      <a
+        class="project reveal"
+        data-category="sport"
+        href="projects/match-film.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/match-film-cover.svg"
+            alt="Match Film"
+            data-gx-img="cover-match-film"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              VIDEO / REEL
+
+            </div>
+
+
+            <h3>
+
+              Match Film
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
+
+      <!-- PROGETTO 6 -->
+
+
+      <a
+        class="project reveal"
+        data-category="sport"
+        href="projects/intensity.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/intensity-cover.svg"
+            alt="Intensity"
+            data-gx-img="cover-intensity"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              SPORT DETAIL
+
+            </div>
+
+
+            <h3>
+
+              Intensity
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
+
+      <!-- PROGETTO 7 -->
+
+
+      <a
+        class="project reveal"
+        data-category="portrait"
+        href="projects/human-detail.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/humandetailcover.png"
+            alt="Human Detail"
+            data-gx-img="cover-human-detail"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              EDITORIAL PORTRAIT
+
+            </div>
+
+
+            <h3>
+
+              Human Detail
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+     <a
+        class="project reveal"
+        data-category="drone"
+        href="projects/drone-works.html"
+      >
+
+
+        <div class="project-media">
+
+          <img
+            src="images/drone-cover.svg"
+            alt="drone"
+            data-gx-img="cover-drone-works"
+          >
+
+        </div>
+
+
+        <div class="project-bottom">
+
+
+          <div>
+
+            <div class="project-tag">
+
+              DRONE WORKS
+
+            </div>
+
+
+            <h3>
+
+              IL LIMITE E' IL CIELO
+
+            </h3>
+
+          </div>
+
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     MARQUEE
+===================================================== -->
+
+<section
+  class="media-strip"
+  aria-hidden="true"
+>
+
+
+  <div class="media-track">
+
+
+    <span>
+
+      PHOTO • VIDEO • REELS • SPORT • PORTRAIT • EVENTS •
+      BRAND CONTENT • PHOTO • VIDEO • REELS • SPORT •
+      PORTRAIT • EVENTS • BRAND CONTENT •
+
+    </span>
+
+
+    <span>
+
+      PHOTO • VIDEO • REELS • SPORT • PORTRAIT • EVENTS •
+      BRAND CONTENT • PHOTO • VIDEO • REELS • SPORT •
+      PORTRAIT • EVENTS • BRAND CONTENT •
+
+    </span>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+  class="about"
+  id="about"
+>
+
+
+  <div class="container about-grid">
+
+
+    <div class="reveal">
+
+
+      <img
+        src="images/about.png"
+        alt="Foto fotografo"
+            data-gx-img="about"
+      >
+
+
+    </div>
+
+
+
+    <div class="reveal">
+
+
+      <div class="eyebrow red">
+
+        About
+
+      </div>
+
+
+      <h2>
+
+        Foto e movimento,
+        nello stesso linguaggio visivo.
+
+      </h2>
+
+
+      <p>
+
+        Sono Gianluca e creo contenuti fotografici
+        e video con particolare attenzione allo sport,
+        agli eventi e alla comunicazione digitale.
+
+      </p>
+
+
+      <p>
+
+        Questo portfolio è pensato per mettere
+        il lavoro davanti a tutto:
+        immagini, video e progetti semplici da navigare.
+
+      </p>
+
+
+
+      <div class="stats">
+
+
+        <div>
+
+          <strong>
+            Photo
+          </strong>
+
+          <span>
+            Gallery & reportage
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <strong>
+            Video
+          </strong>
+
+          <span>
+            Reel & highlights
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <strong>
+            Digital
+          </strong>
+
+          <span>
+            Social content
+          </span>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section
+  class="services"
+  id="services"
+>
+
+
+  <div class="container">
+
+
+    <div class="section-head reveal">
+
+
+      <div>
+
+
+        <div class="eyebrow red">
+
+          Services
+
+        </div>
+
+
+        <h2>
+
+          Multimedia.
+
+        </h2>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="service-row reveal">
+
+
+      <span>
+        01
+      </span>
+
+
+      <h3>
+
+        Sport Photography
+
+      </h3>
+
+
+      <p>
+
+        Partite, tornei, squadre,
+        atleti e backstage.
+
+      </p>
+
+
+      <span>
+
+        ↗
+
+      </span>
+
+
+    </div>
+
+
+
+    <div class="service-row reveal">
+
+
+      <span>
+        02
+      </span>
+
+
+      <h3>
+
+        Video & Reels
+
+      </h3>
+
+
+      <p>
+
+        Highlight, montaggi verticali
+        e contenuti dinamici.
+
+      </p>
+
+
+      <span>
+
+        ↗
+
+      </span>
+
+
+    </div>
+
+
+
+    <div class="service-row reveal">
+
+
+      <span>
+        03
+      </span>
+
+
+      <h3>
+
+        Portrait & Editorial
+
+      </h3>
+
+
+      <p>
+
+        Ritratti e contenuti
+        per personal branding.
+
+      </p>
+
+
+      <span>
+
+        ↗
+
+      </span>
+
+
+    </div>
+
+
+
+    <div class="service-row reveal">
+
+
+      <span>
+        04
+      </span>
+
+
+      <h3>
+
+        Events & Brand Content
+
+      </h3>
+
+
+      <p>
+
+        Copertura completa
+        foto + video per eventi e campagne.
+
+      </p>
+
+
+      <span>
+
+        ↗
+
+      </span>
+
+
+    </div>
+    <div class="service-row reveal">
+
+
+      <span>
+        05
+      </span>
+
+
+      <h3>
+
+        Riprese e foto con Drone
+
+      </h3>
+
+
+      <p>
+
+        Eventi, panoramiche e molto altro
+
+      </p>
+
+
+      <span>
+
+        ↗
+
+      </span>
+
+
+    </div>
+
+
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     RECENSIONI
+===================================================== -->
+
+<section
+  class="reviews"
+  id="reviews"
+>
+
+
+  <div class="container">
+
+
+    <div class="section-head reveal">
+
+
+      <div>
+
+
+        <div class="eyebrow red">
+
+          Testimonials
+
+        </div>
+
+
+        <h2>
+
+          Hanno lavorato con me.
+
+        </h2>
+
+
+      </div>
+
+
+
+      <p>
+
+        Esperienze e feedback di atleti,
+        professionisti, creator, organizzazioni
+        e clienti con cui ho collaborato.
+
+      </p>
+
+
+    </div>
+
+
+
+    <div class="reviews-grid">
+
+
+
+      <!-- RECENSIONE 1 -->
+
+
+      <article class="review-card reveal">
+
+
+        <div class="review-header">
+
+
+          <img
+            data-gx-img="review-1" class="review-avatar"
+            src="images/reviews/persona-01.jpg"
+            alt="Davide Abrescia"
+          >
+
+
+          <div class="review-user">
+
+
+            <h3>
+
+              Davide Abrescia
+
+            </h3>
+
+
+            <p>
+
+              Contropiede PB
+
+            </p>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div
+          class="review-rating"
+          aria-label="5 stelle su 5"
+        >
+
+          ★★★★★
+
+        </div>
+
+
+
+        <blockquote>
+
+          “Creatività. Attenzione ai dettagli. Voglia di migliorare. Nei lavori di Gianluca c’è tutto questo. Con Contropiede abbiamo cominciato un percorso di interviste, creazioni di contenuti e allestimento studio podcast. L’obiettivo è continuare a crescere, insieme.”
+
+        </blockquote>
+
+
+
+        <div class="review-footer">
+
+
+          <span>
+
+            Sport Photography
+
+          </span>
+
+
+          <span>
+
+            2026
+
+          </span>
+
+
+        </div>
+
+
+      </article>
+
+
+
+      <!-- RECENSIONE 2 -->
+
+
+      <article class="review-card reveal">
+
+
+        <div class="review-header">
+
+
+          <img
+            data-gx-img="review-2" class="review-avatar"
+            src="images/reviews/persona-02.jpg"
+            alt="Alessandro Gelsi"
+          >
+
+
+          <div class="review-user">
+
+
+            <h3>
+
+              Alessandro Gelsi
+
+            </h3>
+
+
+            <p>
+
+              Content Creator
+
+            </p>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div
+          class="review-rating"
+          aria-label="5 stelle su 5"
+        >
+
+          ★★★★★
+
+        </div>
+
+
+
+        <blockquote>
+
+          “Professionalità, disponibilità
+          e grande attenzione ai dettagli.
+          Le immagini hanno dato una nuova
+          identità ai miei contenuti.”
+
+        </blockquote>
+
+
+
+        <div class="review-footer">
+
+
+          <span>
+
+            Portrait / Content
+
+          </span>
+
+
+          <span>
+
+            2026
+
+          </span>
+
+
+        </div>
+
+
+      </article>
+
+
+
+      <!-- RECENSIONE 3 -->
+
+
+      <article class="review-card reveal">
+
+
+        <div class="review-header">
+
+
+          <img
+            data-gx-img="review-3" class="review-avatar"
+            src="images/reviews/persona-03.jpg"
+            alt="Paolo Scienza"
+          >
+
+
+          <div class="review-user">
+
+
+            <h3>
+
+              Paolo Scienza
+
+            </h3>
+
+
+            <p>
+
+              Shooting squadra a 11
+
+            </p>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div
+          class="review-rating"
+          aria-label="5 stelle su 5"
+        >
+
+          ★★★★★
+
+        </div>
+
+
+
+        <blockquote>
+
+          “Affidabile, veloce con la tempistica dei lavori, professionalità e sopratutto con idea di lavoro alto. Consigliatissimo.”
+
+        </blockquote>
+
+
+
+        <div class="review-footer">
+
+
+          <span>
+
+           SSD BAVENO STRESA - FULGOR CHIAVAZZESE
+
+          </span>
+
+
+          <span>
+
+            2026
+
+          </span>
+
+
+        </div>
+
+
+      </article>
+
+      <article class="review-card reveal">
+
+
+        <div class="review-header">
+
+
+          <img
+            data-gx-img="review-4" class="review-avatar"
+            src="images/reviews/persona-01.jpg"
+            alt="Alessio Marcone"
+          >
+
+
+          <div class="review-user">
+
+
+            <h3>
+
+              Alessio Marcone
+
+            </h3>
+
+
+            <p>
+
+              Difensore Kings League e Zeta Milano
+
+            </p>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div
+          class="review-rating"
+          aria-label="5 stelle su 5"
+        >
+
+          ★★★★★
+
+        </div>
+
+
+
+        <blockquote>
+
+          “Gianluca è riuscito a raccontare
+          perfettamente l'atmosfera della partita
+          e a catturare momenti che difficilmente
+          avrei potuto conservare nello stesso modo.”
+
+        </blockquote>
+
+
+
+        <div class="review-footer">
+
+
+          <span>
+
+            Sport Photography
+
+          </span>
+
+
+          <span>
+
+            2026
+
+          </span>
+
+
+        </div>
+
+
+      </article>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+<!--
+
+=====================================================
+     CERTIFICAZIONI
+===================================================== 
+
+<section
+  class="certifications"
+  id="certifications"
+>
+
+
+  <div class="container">
+
+
+    <div class="section-head reveal">
+
+
+      <div>
+
+
+        <div class="eyebrow red">
+
+          Certificazioni
+
+        </div>
+
+
+        <h2>
+
+          Competenze certificate.
+
+        </h2>
+
+
+      </div>
+
+
+
+      <p>
+
+        Corsi, attestati e certificazioni professionali
+        che completano il mio percorso fotografico
+        e multimediale.
+
+      </p>
+
+
+    </div>
+
+
+
+    <div class="cert-grid">
+
+
+
+      CERTIFICAZIONE 1 
+
+
+      <article class="cert-card reveal">
+
+
+        <div class="cert-top">
+
+
+          <span class="cert-index">
+
+            01
+
+          </span>
+
+
+          <span class="cert-year">
+
+            2026
+
+          </span>
+
+
+        </div>
+
+
+
+        <div
+          class="cert-icon"
+          aria-hidden="true"
+        >
+
+          C
+
+        </div>
+
+
+
+        <div class="cert-body">
+
+
+          <p class="cert-issuer">
+
+            ENTE / ORGANIZZAZIONE
+
+          </p>
+
+
+          <h3>
+
+            Nome della certificazione
+
+          </h3>
+
+
+          <p class="cert-description">
+
+            Inserisci una breve descrizione
+            delle competenze acquisite.
+
+          </p>
+
+
+        </div>
+
+
+
+        <a
+          class="cert-link"
+          href="#"
+        >
+
+          Visualizza certificato
+
+          <span>
+
+            ↗
+
+          </span>
+
+
+        </a>
+
+
+      </article>
+
+
+
+     CERTIFICAZIONE 2 
+
+
+      <article class="cert-card reveal">
+
+
+        <div class="cert-top">
+
+
+          <span class="cert-index">
+
+            02
+
+          </span>
+
+
+          <span class="cert-year">
+
+            2026
+
+          </span>
+
+
+        </div>
+
+
+
+        <div
+          class="cert-icon"
+          aria-hidden="true"
+        >
+
+          C
+
+        </div>
+
+
+
+        <div class="cert-body">
+
+
+          <p class="cert-issuer">
+
+            ENTE / ORGANIZZAZIONE
+
+          </p>
+
+
+          <h3>
+
+            Nome della certificazione
+
+          </h3>
+
+
+          <p class="cert-description">
+
+            Corsi di fotografia,
+            video, montaggio o comunicazione.
+
+          </p>
+
+
+        </div>
+
+
+
+        <a
+          class="cert-link"
+          href="#"
+        >
+
+          Visualizza certificato
+
+          <span>
+
+            ↗
+
+          </span>
+
+
+        </a>
+
+
+      </article>
+
+
+
+       CERTIFICAZIONE 3 
+
+
+      <article class="cert-card reveal">
+
+
+        <div class="cert-top">
+
+
+          <span class="cert-index">
+
+            03
+
+          </span>
+
+
+          <span class="cert-year">
+
+            2025
+
+          </span>
+
+
+        </div>
+
+
+
+        <div
+          class="cert-icon"
+          aria-hidden="true"
+        >
+
+          C
+
+        </div>
+
+
+
+        <div class="cert-body">
+
+
+          <p class="cert-issuer">
+
+            ENTE / ORGANIZZAZIONE
+
+          </p>
+
+
+          <h3>
+
+            Nome della certificazione
+
+          </h3>
+
+
+          <p class="cert-description">
+
+            Workshop, masterclass
+            e certificazioni tecniche.
+
+          </p>
+
+
+        </div>
+
+
+
+        <a
+          class="cert-link"
+          href="#"
+        >
+
+          Visualizza certificato
+
+          <span>
+
+            ↗
+
+          </span>
+
+
+        </a>
+
+
+      </article>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+-->
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+  class="contact"
+  id="contact"
+>
+
+
+  <div class="container reveal">
+
+
+    <div class="eyebrow">
+
+      Hai un progetto?
+
+    </div>
+
+
+    <h2>
+
+      Facciamolo vedere.
+
+    </h2>
+
+
+    <p>
+
+      Contattami per fotografie,
+      video, eventi e collaborazioni.
+
+    </p>
+
+
+
+    <div class="contact-actions">
+
+
+      <a
+        class="btn btn-white"
+        href="mailto:gianluphotographer@gmail.com"
+      >
+
+        SCRIVI ALLA MIA MAIL
+
+      </a>
+
+
+      <a
+        href="https://www.instagram.com/gpj.visuals/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        Instagram ↗
+
+      </a>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+  <strong>
+
+    GPJ
+
+  </strong>
+
+
+  <span>
+
+    © 2026 Portfolio
+
+  </span>
+
+
+  <a href="#top">
+
+    Top ↑
+
+  </a>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<!-- CONTENUTI CREATI DALL'ADMIN
+     (devono restare PRIMA di main.js) -->
+
+<script src="data/content.js"></script>
+<script src="assets/js/gpj-render.js"></script>
+<script src="assets/js/dynamic.js"></script>
+
+<script src="assets/js/main.js"></script>
+
+
+</body>
+
+</html>
