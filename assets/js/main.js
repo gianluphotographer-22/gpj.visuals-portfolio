@@ -1,81 +1,12 @@
 
-/* Header: stato "scrolled" + colore adattivo allo sfondo sotto di esso */
 const header = document.querySelector(".site-header");
 const menuBtn = document.querySelector(".menu-btn");
 const nav = document.querySelector(".nav");
 
-const toneCache = new WeakMap();
-
-function parseColor(str){
-  const m = String(str || "").match(/rgba?\(([^)]+)\)/);
-  if(!m) return null;
-  const p = m[1].split(/[\s,\/]+/).filter(Boolean).map(parseFloat);
-  return { r:p[0], g:p[1], b:p[2], a:p.length > 3 && !isNaN(p[3]) ? p[3] : 1 };
-}
-
-function toneOf(block){
-  if(block.dataset && block.dataset.tone) return block.dataset.tone;
-  if(toneCache.has(block)) return toneCache.get(block);
-
-  let el = block, c = null;
-  while(el && el.nodeType === 1){
-    const col = parseColor(getComputedStyle(el).backgroundColor);
-    if(col && col.a > 0.6){ c = col; break; }
-    el = el.parentElement;
-  }
-
-  let tone = "light";
-  if(c){
-    if(c.r > 170 && c.g < 90 && c.b < 90){
-      tone = "red";
-    }else{
-      const lum = (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) / 255;
-      tone = lum < 0.45 ? "dark" : "light";
-    }
-  }
-  toneCache.set(block, tone);
-  return tone;
-}
-
-function toneUnderHeader(){
-  const x = Math.round(window.innerWidth / 2);
-  const y = Math.round(header.offsetHeight / 2);
-  const stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
-
-  for(const el of stack){
-    if(header.contains(el) || el === document.documentElement || el === document.body) continue;
-    const block = el.closest("section, footer") || el;
-    return toneOf(block);
-  }
-  return "light";
-}
-
-let headerTick = false;
-
 function headerState(){
-  if(!header) return;
-  const scrolled = window.scrollY > 35;
-  header.classList.toggle("scrolled", scrolled);
-
-  if(!scrolled){
-    header.removeAttribute("data-tone");
-    return;
-  }
-  header.setAttribute("data-tone", toneUnderHeader());
+  if(header) header.classList.toggle("scrolled", window.scrollY > 35);
 }
-
-function requestHeaderState(){
-  if(headerTick) return;
-  headerTick = true;
-  requestAnimationFrame(() => {
-    headerTick = false;
-    headerState();
-  });
-}
-
-window.addEventListener("scroll", requestHeaderState, { passive:true });
-window.addEventListener("resize", requestHeaderState);
-window.addEventListener("load", headerState);
+window.addEventListener("scroll", headerState);
 headerState();
 
 if(menuBtn){
@@ -184,3 +115,58 @@ window.addEventListener("resize", () => {
     if(menuBtn) menuBtn.setAttribute("aria-expanded","false");
   }
 });
+
+
+/* Form contatti e recensioni — invio via Web3Forms, senza ricaricare la
+   pagina. Richiede una access key gratuita da https://web3forms.com nel
+   campo nascosto "access_key" di ogni form (vedi index.html/recensioni.html).
+   Funziona su qualunque <form class="contact-form">: contatti, recensioni,
+   e ogni altro form con la stessa struttura che aggiungerai in futuro. */
+(function () {
+  var forms = document.querySelectorAll("form.contact-form");
+  if (!forms.length) return;
+
+  forms.forEach(function (form) {
+    var stato = form.querySelector(".contact-form-status");
+    var bottone = form.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      var accessKey = form.access_key.value.trim();
+      if (!accessKey || accessKey === "INSERISCI_QUI_LA_TUA_ACCESS_KEY") {
+        stato.textContent = "Form non ancora configurato: manca la access key di Web3Forms.";
+        stato.setAttribute("data-state", "errore");
+        return;
+      }
+
+      bottone.disabled = true;
+      stato.removeAttribute("data-state");
+      stato.textContent = "Invio in corso...";
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      })
+        .then(function (risposta) { return risposta.json(); })
+        .then(function (dati) {
+          if (dati.success) {
+            stato.textContent = "Inviato, grazie! Ti rispondo appena posso.";
+            stato.setAttribute("data-state", "ok");
+            form.reset();
+          } else {
+            stato.textContent = "Non sono riuscito a inviare. Riprova, o scrivimi via email.";
+            stato.setAttribute("data-state", "errore");
+          }
+        })
+        .catch(function () {
+          stato.textContent = "Connessione assente. Riprova, o scrivimi via email.";
+          stato.setAttribute("data-state", "errore");
+        })
+        .finally(function () {
+          bottone.disabled = false;
+        });
+    });
+  });
+})();

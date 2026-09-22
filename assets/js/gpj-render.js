@@ -1,272 +1,271 @@
-/* =========================================================
-   GPJ RENDER
-   Genera l'HTML di sezioni, card progetto e pagine intere.
-
-   Usato da:
-   - admin.html            (anteprima live + esportazione pagine)
-   - assets/js/dynamic.js  (sezioni e card sulla homepage)
-
-   Un solo motore = l'anteprima dell'admin è identica al sito.
-========================================================= */
-(function (root) {
+/*
+ * assets/js/gpj-render.js
+ * ------------------------------------------------------------------
+ * Libreria di rendering condivisa tra il pannello admin
+ * (admin-XXXX.html) e il sito pubblico (dynamic.js).
+ *
+ * Non tocca il DOM da sola: espone solo funzioni pure che
+ * restituiscono stringhe HTML (o piccole utility). Chi la usa
+ * decide se metterle in un iframe (anteprima admin), scaricarle
+ * come file .html (pubblicazione) o iniettarle nella pagina
+ * (dynamic.js sul sito vero).
+ *
+ * window.GPJRender = { esc, slugify, makeSrc, PLACEMENTS,
+ *   EXTRA_PLACEMENTS, homePreview, extrasPreview, projectPage }
+ * ------------------------------------------------------------------
+ */
+(function (global) {
   'use strict';
 
-  /* ---------- utilità ---------- */
-
+  /* =========================================================
+     BASE
+  ========================================================= */
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
 
-  function paragraphs(text) {
-    return String(text || '')
-      .split(/\n{2,}/)
+  function slugify(s) {
+    return String(s || '')
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 60) || '';
+  }
+
+  // Trasforma un percorso salvato ("images/foto.jpg") nell'indirizzo
+  // giusto per dove la pagina sta per essere mostrata.
+  //   base    prefisso da anteporre ai percorsi già nel sito (es. "../")
+  //   resolve funzione path -> url alternativo (es. blob: di una foto
+  //           appena caricata nel pannello, non ancora pubblicata)
+  function makeSrc(opts) {
+    opts = opts || {};
+    var base = opts.base || '';
+    var resolve = typeof opts.resolve === 'function' ? opts.resolve : function () { return null; };
+    return function (path) {
+      if (!path) return '';
+      if (/^(https?:)?\/\//i.test(path) || /^data:/i.test(path)) return path;
+      var r = resolve(path);
+      if (r) return r;
+      return base + path.replace(/^\/+/, '');
+    };
+  }
+
+  // Dove può comparire un blocco extra nella homepage.
+  var PLACEMENTS = {
+    intro: 'Dopo l’intro',
+    work: 'Dopo il portfolio',
+    about: 'Dopo «Chi sono»',
+    services: 'Dopo i servizi',
+    reviews: 'Dopo le recensioni'
+  };
+  // Dove può comparire una raccolta aggiunta a una pagina già nel sito.
+  var EXTRA_PLACEMENTS = {
+    gallery: 'Subito dopo le foto della pagina',
+    video: 'Dopo il video',
+    end: 'In fondo alla pagina'
+  };
+
+  /* =========================================================
+     HELPER DI RENDER
+  ========================================================= */
+  var CHEV = '<span class="gpj-chev" aria-hidden="true"></span>';
+
+  function paragraphs(body) {
+    return String(body || '')
+      .split(/\n\s*\n/)
       .map(function (p) { return p.trim(); })
       .filter(Boolean)
       .map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; })
       .join('');
   }
 
-  function slugify(s) {
-    return String(s || '')
-      .toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .slice(0, 60) || 'pagina';
+  function sectionHead(s) {
+    if (!s.eyebrow && !s.title) return '';
+    return '<div class="gpj-sec-head">' +
+      (s.eyebrow ? '<div class="eyebrow red">' + esc(s.eyebrow) + '</div>' : '') +
+      (s.title ? '<h2>' + esc(s.title) + '</h2>' : '') +
+      '</div>';
   }
 
-  function encodeSeg(s) {
-    try { return encodeURIComponent(decodeURIComponent(s)); } catch (e) { return s; }
-  }
-
-  /* Trasforma un percorso salvato (es. "images/foto.jpg") in un URL
-     valido rispetto alla pagina che lo mostra.
-       base    : "" per la homepage, "../" per projects/*.html
-       resolve : (facoltativo) usato dall'admin per le anteprime da blob */
-  function makeSrc(o) {
-    var base = (o && o.base) || '';
-    var resolve = o && o.resolve;
-    return function (p) {
-      p = String(p == null ? '' : p).trim();
-      if (!p) return '';
-      if (resolve) {
-        var r = resolve(p);
-        if (r) return r;
-      }
-      if (/^(https?:|data:|blob:|\/\/|\/)/i.test(p)) return p;
-      p = p.replace(/^(\.\.?\/)+/, '');
-      return base + p.split('/').map(encodeSeg).join('/');
-    };
-  }
-
-  var PLACEHOLDER =
-    'data:image/svg+xml;utf8,' +
-    encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">' +
-      '<rect width="800" height="1000" fill="#1a1a1a"/>' +
-      '<path d="M0 1000L800 0" stroke="#e10600" stroke-width="2" opacity=".35"/></svg>'
-    );
-
-  /* ---------- video ---------- */
-
-  function videoHtml(url, o) {
-    url = String(url || '').trim();
-    if (!url) return '';
-    var m;
-    if ((m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([\w-]{6,})/))) {
-      return '<div class="gx-video-frame"><iframe src="https://www.youtube.com/embed/' + m[1] +
-        '" title="Video" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
-    }
-    if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) {
-      return '<div class="gx-video-frame"><iframe src="https://player.vimeo.com/video/' + m[1] +
-        '" title="Video" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
-    }
-    var type = /\.webm(\?|$)/i.test(url) ? 'video/webm' : /\.ogv(\?|$)/i.test(url) ? 'video/ogg' : 'video/mp4';
-    return '<div class="gx-video-frame"><video controls playsinline preload="metadata">' +
-      '<source src="' + esc(o.src(url)) + '" type="' + type + '">' +
-      'Il browser non supporta la riproduzione video.</video></div>';
-  }
-
-  /* ---------- corpo dei vari tipi di sezione ---------- */
-
-  var BODY = {
-
-    text: function (s) {
-      var html = paragraphs(s.body);
-      return html ? '<div class="gx-prose">' + html + '</div>' : '';
-    },
-
-    info: function (s) {
-      var facts = (s.facts || [])
-        .filter(function (f) { return f && f.v; })
-        .map(function (f) {
-          return '<div class="gx-fact"><small>' + esc(f.k) + '</small><strong>' + esc(f.v) + '</strong></div>';
-        }).join('');
-      var intro = s.intro ? '<p class="gx-intro">' + esc(s.intro).replace(/\n/g, '<br>') + '</p>' : '';
-      if (!intro && !facts) return '';
-      return '<div class="gx-info-grid"><div>' + intro + '</div>' +
-        (facts ? '<div class="gx-facts">' + facts + '</div>' : '') + '</div>';
-    },
-
-    gallery: function (s, o) {
-      var imgs = (s.images || []).filter(function (i) { return i && i.path; });
-      if (!imgs.length) return '';
-      var cols = [2, 3, 4].indexOf(+s.columns) > -1 ? +s.columns : 3;
-      return '<div class="gx-gallery-grid" data-cols="' + cols + '">' +
-        imgs.map(function (i, n) {
-          return '<button class="gx-shot" type="button" aria-label="Apri immagine ' + (n + 1) + '">' +
-            '<img src="' + esc(o.src(i.path)) + '" alt="' + esc(i.alt || s.title || '') +
-            '" loading="lazy" decoding="async"></button>';
-        }).join('') + '</div>';
-    },
-
-    /* Raccolta: descrizione + foto (es. le foto di un'altra partita) */
-    collection: function (s, o) {
-      var desc = paragraphs(s.description);
-      var grid = BODY.gallery(s, o);
-      if (!desc && !grid) return '';
-      return (desc ? '<div class="gx-prose gx-coll-desc">' + desc + '</div>' : '') + grid;
-    },
-
-    video: function (s, o) {
-      var v = videoHtml(s.url, o);
-      if (!v && !s.description) return '';
-      return (s.description ? '<p class="gx-lead">' + esc(s.description) + '</p>' : '') + v +
-        (s.note ? '<p class="gx-note">' + esc(s.note) + '</p>' : '');
-    },
-
-    cards: function (s) {
-      var items = (s.items || []).filter(function (i) { return i && (i.title || i.text); });
-      var lead = s.intro ? '<p class="gx-lead">' + esc(s.intro) + '</p>' : '';
-      if (!items.length) return lead;
-      return lead + '<div class="gx-cards">' + items.map(function (i) {
-        var link = i.link
-          ? '<a class="gx-card-link" href="' + esc(i.link) + '"' +
-            (/^https?:/i.test(i.link) ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' +
-            esc(i.label || 'Visualizza') + '<span aria-hidden="true">↗</span></a>'
-          : '';
-        return '<article class="gx-card">' +
-          (i.meta ? '<div class="gx-card-meta">' + esc(i.meta) + '</div>' : '') +
-          (i.title ? '<h3>' + esc(i.title) + '</h3>' : '') +
-          (i.text ? '<p>' + esc(i.text) + '</p>' : '') + link + '</article>';
+  function galleryGrid(images, srcFor, columns) {
+    if (!images || !images.length) return '';
+    var cols = columns || 3;
+    return '<div class="gallery-grid gpj-cols-' + cols + '">' +
+      images.map(function (im, i) {
+        return '<button class="gallery-item" type="button" aria-label="Apri immagine ' + (i + 1) + '">' +
+          '<img src="' + esc(srcFor(im.path)) + '" alt="' + esc(im.alt || '') + '" loading="lazy" decoding="async">' +
+          '</button>';
       }).join('') + '</div>';
-    }
-  };
-
-  /* ---------- sezione completa ---------- */
-
-  function anchorOf(sec) {
-    return 'sec-' + slugify(sec.anchor || sec.title || sec.id || 'sezione') + (sec.anchor ? '' : '-' + String(sec.id || '').slice(-4));
   }
 
-  function section(sec, o) {
-    o = o || {};
-    if (!o.src) o.src = makeSrc(o);
-    var fn = BODY[sec.type];
-    if (!fn) return '';
-    var body = fn(sec, o);
-    if (!body) return '';
-
-    var theme = ['light', 'white', 'dark', 'red'].indexOf(sec.theme) > -1 ? sec.theme : 'light';
-    var head = '';
-    if (sec.eyebrow || sec.title) {
-      head = '<div class="gx-head-text">' +
-        (sec.eyebrow ? '<div class="eyebrow red">' + esc(sec.eyebrow) + '</div>' : '') +
-        (sec.title ? '<h2 class="gx-title">' + esc(sec.title) + '</h2>' : '') + '</div>';
-    }
-    var id = anchorOf(sec);
-    var cls = 'gx-sec gx-' + sec.type + ' gx-theme-' + theme;
-
-    if (sec.collapsible) {
-      if (!head) head = '<div class="gx-head-text"><h2 class="gx-title">' + (sec.type === 'collection' ? 'Raccolta' : 'Sezione') + '</h2></div>';
-      var thumb = '', count = '';
-      if (sec.type === 'collection') {
-        var ims = (sec.images || []).filter(function (i) { return i && i.path; });
-        if (ims.length) {
-          thumb = '<img class="gx-thumb" src="' + esc(o.src(ims[0].path)) + '" alt="" loading="lazy" decoding="async">';
-          count = '<span class="gx-count">' + ims.length + ' foto</span>';
-        }
-      }
-      return '<section class="' + cls + '" id="' + id + '"><div class="container">' +
-        '<details class="gx-collapse' + (sec.type === 'collection' ? ' gx-coll' : '') + '"' + (sec.open === false ? '' : ' open') + '>' +
-        '<summary class="gx-summary">' + thumb + head + count + '<span class="gx-toggle" aria-hidden="true"></span></summary>' +
-        '<div class="gx-body">' + body + '</div></details></div></section>';
-    }
-
-    return '<section class="' + cls + '" id="' + id + '"><div class="container">' +
-      (head ? '<div class="gx-head reveal">' + head + '</div>' : '') +
-      '<div class="gx-body reveal">' + body + '</div></div></section>';
+  function infoBody(s) {
+    var facts = (s.facts || []).filter(function (f) { return f.k || f.v; });
+    return '<div class="project-info-grid gpj-info-grid">' +
+      '<div>' + (s.intro ? '<p class="project-intro">' + esc(s.intro).replace(/\n/g, '<br>') + '</p>' : '') + '</div>' +
+      (facts.length ? '<div class="project-facts">' + facts.map(function (f) {
+        return '<div class="fact"><small>' + esc(f.k) + '</small><strong>' + esc(f.v) + '</strong></div>';
+      }).join('') + '</div>' : '') +
+      '</div>';
   }
 
-  /* ---------- card nella griglia progetti ---------- */
-
-  function projectCard(p, o) {
-    o = o || {};
-    var src = o.src || makeSrc(o);
-    var base = o.base || '';
-    var cover = p.cover ? src(p.cover) : PLACEHOLDER;
-    return '<a class="project' + (p.wide ? ' wide' : '') + ' reveal" data-category="' + esc(p.category || 'content') +
-      '" data-gx="1" href="' + esc(base + 'projects/' + p.slug + '.html') + '">' +
-      '<div class="project-media"><img src="' + esc(cover) + '" alt="' + esc(p.coverAlt || p.title) + '"></div>' +
-      '<div class="project-bottom"><div><div class="project-tag">' + esc(p.tag) + '</div>' +
-      '<h3>' + esc(p.title) + '</h3></div><div class="project-arrow">↗</div></div></a>';
-  }
-
-  /* ---------- pagina progetto completa ---------- */
-
-  function nextBlock(page, ctx) {
-    var n = page.next || 'auto';
-    if (n === 'none') return '';
-    var href = '', label = '';
-    var pages = ctx.pages || [];
-    var legacy = ctx.legacy || [];
-    var i, item;
-
-    if (n === 'auto') {
-      var idx = -1;
-      for (i = 0; i < pages.length; i++) if (pages[i].id === page.id) idx = i;
-      if (pages.length > 1 && idx > -1) {
-        item = pages[(idx + 1) % pages.length];
-        href = item.slug + '.html'; label = item.title;
-      } else { href = '../index.html#work'; label = 'Tutti i progetti'; }
-    } else if (n.indexOf('legacy:') === 0) {
-      for (i = 0; i < legacy.length; i++) if (legacy[i].slug === n.slice(7)) item = legacy[i];
-      if (item) { href = item.slug + '.html'; label = item.title; }
-    } else if (n.indexOf('page:') === 0) {
-      for (i = 0; i < pages.length; i++) if (pages[i].id === n.slice(5)) item = pages[i];
-      if (item) { href = item.slug + '.html'; label = item.title; }
+  function videoBody(s, srcFor) {
+    var url = s.url || '';
+    var player;
+    var yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{6,})/i);
+    var vim = url.match(/vimeo\.com\/(\d+)/i);
+    if (yt) {
+      player = '<div class="video-frame gpj-embed"><iframe src="https://www.youtube.com/embed/' + esc(yt[1]) +
+        '" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+    } else if (vim) {
+      player = '<div class="video-frame gpj-embed"><iframe src="https://player.vimeo.com/video/' + esc(vim[1]) +
+        '" title="Video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+    } else if (url) {
+      player = '<div class="video-frame"><video controls playsinline preload="metadata">' +
+        '<source src="' + esc(srcFor(url)) + '" type="video/mp4">Il browser non supporta la riproduzione video.</video></div>';
+    } else {
+      player = '<div class="video-frame gpj-embed-empty">Nessun video collegato.</div>';
     }
-    if (!href) return '';
-    return '<section class="next-project"><div class="container"><div class="next-label">Progetto successivo</div>' +
-      '<a href="' + esc(href) + '"><h2>' + esc(label) + '</h2><span class="next-arrow" aria-hidden="true">↗</span></a>' +
-      '</div></section>';
+    return '<div class="video-head"><div><p class="lead">' + (s.description ? esc(s.description).replace(/\n/g, '<br>') : '') + '</p></div></div>' +
+      player + (s.note ? '<p class="video-note">' + esc(s.note) + '</p>' : '');
   }
 
-  var OPENER =
-    '<script>document.addEventListener("click",function(e){var b=e.target.closest(".gx-shot");if(!b)return;' +
-    'var l=document.querySelector(".lightbox");if(!l)return;l.querySelector("img").src=b.querySelector("img").src;' +
-    'l.classList.add("active");document.body.classList.add("locked");});</script>';
+  function cardsBody(s) {
+    var items = (s.items || []).filter(function (it) { return it.title || it.text; });
+    if (!items.length) return '';
+    return (s.intro ? '<p class="lead gpj-cards-intro">' + esc(s.intro).replace(/\n/g, '<br>') + '</p>' : '') +
+      '<div class="gpj-cards">' + items.map(function (it) {
+        return '<article class="gpj-card">' +
+          (it.meta ? '<div class="gpj-card-meta">' + esc(it.meta) + '</div>' : '') +
+          (it.title ? '<h3>' + esc(it.title) + '</h3>' : '') +
+          (it.text ? '<p>' + esc(it.text).replace(/\n/g, '<br>') + '</p>' : '') +
+          (it.link ? '<a class="gpj-card-link" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">' +
+            esc(it.label || 'Visualizza') + ' <span aria-hidden="true">↗</span></a>' : '') +
+          '</article>';
+      }).join('') + '</div>';
+  }
 
-  function projectPage(page, ctx) {
-    ctx = ctx || {};
-    var preview = !!ctx.preview;
+  function sectionInner(s, srcFor) {
+    switch (s.type) {
+      case 'text': return '<div class="gpj-text">' + paragraphs(s.body) + '</div>';
+      case 'info': return infoBody(s);
+      case 'gallery': return galleryGrid(s.images, srcFor, s.columns);
+      case 'collection':
+        return (s.description ? '<p class="lead gpj-coll-desc">' + esc(s.description).replace(/\n/g, '<br>') + '</p>' : '') +
+          galleryGrid(s.images, srcFor, s.columns);
+      case 'video': return videoBody(s, srcFor);
+      case 'cards': return cardsBody(s);
+      default: return '';
+    }
+  }
+
+  // Una sezione completa (extra homepage, raccolta o sezione di pagina).
+  function sectionHtml(s, opts) {
+    opts = opts || {};
+    var srcFor = opts.srcFor || function (p) { return p; };
+    if (s.visible === false) return '';
+    var theme = s.theme || 'light';
+    var typeClass = 'gpj-type-' + s.type;
+    var fallbackLabel = { collection: 'Raccolta', text: 'Testo', info: 'Info progetto', gallery: 'Gallery', video: 'Video', cards: 'Schede' }[s.type] || 'Sezione';
+    var titleText = s.title || fallbackLabel;
+    var inner = sectionHead(s) + sectionInner(s, srcFor);
+
+    if (s.collapsible) {
+      var count = (s.type === 'collection' || s.type === 'gallery') ? (s.images || []).length : 0;
+      var thumb = count && s.images[0] ? '<span class="gpj-coll-thumb"><img src="' + esc(srcFor(s.images[0].path)) + '" alt="" loading="lazy"></span>' : '';
+      return '<details class="gpj-sec gpj-th-' + theme + ' ' + typeClass + '"' + (s.open !== false ? ' open' : '') + '>' +
+        '<summary class="gpj-sec-sum">' + thumb +
+        '<span class="gpj-sec-sum-txt"><b>' + esc(titleText) + '</b>' +
+        (s.eyebrow ? '<small>' + esc(s.eyebrow) + '</small>' : '') +
+        (count ? '<small>' + count + (count === 1 ? ' foto' : ' foto') + '</small>' : '') +
+        '</span>' + CHEV + '</summary>' +
+        '<div class="gpj-sec-body"><div class="container">' + inner + '</div></div></details>';
+    }
+    return '<section class="gpj-sec gpj-th-' + theme + ' ' + typeClass + '"><div class="container">' + inner + '</div></section>';
+  }
+
+  function sectionsHtml(list, opts) {
+    return (list || []).map(function (s) { return sectionHtml(s, opts); }).join('');
+  }
+
+  /* =========================================================
+     ANTEPRIMA — homepage e pagine già nel sito
+     (usate solo dentro l'iframe del pannello: pagine minime,
+     non l'intero index.html o l'intera pagina progetto, giusto
+     per vedere come verrebbero le sezioni extra)
+  ========================================================= */
+  var PREVIEW_HEAD =
+    '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">' +
+    '<link rel="stylesheet" href="assets/css/style.css">' +
+    '<link rel="stylesheet" href="assets/css/pages.css">' +
+    '<style>body{background:#fff}.gpj-preview-note{padding:14px 22px;background:#111;color:#fff;font:600 12px Inter,sans-serif}</style>';
+
+  function homePreview(sections, opts) {
+    opts = opts || {};
+    var srcFor = makeSrc({ base: '', resolve: opts.resolve });
+    var vis = (sections || []).filter(function (s) { return s.visible !== false; });
+    return '<!doctype html><html lang="it"><head>' + PREVIEW_HEAD + '</head><body class="project-page">' +
+      '<p class="gpj-preview-note">Anteprima delle sezioni extra della homepage — il resto della pagina non è mostrato qui.</p>' +
+      sectionsHtml(vis, { srcFor: srcFor }) +
+      '</body></html>';
+  }
+
+  function extrasPreview(sections, opts) {
+    opts = opts || {};
+    var srcFor = makeSrc({ base: '', resolve: opts.resolve });
+    var vis = (sections || []).filter(function (s) { return s.visible !== false; });
+    return '<!doctype html><html lang="it"><head>' + PREVIEW_HEAD + '</head><body class="project-page">' +
+      '<p class="gpj-preview-note">Anteprima delle raccolte aggiunte a «' + esc(opts.title || '') + '» — la pagina originale non è mostrata qui.</p>' +
+      (vis.length ? sectionsHtml(vis, { srcFor: srcFor }) : '<p style="padding:40px;color:#707070;font:14px Inter,sans-serif">Ancora nessuna raccolta.</p>') +
+      '</body></html>';
+  }
+
+  /* =========================================================
+     PAGINA PROGETTO COMPLETA (nuove pagine create dal pannello)
+     Usata sia per l'anteprima (preview:true, base:'') sia per il
+     file .html vero esportato dentro projects/ (base:'../').
+  ========================================================= */
+  function nextTarget(page, opts) {
+    var pages = opts.pages || [];
+    var legacy = opts.legacy || [];
+    if (page.next === 'none') return null;
+    if (page.next && page.next.indexOf('page:') === 0) {
+      var id = page.next.slice(5);
+      var p = pages.filter(function (x) { return x.id === id; })[0];
+      return p ? { href: p.slug + '.html', title: p.tag ? p.title : p.title } : null;
+    }
+    if (page.next && page.next.indexOf('legacy:') === 0) {
+      var slug = page.next.slice(7);
+      var l = legacy.filter(function (x) { return x.slug === slug; })[0];
+      return l ? { href: slug + '.html', title: l.title } : null;
+    }
+    // automatico: la pagina successiva nell'elenco di quelle pubblicate
+    var i = pages.indexOf(page);
+    if (i === -1) i = pages.map(function (p2) { return p2.id; }).indexOf(page.id);
+    var n = pages[i + 1] || pages[0];
+    if (n && n.id !== page.id) return { href: n.slug + '.html', title: n.title };
+    return null;
+  }
+
+  function projectPage(page, opts) {
+    opts = opts || {};
+    var preview = !!opts.preview;
     var base = preview ? '' : '../';
-    var o = { base: base, resolve: ctx.resolve };
-    o.src = makeSrc(o);
+    var srcFor = makeSrc({ base: base, resolve: opts.resolve });
+    var desc = page.description || ((page.tag ? page.tag + ' — ' : '') + (page.title || ''));
+    var next = nextTarget(page, opts);
+    var visSections = (page.sections || []).filter(function (s) { return s.visible !== false; });
 
-    var sections = (page.sections || []).filter(function (s) { return s.visible !== false; })
-      .map(function (s) { return section(s, { base: base, src: o.src }); }).join('\n');
-
-    var desc = page.description || (page.title + ' — ' + page.tag);
-    var cover = page.cover ? o.src(page.cover) : '';
-
-    return '<!doctype html>\n<html lang="it">\n<head>\n<meta charset="utf-8">\n' +
+    return '<!doctype html>\n<html lang="it">\n<head>\n' +
+      '<meta charset="utf-8">\n' +
       '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' +
       '<meta name="theme-color" content="#e10600">\n' +
       '<meta name="description" content="' + esc(desc) + '">\n' +
-      '<title>' + esc(page.title) + ' — GPJ</title>\n' +
+      '<title>' + esc(page.title || 'Progetto') + ' — GPJ</title>\n' +
       '<link rel="icon" type="image/png" href="' + base + 'images/GPJ%20pos.png">\n' +
       '<link rel="apple-touch-icon" href="' + base + 'images/GPJ%20pos.png">\n' +
       '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
@@ -274,100 +273,70 @@
       '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">\n' +
       '<link rel="stylesheet" href="' + base + 'assets/css/style.css">\n' +
       '<link rel="stylesheet" href="' + base + 'assets/css/pages.css">\n' +
-      (preview ? '<style>.reveal{opacity:1!important;transform:none!important}a{pointer-events:none}</style>\n' : '') +
-      '</head>\n\n<body class="project-page gx-page">\n' +
+      '</head>\n<body class="project-page">\n' +
       '<header class="site-header">\n' +
-      '  <a class="brand" href="' + base + 'index.html"><span class="brand-mark"><img src="' + base + 'images/GPJ%20neg.png" alt="" width="64" height="64"></span>' +
-      '<span class="brand-name">GIANLUCA PAGLIONICO</span></a>\n' +
+      '  <a class="brand" href="' + base + 'index.html">\n' +
+      '    <span class="brand-mark"><img src="' + base + 'images/GPJ%20neg.png" alt="" width="64" height="64"></span>\n' +
+      '    <span class="brand-name">GIANLUCA PAGLIONICO</span>\n' +
+      '  </a>\n' +
       '  <nav class="nav" aria-label="Navigazione principale">\n' +
       '    <a href="' + base + 'index.html#work">Portfolio</a>\n' +
       '    <a href="' + base + 'index.html#about">Chi sono</a>\n' +
-      '    <a href="' + base + 'index.html#contact">Contatti</a>\n  </nav>\n' +
+      '    <a href="' + base + 'index.html#services">Servizi</a>\n' +
+      '    <a href="' + base + 'index.html#reviews">Recensioni</a>\n' +
+      '    <a href="' + base + 'index.html#contact">Contatti</a>\n' +
+      '  </nav>\n' +
       '  <a class="header-contact" href="' + base + 'index.html#contact">Parliamone</a>\n' +
       '  <button class="menu-btn" type="button" aria-label="Apri il menu" aria-expanded="false">☰</button>\n' +
-      '</header>\n\n<main>\n' +
+      '</header>\n' +
+      '<main id="top">\n' +
       '  <section class="page-hero">\n' +
-      (cover ? '    <img src="' + esc(cover) + '" alt="' + esc(page.coverAlt || page.title) + '" fetchpriority="high" decoding="async">\n' : '') +
+      (page.cover ? '    <img src="' + esc(srcFor(page.cover)) + '" alt="' + esc(page.coverAlt || page.title || '') + '" fetchpriority="high" decoding="async">\n' : '') +
       '    <div class="container page-hero-content reveal">\n' +
-      '      <div class="eyebrow project-category">' + esc(page.tag) + '</div>\n' +
-      '      <h1>' + esc(page.title) + '</h1>\n    </div>\n  </section>\n\n' +
-      sections + '\n\n' + nextBlock(page, ctx) + '\n</main>\n\n' +
-      '<footer>\n  <strong>GPJ.VISUALS </strong>\n  <a href="' + base + 'index.html#work">Tutti i progetti</a>\n  <a href="#">Top ↑</a>\n</footer>\n\n' +
-      '<div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Anteprima immagine">\n' +
-      '  <button class="lightbox-close" type="button" aria-label="Chiudi">×</button>\n  <img alt="Anteprima">\n</div>\n\n' +
-      (preview ? '' : '<script src="' + base + 'assets/js/main.js"></script>\n' + OPENER + '\n') +
+      (page.tag ? '      <div class="eyebrow project-category">' + esc(page.tag) + '</div>\n' : '') +
+      '      <h1>' + esc(page.title || '') + '</h1>\n' +
+      '    </div>\n' +
+      '  </section>\n' +
+      sectionsHtml(visSections, { srcFor: srcFor }) +
+      (next ? '  <section class="next-project">\n    <div class="container">\n      <div class="next-label">Progetto successivo</div>\n' +
+        '      <a href="' + esc(next.href) + '">\n        <h2>' + esc(next.title) + '</h2>\n        <span class="next-arrow" aria-hidden="true">↗</span>\n      </a>\n    </div>\n  </section>\n' : '') +
+      '</main>\n' +
+      '<footer>\n  <strong>GPJ.VISUALS</strong>\n  <a href="' + base + 'index.html#work">Tutti i progetti</a>\n  <a href="#top">Top ↑</a>\n</footer>\n' +
+      '<div class="lightbox" role="dialog" aria-modal="true" aria-label="Anteprima immagine" aria-hidden="true">\n' +
+      '  <button class="lightbox-close" type="button" aria-label="Chiudi anteprima">×</button>\n  <img alt="Anteprima immagine">\n</div>\n' +
+      '<script src="' + base + 'data/content.js"><\/script>\n' +
+      '<script src="' + base + 'assets/js/gpj-render.js"><\/script>\n' +
+      '<script src="' + base + 'assets/js/dynamic.js"><\/script>\n' +
+      '<script src="' + base + 'assets/js/main.js"><\/script>\n' +
       '</body>\n</html>\n';
   }
 
-  /* ---------- anteprima delle sezioni homepage ---------- */
-
-  var PLACEMENTS = {
-    intro: 'Dopo l\u2019introduzione',
-    work: 'Dopo i Progetti',
-    about: 'Dopo Chi sono',
-    services: 'Dopo i Servizi',
-    reviews: 'Dopo le Recensioni'
-  };
-
-  function homePreview(sections, ctx) {
-    ctx = ctx || {};
-    var o = { base: '', resolve: ctx.resolve };
-    o.src = makeSrc(o);
-    var body = sections.filter(function (s) { return s.visible !== false; }).map(function (s) {
-      var html = section(s, { base: '', src: o.src });
-      return html ? '<div class="gx-pv-tag">' + esc(PLACEMENTS[s.placement] || PLACEMENTS.reviews) + '</div>' + html : '';
-    }).join('\n');
-    return '<!doctype html><html lang="it"><head><meta charset="utf-8">' +
-      '<meta name="viewport" content="width=device-width, initial-scale=1">' +
-      '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">' +
-      '<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/pages.css">' +
-      '<style>.reveal{opacity:1!important;transform:none!important}a{pointer-events:none}' +
-      '.gx-pv-tag{background:#111;color:#fff;font:700 11px/1 Inter,sans-serif;padding:9px 16px}' +
-      '.gx-empty{padding:80px 20px;text-align:center;font:500 14px Inter,sans-serif;color:#707070}</style></head>' +
-      '<body>' + (body || '<p class="gx-empty">Nessuna sezione da mostrare.</p>') + '</body></html>';
+  /* =========================================================
+     CARD DI UNA PAGINA (per la griglia portfolio in home)
+  ========================================================= */
+  function projectCard(page, srcFor) {
+    return '<a class="project' + (page.wide ? ' wide' : '') + ' reveal gpj-added" data-category="' + esc(page.category || 'content') + '" href="projects/' + esc(page.slug) + '.html">' +
+      '<div class="project-media"><img src="' + esc(srcFor(page.cover || '')) + '" alt="' + esc(page.coverAlt || page.title || '') + '"></div>' +
+      '<div class="project-bottom"><div>' +
+      (page.tag ? '<div class="project-tag">' + esc(page.tag) + '</div>' : '') +
+      '<h3>' + esc(page.title || '') + '</h3></div>' +
+      '<div class="project-arrow">↗</div></div></a>';
   }
 
-  /* Dove compaiono le raccolte aggiunte a una pagina già presente nel sito */
-  var EXTRA_PLACEMENTS = {
-    gallery: 'Subito dopo le foto della pagina',
-    video: 'Dopo il video della pagina',
-    end: 'In fondo, prima di «Progetto successivo»'
-  };
-
-  function extrasPreview(sections, ctx) {
-    ctx = ctx || {};
-    var o = { base: '', resolve: ctx.resolve };
-    o.src = makeSrc(o);
-    var body = sections.filter(function (s) { return s.visible !== false; }).map(function (s) {
-      var html = section(s, { base: '', src: o.src });
-      return html ? '<div class="gx-pv-tag">' + esc(EXTRA_PLACEMENTS[s.placement] || EXTRA_PLACEMENTS.gallery) + '</div>' + html : '';
-    }).join('\n');
-    return '<!doctype html><html lang="it"><head><meta charset="utf-8">' +
-      '<meta name="viewport" content="width=device-width, initial-scale=1">' +
-      '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">' +
-      '<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/pages.css">' +
-      '<style>.reveal{opacity:1!important;transform:none!important}a{pointer-events:none}' +
-      '.gx-pv-tag{background:#111;color:#fff;font:700 11px/1 Inter,sans-serif;padding:9px 16px}' +
-      '.gx-pv-head{padding:26px 20px;background:#f5f5f1;font:500 13px/1.5 Inter,sans-serif;color:#707070;border-bottom:1px solid rgba(0,0,0,.08)}' +
-      '.gx-pv-head b{color:#111}' +
-      '.gx-empty{padding:80px 20px;text-align:center;font:500 14px Inter,sans-serif;color:#707070}</style></head>' +
-      '<body>' +
-      '<div class="gx-pv-head"><b>' + esc(ctx.title || 'Pagina') + '</b> — qui sopra c\u2019è la pagina già nel sito, com\u2019è. Sotto: le tue raccolte.</div>' +
-      (body || '<p class="gx-empty">Ancora nessuna raccolta da mostrare.</p>') + '</body></html>';
-  }
-
-  root.GPJRender = {
+  /* =========================================================
+     EXPORT
+  ========================================================= */
+  global.GPJRender = {
     esc: esc,
     slugify: slugify,
     makeSrc: makeSrc,
-    section: section,
-    anchorOf: anchorOf,
+    PLACEMENTS: PLACEMENTS,
+    EXTRA_PLACEMENTS: EXTRA_PLACEMENTS,
+    sectionHtml: sectionHtml,
+    sectionsHtml: sectionsHtml,
     projectCard: projectCard,
-    projectPage: projectPage,
     homePreview: homePreview,
     extrasPreview: extrasPreview,
-    PLACEMENTS: PLACEMENTS,
-    EXTRA_PLACEMENTS: EXTRA_PLACEMENTS
+    projectPage: projectPage
   };
-
-})(typeof window !== 'undefined' ? window : globalThis);
+})(window);

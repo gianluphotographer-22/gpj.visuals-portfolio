@@ -70,7 +70,3 @@ CERTIFICAZIONI
 La homepage contiene ora la sezione #certifications.
 Per modificarla: apri index.html, cerca "certifications" e cambia ente, nome, anno, descrizione e href del certificato.
 Puoi duplicare una <article class="cert-card"> per aggiungere nuove certificazioni.
-
-
-PANNELLO ADMIN
-Per creare nuove pagine e sezioni senza toccare il codice usa il file admin-XXXX.html (link segreto: vedi GUIDA-ADMIN.txt).

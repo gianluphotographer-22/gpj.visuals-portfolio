@@ -17,8 +17,44 @@
 
 <meta
   name="description"
-  content="Portfolio fotografico e video professionale."
 >
+
+<!-- OPEN GRAPH / SOCIAL -->
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="GPJ.Visuals">
+<meta property="og:title" content="Gianluca Paglionico — GPJ.Visuals">
+<meta property="og:description" content="Gianluca Paglionico (GPJ.Visuals), fotografo sportivo ed eventi in Puglia. Calcio, ritratti, matchday e reportage — portfolio e contatti.">
+<meta property="og:image" content="https://gianluphotographer-22.github.io/portfolio-gpj/images/hero.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:url" content="https://gianluphotographer-22.github.io/portfolio-gpj/">
+<meta property="og:locale" content="it_IT">
+
+<!-- DATI STRUTTURATI — aiuta Google a capire chi sei -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Gianluca Paglionico",
+  "alternateName": "GPJ.Visuals",
+  "url": "https://gianluphotographer-22.github.io/portfolio-gpj/",
+  "image": "https://gianluphotographer-22.github.io/portfolio-gpj/images/hero.jpg",
+  "jobTitle": "Fotografo sportivo ed eventi",
+  "description": "Fotografo e videomaker specializzato in sport, eventi e contenuti digitali, con base in Puglia.",
+  "sameAs": [
+    "https://www.instagram.com/gpj.visuals/"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Puglia",
+    "addressCountry": "IT"
+  }
+}
+</script>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gianluca Paglionico — GPJ.Visuals">
+<meta name="twitter:description" content="Gianluca Paglionico (GPJ.Visuals), fotografo sportivo ed eventi in Puglia. Calcio, ritratti, matchday e reportage — portfolio e contatti.">
+<meta name="twitter:image" content="https://gianluphotographer-22.github.io/portfolio-gpj/images/hero.jpg">
+
 
 <title>
 GPJ.VISUALS-Portfolio
@@ -30,13 +66,15 @@ GPJ.VISUALS-Portfolio
 <link
   rel="icon"
   type="image/png"
-  href="images/GPJ pos.png"
+  href="images/favicon.png"
 >
 
 <link
   rel="apple-touch-icon"
-  href="images/GPJ pos.png"
+  href="images/favicon.png"
 >
+
+<link rel="manifest" href="site.webmanifest">
 
 
 <!-- GOOGLE FONTS -->
@@ -52,6 +90,9 @@ GPJ.VISUALS-Portfolio
   crossorigin
 >
 
+<!-- CARICA SUBITO LA FOTO PIU' IMPORTANTE DELLA PAGINA -->
+<link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high">
+
 <link
   href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
   rel="stylesheet"
@@ -65,8 +106,7 @@ GPJ.VISUALS-Portfolio
   href="assets/css/style.css"
 >
 
-<!-- STILE SEZIONI EXTRA (create dall'admin) -->
-
+<!-- CSS PAGINE / SEZIONI DEL PANNELLO ADMIN -->
 <link
   rel="stylesheet"
   href="assets/css/pages.css"
@@ -337,6 +377,107 @@ GPJ.VISUALS-Portfolio
 }
 
 
+.reviews-more {
+  margin-top: 34px;
+  text-align: center;
+}
+
+.reviews-more .btn {
+  border: 1px solid var(--red);
+  color: var(--red);
+  background: transparent;
+}
+
+.reviews-more .btn:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+
+/* =========================================================
+   NUMERI — vetrina statistiche Instagram in homepage
+========================================================= */
+
+.numbers-band {
+  background: var(--red);
+  color: #fff;
+  padding: 100px 0;
+}
+
+.numbers-band .section-head {
+  margin-bottom: 0;
+}
+
+.numbers-band .eyebrow.red {
+  color: rgba(255, 255, 255, .75);
+}
+
+.numbers-band h2 {
+  font-family: Manrope, sans-serif;
+  font-size: clamp(38px, 5vw, 58px);
+  letter-spacing: -.03em;
+  line-height: 1.02;
+}
+
+.numbers-band .section-head p {
+  color: rgba(255, 255, 255, .82);
+  max-width: 46ch;
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px;
+  margin-top: 54px;
+}
+
+.numbers-grid .n-stat small {
+  display: block;
+  color: rgba(255, 255, 255, .7);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.numbers-grid .n-stat strong {
+  display: block;
+  font-family: Manrope, sans-serif;
+  font-size: clamp(32px, 3.6vw, 50px);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+.numbers-grid .n-stat span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, .65);
+  font-size: 11px;
+}
+
+.numbers-band .numbers-more {
+  margin-top: 54px;
+}
+
+.numbers-band .numbers-more .btn {
+  border: 1px solid rgba(255, 255, 255, .7);
+  color: #fff;
+  background: transparent;
+}
+
+.numbers-band .numbers-more .btn:hover {
+  background: #fff;
+  color: var(--red);
+}
+
+@media (max-width: 900px) {
+  .numbers-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 24px; }
+}
+@media (max-width: 520px) {
+  .numbers-grid { grid-template-columns: 1fr; }
+}
+
+
 
 /* =========================================================
    TABLET
@@ -530,8 +671,8 @@ and
 
     <span class="brand-mark">
 
-      <img
-        src="images/GPJ neg.png"
+      <img decoding="async"
+        src="images/gpj-mark.png"
         alt=""
         width="64"
         height="64"
@@ -567,6 +708,10 @@ and
 
     <a href="#contact">
       Contatti
+    </a>
+
+    <a href="numeri.html">
+      Numeri
     </a>
 
   </nav>
@@ -612,10 +757,10 @@ and
 
   <div class="hero-media">
 
-    <img
-      src="images/hero.png"
+    <img decoding="async"
+      src="images/hero.jpg"
       alt="Hero portfolio"
-            data-gx-img="hero"
+      fetchpriority="high"
     >
 
   </div>
@@ -810,19 +955,6 @@ and
         Sport / Video
 
       </button>
-
-
-      <button
-        class="filter"
-        type="button"
-        data-filter="portrait"
-      >
-
-        Ritratti
-
-      </button>
-
-
       <button
         class="filter"
         type="button"
@@ -835,12 +967,14 @@ and
       <button
         class="filter"
         type="button"
-        data-filter="drone"
+        data-filter="eventi"
       >
 
-        Drone Works
+        Eventi
 
       </button>
+
+
 
     </div>
 
@@ -850,6 +984,104 @@ and
 
 
     <div class="projects">
+
+      <!-- PROGETTO — MATRIMONIO DONNARUMMA -->
+
+      <a
+        class="project reveal"
+        data-category="eventi"
+        href="projects/matrimonio-donnarumma.html"
+      >
+
+        <div class="project-media">
+
+          <img
+            src="images/matrimonio-donnarumma/matrimonio-donnarumma-cover.jpg"
+            alt="Oltre la transenna"
+            loading="lazy"
+            decoding="async"
+          >
+
+        </div>
+
+        <div class="project-bottom">
+
+          <div>
+
+            <div class="project-tag">
+
+              DONNARUMMA &mdash; ELEFANTE
+
+            </div>
+
+            <h3>
+
+              OLTRE LA TRANSENNA
+
+            </h3>
+
+          </div>
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+
+      <!-- PROGETTO — CUORE BIANCOROSSO (raccolta in aggiornamento) -->
+
+      <a
+        class="project wide reveal"
+        data-category="sport"
+        href="projects/cuore-biancorosso.html"
+      >
+
+        <div class="project-media">
+
+          <img
+            src="images/cuore-biancorosso/bari-cavese-cover.jpg"
+            alt="Cuore Biancorosso"
+            loading="lazy"
+            decoding="async"
+          >
+
+        </div>
+
+        <div class="project-bottom">
+
+          <div>
+
+            <div class="project-tag">
+
+              SSC BARI &middot; 2 PARTITE
+
+            </div>
+
+            <h3>
+
+              CUORE BIANCOROSSO
+
+            </h3>
+
+          </div>
+
+          <div class="project-arrow">
+
+            ↗
+
+          </div>
+
+        </div>
+
+      </a>
+
+
 
 
 
@@ -865,10 +1097,9 @@ and
 
         <div class="project-media">
 
-          <img
-            src="images/matchdaystoriescover.png"
+          <img loading="lazy" decoding="async"
+            src="images/timmagini/ideale-triggiano-cover.jpg"
             alt="Matchday Stories"
-            data-gx-img="cover-matchday-stories"
           >
 
         </div>
@@ -881,7 +1112,7 @@ and
 
             <div class="project-tag">
 
-              IDEALE BARI CALCIO
+              IDEALE BARI CALCIO &middot; 1 PARTITA
 
             </div>
 
@@ -921,10 +1152,9 @@ and
 
         <div class="project-media">
 
-          <img
-            src="images/athleteportraitscover.png"
+          <img loading="lazy" decoding="async"
+            src="images/athlete-portraits-cover.jpg"
             alt="Athlete Portraits"
-            data-gx-img="cover-athlete-portraits"
           >
 
         </div>
@@ -977,10 +1207,9 @@ and
 
         <div class="project-media">
 
-          <img
-            src="images/live-atmosphere-cover.svg"
+          <img loading="lazy" decoding="async"
+            src="images/live-atmosphere-cover.jpg"
             alt="sport"
-            data-gx-img="cover-live-atmosphere"
           >
 
         </div>
@@ -1018,193 +1247,21 @@ and
 
 
       </a>
-
-
-
-      <!-- PROGETTO 4 -->
-
-
-      <a
-        class="project wide reveal"
-        data-category="content"
-        href="projects/visual-campaign.html"
-      >
-
-
-        <div class="project-media">
-
-          <img
-            src="images/visual-campaign-cover.svg"
-            alt="Visual Campaign"
-            data-gx-img="cover-visual-campaign"
-          >
-
-        </div>
-
-
-        <div class="project-bottom">
-
-
-          <div>
-
-            <div class="project-tag">
-
-              BRAND CONTENT
-
-            </div>
-
-
-            <h3>
-
-              Visual Campaign
-
-            </h3>
-
-          </div>
-
-
-          <div class="project-arrow">
-
-            ↗
-
-          </div>
-
-
-        </div>
-
-
-      </a>
-
-
-
-      <!-- PROGETTO 5 -->
-
-
-      <a
-        class="project reveal"
-        data-category="sport"
-        href="projects/match-film.html"
-      >
-
-
-        <div class="project-media">
-
-          <img
-            src="images/match-film-cover.svg"
-            alt="Match Film"
-            data-gx-img="cover-match-film"
-          >
-
-        </div>
-
-
-        <div class="project-bottom">
-
-
-          <div>
-
-            <div class="project-tag">
-
-              VIDEO / REEL
-
-            </div>
-
-
-            <h3>
-
-              Match Film
-
-            </h3>
-
-          </div>
-
-
-          <div class="project-arrow">
-
-            ↗
-
-          </div>
-
-
-        </div>
-
-
-      </a>
-
-
-
-      <!-- PROGETTO 6 -->
-
-
-      <a
-        class="project reveal"
-        data-category="sport"
-        href="projects/intensity.html"
-      >
-
-
-        <div class="project-media">
-
-          <img
-            src="images/intensity-cover.svg"
-            alt="Intensity"
-            data-gx-img="cover-intensity"
-          >
-
-        </div>
-
-
-        <div class="project-bottom">
-
-
-          <div>
-
-            <div class="project-tag">
-
-              SPORT DETAIL
-
-            </div>
-
-
-            <h3>
-
-              Intensity
-
-            </h3>
-
-          </div>
-
-
-          <div class="project-arrow">
-
-            ↗
-
-          </div>
-
-
-        </div>
-
-
-      </a>
-
-
-
       <!-- PROGETTO 7 -->
 
 
       <a
         class="project reveal"
-        data-category="portrait"
+        data-category="content"
         href="projects/human-detail.html"
       >
 
 
         <div class="project-media">
 
-          <img
-            src="images/humandetailcover.png"
-            alt="Human Detail"
-            data-gx-img="cover-human-detail"
+          <img loading="lazy" decoding="async"
+            src="images/7-sins/7-sins-cover.jpg"
+            alt="7 SINS"
           >
 
         </div>
@@ -1217,65 +1274,14 @@ and
 
             <div class="project-tag">
 
-              EDITORIAL PORTRAIT
+              SQUADRA SOCIALE
 
             </div>
 
 
             <h3>
 
-              Human Detail
-
-            </h3>
-
-          </div>
-
-
-          <div class="project-arrow">
-
-            ↗
-
-          </div>
-
-
-        </div>
-
-
-      </a>
-
-     <a
-        class="project reveal"
-        data-category="drone"
-        href="projects/drone-works.html"
-      >
-
-
-        <div class="project-media">
-
-          <img
-            src="images/drone-cover.svg"
-            alt="drone"
-            data-gx-img="cover-drone-works"
-          >
-
-        </div>
-
-
-        <div class="project-bottom">
-
-
-          <div>
-
-            <div class="project-tag">
-
-              DRONE WORKS
-
-            </div>
-
-
-            <h3>
-
-              IL LIMITE E' IL CIELO
+              7 SINS
 
             </h3>
 
@@ -1357,10 +1363,9 @@ and
     <div class="reveal">
 
 
-      <img
-        src="images/about.png"
+      <img loading="lazy" decoding="async"
+        src="images/about.jpg"
         alt="Foto fotografo"
-            data-gx-img="about"
       >
 
 
@@ -1457,6 +1462,87 @@ and
 
 
 </section>
+
+
+
+<!-- =====================================================
+     NUMERI — vetrina statistiche
+===================================================== -->
+
+<section class="numbers-band">
+
+  <div class="container">
+
+    <div class="section-head reveal">
+
+      <div>
+
+        <div class="eyebrow red">
+
+          Instagram
+
+        </div>
+
+
+        <h2>
+
+          Il lavoro non resta solo qui dentro.
+
+        </h2>
+
+      </div>
+
+
+      <p>
+
+        Negli ultimi 90 giorni i contenuti che ho realizzato
+        hanno raggiunto milioni di persone. Sono numeri veri,
+        presi dagli Insight, aggiornati regolarmente.
+
+      </p>
+
+    </div>
+
+
+    <div class="numbers-grid">
+
+      <div class="n-stat reveal">
+        <small>Visualizzazioni</small>
+        <strong>3.080.297</strong>
+        <span>90 giorni</span>
+      </div>
+
+      <div class="n-stat reveal">
+        <small>Account raggiunti</small>
+        <strong>330.026</strong>
+        <span>90 giorni</span>
+      </div>
+
+      <div class="n-stat reveal">
+        <small>Follower</small>
+        <strong>1.539</strong>
+        <span>+19,2% in 30 giorni</span>
+      </div>
+
+      <div class="n-stat reveal">
+        <small>Visite al profilo</small>
+        <strong>13.485</strong>
+        <span>90 giorni</span>
+      </div>
+
+    </div>
+
+
+    <div class="numbers-more reveal">
+      <a class="btn btn-outline" href="numeri.html">
+        Guarda tutti i numeri &#8599;
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
 
 
 
@@ -1737,8 +1823,8 @@ and
         <div class="review-header">
 
 
-          <img
-            data-gx-img="review-1" class="review-avatar"
+          <img loading="lazy" decoding="async"
+            class="review-avatar"
             src="images/reviews/persona-01.jpg"
             alt="Davide Abrescia"
           >
@@ -1820,8 +1906,8 @@ and
         <div class="review-header">
 
 
-          <img
-            data-gx-img="review-2" class="review-avatar"
+          <img loading="lazy" decoding="async"
+            class="review-avatar"
             src="images/reviews/persona-02.jpg"
             alt="Alessandro Gelsi"
           >
@@ -1906,8 +1992,8 @@ and
         <div class="review-header">
 
 
-          <img
-            data-gx-img="review-3" class="review-avatar"
+          <img loading="lazy" decoding="async"
+            class="review-avatar"
             src="images/reviews/persona-03.jpg"
             alt="Paolo Scienza"
           >
@@ -1984,9 +2070,9 @@ and
         <div class="review-header">
 
 
-          <img
-            data-gx-img="review-4" class="review-avatar"
-            src="images/reviews/persona-01.jpg"
+          <img loading="lazy" decoding="async"
+            class="review-avatar"
+            src="images/reviews/persona-04.jpg"
             alt="Alessio Marcone"
           >
 
@@ -2063,6 +2149,13 @@ and
     </div>
 
 
+    <div class="reviews-more reveal">
+      <a class="btn btn-outline" href="recensioni.html">
+        Leggi tutte le recensioni &#8599;
+      </a>
+    </div>
+
+
   </div>
 
 
@@ -2072,7 +2165,7 @@ and
 
 =====================================================
      CERTIFICAZIONI
-===================================================== 
+=====================================================
 
 <section
   class="certifications"
@@ -2124,7 +2217,7 @@ and
 
 
 
-      CERTIFICAZIONE 1 
+      CERTIFICAZIONE 1
 
 
       <article class="cert-card reveal">
@@ -2212,7 +2305,7 @@ and
 
 
 
-     CERTIFICAZIONE 2 
+     CERTIFICAZIONE 2
 
 
       <article class="cert-card reveal">
@@ -2300,7 +2393,7 @@ and
 
 
 
-       CERTIFICAZIONE 3 
+       CERTIFICAZIONE 3
 
 
       <article class="cert-card reveal">
@@ -2433,15 +2526,46 @@ and
 
 
 
+    <form class="contact-form" id="contact-form" novalidate>
+
+      <!-- Sostituisci con la tua chiave gratuita da web3forms.com -->
+      <input type="hidden" name="access_key" value="INSERISCI_QUI_LA_TUA_ACCESS_KEY">
+      <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+
+      <div class="contact-form-row">
+
+        <label class="sr-only" for="cf-nome">Nome</label>
+        <input id="cf-nome" name="name" type="text" placeholder="Il tuo nome" required>
+
+        <label class="sr-only" for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" placeholder="La tua email" required>
+
+      </div>
+
+      <label class="sr-only" for="cf-messaggio">Messaggio</label>
+      <textarea id="cf-messaggio" name="message" rows="4" placeholder="Raccontami il progetto..." required></textarea>
+
+      <div class="contact-form-row contact-form-footer">
+
+        <button class="btn btn-white" type="submit">
+          INVIA MESSAGGIO
+        </button>
+
+        <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite"></p>
+
+      </div>
+
+    </form>
+
+
     <div class="contact-actions">
 
 
       <a
-        class="btn btn-white"
         href="mailto:gianluphotographer@gmail.com"
       >
 
-        SCRIVI ALLA MIA MAIL
+        o scrivimi direttamente a gianluphotographer@gmail.com
 
       </a>
 
@@ -2507,14 +2631,11 @@ and
      JAVASCRIPT
 ===================================================== -->
 
-<!-- CONTENUTI CREATI DALL'ADMIN
-     (devono restare PRIMA di main.js) -->
-
 <script src="data/content.js"></script>
 <script src="assets/js/gpj-render.js"></script>
 <script src="assets/js/dynamic.js"></script>
-
 <script src="assets/js/main.js"></script>
+<script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 
 </body>

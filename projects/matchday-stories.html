@@ -5,14 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#e10600">
 <meta name="description" content="T'Immagini — racconto fotografico e video di Ideale Bari Calcio.">
+
+<!-- OPEN GRAPH / SOCIAL -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GPJ.Visuals">
+<meta property="og:title" content="T'Immagini — GPJ.Visuals">
+<meta property="og:description" content="T'Immagini — racconto fotografico e video di Ideale Bari Calcio.">
+<meta property="og:image" content="https://gianluphotographer-22.github.io/portfolio-gpj/images/matchday-stories-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:url" content="https://gianluphotographer-22.github.io/portfolio-gpj/projects/matchday-stories.html">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="T'Immagini — GPJ.Visuals">
+<meta name="twitter:description" content="T'Immagini — racconto fotografico e video di Ideale Bari Calcio.">
+<meta name="twitter:image" content="https://gianluphotographer-22.github.io/portfolio-gpj/images/matchday-stories-cover.jpg">
+
 <title>T'Immagini — GPJ</title>
-<link rel="icon" type="image/png" href="../images/GPJ pos.png">
-<link rel="apple-touch-icon" href="../images/GPJ pos.png">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="apple-touch-icon" href="../images/favicon.png">
+<link rel="manifest" href="../site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
 
 <style>
 /* =========================================================
@@ -341,6 +357,75 @@ body.locked {
     transition: none;
   }
 }
+
+    /* ==============================
+       RACCOLTA A CAPITOLI
+    ============================== */
+
+    .project-page .match-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 8px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .project-page .match-nav a {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 9px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .25s ease, background .25s ease;
+    }
+
+    .project-page .match-nav a:hover,
+    .project-page .match-nav a:focus-visible {
+      border-color: var(--red, #e10600);
+      background: rgba(225, 6, 0, 0.08);
+    }
+
+    .project-page .match-nav .n {
+      font-size: 11px;
+      opacity: .55;
+    }
+
+    .project-page .match-chapter {
+      scroll-margin-top: 90px;
+      padding-top: 10px;
+    }
+
+    .project-page .match-chapter + .match-chapter {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 20px;
+    }
+
+    .project-page .match-note {
+      max-width: 62ch;
+      margin: 14px 0 0;
+      opacity: .78;
+      line-height: 1.65;
+    }
+
+    .project-page .match-video {
+      margin-top: 34px;
+    }
+
+    .project-page .collection-end {
+      padding: 10px 0 70px;
+    }
+
+    .project-page .collection-end p {
+      max-width: 60ch;
+      opacity: .6;
+      font-size: 15px;
+    }
 </style>
 </head>
 
@@ -348,7 +433,7 @@ body.locked {
 <header class="site-header">
   <a class="brand" href="../index.html">
     <span class="brand-mark">
-      <img src="../images/GPJ neg.png" alt="" width="64" height="64">
+      <img loading="lazy" decoding="async" src="../images/gpj-mark.png" alt="" width="64" height="64">
     </span>
     <span class="brand-name">GIANLUCA PAGLIONICO</span>
   </a>
@@ -356,7 +441,7 @@ body.locked {
   <nav class="nav" aria-label="Navigazione principale">
     <a href="../index.html#work">Portfolio</a>
     <a href="../index.html#about">Chi sono</a>
-    <a href="../index.html#contact">Contatti</a>
+    <a href="../index.html#contact">Contatti</a><a href="../numeri.html">Numeri</a>
   </nav>
 
   <a class="header-contact" href="../index.html#contact">Parliamone</a>
@@ -365,7 +450,7 @@ body.locked {
 
 <main>
   <section class="page-hero">
-    <img src="../images/matchdaystoriescover.png" alt="Matchday Stories" fetchpriority="high" decoding="async" data-gx-img="cover-matchday-stories">
+    <img loading="lazy" decoding="async" src="../images/timmagini/ideale-triggiano-cover.jpg" alt="Matchday Stories" fetchpriority="high" decoding="async">
     <div class="container page-hero-content reveal">
       <div class="eyebrow project-category">IDEALE BARI CALCIO</div>
       <h1>T'IMMAGINI</h1>
@@ -375,92 +460,119 @@ body.locked {
   <section class="project-info">
     <div class="container project-info-grid">
       <div class="reveal">
-        <p class="project-intro">Un gruppo unico, un calcio diverso, delle emozioni indescrivibili, tra tutte le squadre scattate sul rettangolo verde le emozioni che ho potuto vivere con l'Ideale Bari sono uniche, il traguardo raggiunto ancora di più, perchè le favole esistono, basta crederci</p>
+        <p class="project-intro">Un gruppo unico, un calcio diverso, delle emozioni indescrivibili. Questa raccolta segue l&rsquo;Ideale Bari partita dopo partita: ogni capitolo racconta una giornata a s&eacute;, e cresce ogni volta che c&rsquo;&egrave; una nuova gara da raccontare.</p>
       </div>
 
       <div class="project-facts reveal">
-        <div class="fact"><small>Anno</small><strong>2026</strong></div>
-        <div class="fact"><small>Cliente</small><strong>Editorial / Club</strong></div>
-        <div class="fact"><small>Servizi</small><strong>Photo, Video, Social</strong></div>
-        <div class="fact"><small>Output</small><strong>Photo + Video</strong></div>
+          <div class="fact"><small>Cliente</small><strong>Ideale Bari Calcio</strong></div>
+          <div class="fact"><small>Formato</small><strong>Diario di stagione</strong></div>
+          <div class="fact"><small>Servizi</small><strong>Photo, Video, Social</strong></div>
+          <div class="fact"><small>Stato</small><strong>In aggiornamento</strong></div>
       </div>
     </div>
   </section>
 
-  <section class="gallery-section">
-    <div class="container">
-      <div class="eyebrow red reveal">Gallery</div>
-      <h2 class="gallery-title reveal">Una stagione indimenticabile</h2>
+    <!-- INDICE DEI CAPITOLI -->
+    <section class="gallery-section" style="padding-bottom:0">
+      <div class="container">
+        <div class="eyebrow red reveal">1 partite raccontate</div>
+        <h2 class="gallery-title reveal">I CAPITOLI</h2>
+        <ul class="match-nav reveal">
 
-      <div class="gallery-grid">
-        <button class="gallery-item" type="button" aria-label="Apri immagine 1">
-          <img src="../images/matchdaystories1.png" alt="Matchday Stories — immagine 1" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 2">
-          <img src="../images/matchdaystories2.png" alt="Matchday Stories — immagine 2" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 3">
-          <img src="../images/matchdaystories3.png" alt="Matchday Stories — immagine 3" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 4">
-          <img src="../images/matchdaystories4.png" alt="Matchday Stories — immagine 4" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 5">
-          <img src="../images/matchdaystories5.png" alt="Matchday Stories — immagine 5" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 6">
-          <img src="../images/matchdaystories6.png" alt="Matchday Stories — immagine 6" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 7">
-          <img src="../images/matchday-stories-7.svg" alt="Matchday Stories — immagine 7" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 8">
-          <img src="../images/matchdaystories8.png" alt="Matchday Stories — immagine 8" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 9">
-          <img src="../images/matchdaystories9.png" alt="Matchday Stories — immagine 9" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 10">
-          <img src="../images/matchdaystories10.png" alt="Matchday Stories — immagine 10" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 11">
-          <img src="../images/matchdaystories11.png" alt="Matchday Stories — immagine 11" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 12">
-          <img src="../images/matchdaystories12.png" alt="Matchday Stories — immagine 12" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 13">
-          <img src="../images/matchdaystories13.png" alt="Matchday Stories — immagine 13" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 14">
-          <img src="../images/matchdaystories14.png" alt="Matchday Stories — immagine 14" loading="lazy" decoding="async">
-        </button>
-        <button class="gallery-item" type="button" aria-label="Apri immagine 15">
-          <img src="../images/matchdaystories15.png" alt="Matchday Stories — immagine 15" loading="lazy" decoding="async">
-        </button>
+            <li>
+              <a href="#ideale-triggiano"><span class="n">01</span> IDEALE BARI &mdash; TRIGGIANO</a>
+            </li>
+
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="video-section">
-    <div class="container">
-      <div class="video-head reveal">
-        <div>
-          <div class="eyebrow red">Motion</div>
-          <h2>Video / Showreel.</h2>
+    <!-- CAPITOLO 01 — ideale-triggiano -->
+    <section class="gallery-section match-chapter" id="ideale-triggiano">
+      <div class="container">
+        <div class="eyebrow red reveal">01 &mdash; Bisceglie, 10 maggio 2026</div>
+        <h2 class="gallery-title reveal">IDEALE BARI &mdash; TRIGGIANO</h2>
+        <p class="match-note reveal">Un gruppo unico, un calcio diverso, delle emozioni indescrivibili: tra tutte le squadre scattate sul rettangolo verde, quelle vissute con l&rsquo;Ideale Bari restano uniche. Il traguardo raggiunto ancora di pi&ugrave;, perch&eacute; le favole esistono, basta crederci.</p>
+
+        <div class="gallery-grid">
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 1">
+            <img src="../images/timmagini/ideale-triggiano-1.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 1" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 2">
+            <img src="../images/timmagini/ideale-triggiano-2.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 2" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 3">
+            <img src="../images/timmagini/ideale-triggiano-3.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 3" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 4">
+            <img src="../images/timmagini/ideale-triggiano-4.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 4" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 5">
+            <img src="../images/timmagini/ideale-triggiano-5.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 5" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 6">
+            <img src="../images/timmagini/ideale-triggiano-6.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 6" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 7">
+            <img src="../images/timmagini/ideale-triggiano-7.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 7" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 8">
+            <img src="../images/timmagini/ideale-triggiano-8.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 8" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 9">
+            <img src="../images/timmagini/ideale-triggiano-9.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 9" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 10">
+            <img src="../images/timmagini/ideale-triggiano-10.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 10" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 11">
+            <img src="../images/timmagini/ideale-triggiano-11.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 11" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 12">
+            <img src="../images/timmagini/ideale-triggiano-12.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 12" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 13">
+            <img src="../images/timmagini/ideale-triggiano-13.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 13" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 14">
+            <img src="../images/timmagini/ideale-triggiano-14.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 14" loading="lazy" decoding="async">
+          </button>
+
         </div>
-      </div>
 
-      <div class="video-frame reveal">
-        <video controls playsinline preload="metadata" poster="../images/matchdaystoriescover.png">
-          <source src="../videos/BOVIO.MP4" type="video/mp4">
-          Il browser non supporta la riproduzione video.
-        </video>
-      </div>
+        <div class="match-video reveal">
+          <div class="video-frame">
+            <video controls playsinline preload="metadata" poster="../images/timmagini/ideale-triggiano-cover.jpg">
+              <source src="../videos/BOVIO.MP4" type="video/mp4">
+              Il browser non supporta la riproduzione video.
+            </video>
+          </div>
+          <p class="video-note">Il goal vittoria di Bovio in Ideale Bari &mdash; Triggiano | Bisceglie, 10 maggio 2026</p>
+        </div>
 
-      <p class="video-note">Il goal vittoria di Bovio in Ideale Bari - Triggiano | Bisceglie, 10 maggio 2026</p>
-    </div>
-  </section>
+      </div>
+    </section>
+
+    <!-- RACCOLTA APERTA -->
+    <section class="collection-end">
+      <div class="container reveal">
+        <p>La raccolta &egrave; aperta: ogni nuova partita raccontata diventa un capitolo in fondo a questa pagina.</p>
+      </div>
+    </section>
 
   <section class="next-project">
     <div class="container">
@@ -481,12 +593,13 @@ body.locked {
 
 <div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Anteprima immagine">
   <button class="lightbox-close" type="button" aria-label="Chiudi">×</button>
-  <img alt="Anteprima">
+  <img loading="lazy" decoding="async" alt="Anteprima">
 </div>
 
 <script src="../data/content.js"></script>
-<script src="../assets/js/gpj-render.js"></script>
-<script src="../assets/js/dynamic.js"></script>
-<script src="../assets/js/main.js"></script>
+  <script src="../assets/js/gpj-render.js"></script>
+  <script src="../assets/js/dynamic.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
