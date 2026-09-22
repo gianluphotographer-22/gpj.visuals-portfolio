@@ -1,0 +1,297 @@
+/* =========================================================
+   PAGES.CSS
+   Stile delle pagine progetto create dall'admin e delle
+   sezioni extra (homepage + pagine).
+   Va caricato DOPO style.css.
+========================================================= */
+
+html{scroll-behavior:smooth}
+:root{interpolate-size:allow-keywords}
+
+/* ---------------------------------------------------------
+   PAGINA PROGETTO — hero
+--------------------------------------------------------- */
+body.gx-page{overflow-x:clip}
+
+.gx-page .page-hero{
+  position:relative;
+  min-height:clamp(480px,74svh,820px);
+  overflow:hidden;
+  background:#080808;
+  isolation:isolate;
+}
+.gx-page .page-hero>img{
+  position:absolute;inset:0;z-index:-2;
+  width:100%;height:100%;object-fit:cover;object-position:center;
+}
+.gx-page .page-hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.08) 30%,rgba(0,0,0,.78) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.28),transparent 58%);
+}
+.gx-page .page-hero-content{
+  position:relative;display:flex;min-height:inherit;
+  flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(42px,7vw,92px);
+}
+.gx-page .page-hero h1{
+  max-width:100%;overflow-wrap:anywhere;
+  font-size:clamp(3rem,9vw,9rem);line-height:.88;
+}
+
+@media (max-width:1050px){
+  .gx-page .page-hero{min-height:clamp(420px,62svh,640px)}
+}
+@media (max-width:760px){
+  .gx-page .page-hero{min-height:clamp(350px,56svh,500px)}
+  .gx-page .page-hero-content{padding-bottom:34px}
+  .gx-page .page-hero h1{font-size:clamp(2.65rem,14vw,5rem)}
+}
+@media (max-width:399px){
+  .gx-page .page-hero{min-height:340px}
+  .gx-page .page-hero h1{font-size:clamp(2.35rem,14vw,3.4rem)}
+}
+
+/* ---------------------------------------------------------
+   SEZIONE — struttura comune
+--------------------------------------------------------- */
+.gx-sec{
+  padding:clamp(56px,8vw,110px) 0;
+  color:var(--ink);
+}
+.gx-theme-light{background:var(--paper)}
+.gx-theme-white{background:#fff}
+.gx-theme-dark{background:#111;color:#fff}
+.gx-theme-red{background:var(--red);color:#fff}
+.gx-theme-red .eyebrow.red{color:#fff}
+
+.gx-head{margin-bottom:clamp(26px,4vw,44px)}
+.gx-head-text{min-width:0}
+.gx-title{
+  font-family:Manrope,sans-serif;
+  font-size:clamp(40px,6vw,86px);
+  line-height:.95;
+  letter-spacing:-.055em;
+  overflow-wrap:anywhere;
+}
+.gx-head-text .eyebrow{margin-bottom:16px}
+
+/* ---------------------------------------------------------
+   SEZIONE COMPRIMIBILE
+   Usa <details>: funziona senza JavaScript, da tastiera
+   e con gli screen reader.
+--------------------------------------------------------- */
+.gx-collapse{
+  border-top:1px solid color-mix(in srgb,currentColor 22%,transparent);
+  padding-top:clamp(20px,3vw,30px);
+}
+.gx-summary{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  list-style:none;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.gx-summary::-webkit-details-marker{display:none}
+.gx-summary::marker{content:""}
+.gx-collapse[open]>.gx-summary{margin-bottom:clamp(26px,4vw,44px)}
+
+.gx-toggle{
+  position:relative;flex:0 0 48px;width:48px;height:48px;
+  border:1px solid color-mix(in srgb,currentColor 55%,transparent);
+  border-radius:50%;
+  transition:background .25s,border-color .25s,color .25s;
+}
+.gx-toggle::before,.gx-toggle::after{
+  content:"";position:absolute;left:50%;top:50%;
+  width:16px;height:2px;background:currentColor;
+  transform:translate(-50%,-50%);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.gx-toggle::after{transform:translate(-50%,-50%) rotate(90deg)}
+.gx-collapse[open] .gx-toggle::after{transform:translate(-50%,-50%) rotate(0)}
+@media (hover:hover){
+  .gx-summary:hover .gx-toggle{background:var(--red);border-color:var(--red);color:#fff}
+}
+.gx-summary:focus-visible{outline:3px solid var(--red);outline-offset:8px;border-radius:6px}
+
+/* animazione di apertura (dove supportata) */
+.gx-collapse[open]>.gx-body{animation:gxOpen .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes gxOpen{from{opacity:0;transform:translateY(-10px)}}
+@supports (selector(::details-content)){
+  .gx-collapse::details-content{
+    block-size:0;overflow:hidden;
+    transition:block-size .45s cubic-bezier(.2,.8,.2,1),content-visibility .45s allow-discrete;
+  }
+  .gx-collapse[open]::details-content{block-size:auto}
+  .gx-collapse[open]>.gx-body{animation:none}
+}
+
+/* ---------------------------------------------------------
+   TESTO
+--------------------------------------------------------- */
+.gx-prose{max-width:68ch;font-size:17px;line-height:1.85}
+.gx-prose p+p{margin-top:1.1em}
+.gx-theme-light .gx-prose,.gx-theme-white .gx-prose{color:#3a3a3a}
+
+.gx-lead{max-width:62ch;margin-bottom:28px;font-size:17px;line-height:1.75;opacity:.8}
+
+/* ---------------------------------------------------------
+   INFO (testo + dati)
+--------------------------------------------------------- */
+.gx-info-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.3fr) minmax(280px,.9fr);
+  gap:clamp(36px,7vw,100px);
+  align-items:start;
+}
+.gx-intro{
+  max-width:34ch;
+  font-family:Manrope,sans-serif;
+  font-size:clamp(28px,3.6vw,54px);
+  line-height:1.06;
+  letter-spacing:-.045em;
+  overflow-wrap:break-word;
+}
+.gx-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.gx-fact{border-top:1px solid color-mix(in srgb,currentColor 22%,transparent);padding-top:12px}
+.gx-fact small{
+  display:block;margin-bottom:6px;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;
+}
+.gx-fact strong{font-size:14px;line-height:1.4}
+
+/* ---------------------------------------------------------
+   GALLERIA
+--------------------------------------------------------- */
+.gx-gallery-grid{column-count:3;column-gap:16px}
+.gx-gallery-grid[data-cols="2"]{column-count:2}
+.gx-gallery-grid[data-cols="4"]{column-count:4}
+
+.gx-shot{
+  display:block;width:100%;margin:0 0 16px;padding:0;
+  border:0;border-radius:0;background:#111;overflow:hidden;
+  break-inside:avoid;-webkit-column-break-inside:avoid;
+  appearance:none;cursor:zoom-in;
+}
+.gx-shot img{
+  display:block;width:100%;height:auto;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1);
+}
+@media (hover:hover) and (pointer:fine){
+  .gx-shot:hover img{transform:scale(1.025)}
+}
+.gx-shot:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+
+@media (max-width:1024px){
+  .gx-gallery-grid,.gx-gallery-grid[data-cols="4"],.gx-gallery-grid[data-cols="3"]{column-count:2;column-gap:12px}
+  .gx-shot{margin-bottom:12px}
+}
+@media (max-width:640px){
+  .gx-gallery-grid,.gx-gallery-grid[data-cols="4"],.gx-gallery-grid[data-cols="3"],.gx-gallery-grid[data-cols="2"]{column-count:1}
+}
+
+/* ---------------------------------------------------------
+   VIDEO
+--------------------------------------------------------- */
+.gx-video-frame{
+  width:100%;aspect-ratio:16/9;overflow:hidden;
+  background:#000;border-radius:16px;
+}
+.gx-video-frame video,
+.gx-video-frame iframe{
+  display:block;width:100%;height:100%;border:0;object-fit:contain;
+}
+.gx-note{margin-top:14px;font-size:12px;line-height:1.6;opacity:.6}
+
+/* ---------------------------------------------------------
+   SCHEDE
+--------------------------------------------------------- */
+.gx-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));
+  gap:14px;
+}
+.gx-card{
+  min-width:0;min-height:240px;
+  display:flex;flex-direction:column;
+  padding:22px;border-radius:15px;
+  border:1px solid color-mix(in srgb,currentColor 16%,transparent);
+  transition:border-color .25s;
+}
+.gx-theme-light .gx-card{background:#fff}
+.gx-theme-white .gx-card{background:var(--paper)}
+.gx-theme-dark .gx-card{background:rgba(255,255,255,.06)}
+.gx-theme-red .gx-card{background:rgba(0,0,0,.14)}
+.gx-card-meta{
+  margin-bottom:18px;
+  font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--red);
+}
+.gx-theme-red .gx-card-meta{color:#fff}
+.gx-card h3{
+  font-family:Manrope,sans-serif;
+  font-size:clamp(20px,2.2vw,26px);
+  line-height:1.08;letter-spacing:-.04em;
+  margin-bottom:10px;
+}
+.gx-card p{flex:1;font-size:14px;line-height:1.6;opacity:.75}
+.gx-card-link{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:22px;padding-top:13px;
+  border-top:1px solid color-mix(in srgb,currentColor 16%,transparent);
+  font-size:11px;font-weight:800;
+}
+.gx-card-link:hover{color:var(--red)}
+.gx-theme-red .gx-card-link:hover{color:#111}
+.gx-card-link span{font-size:17px}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+@media (max-width:900px){
+  .gx-info-grid{grid-template-columns:1fr;gap:34px}
+  .gx-intro{max-width:none}
+}
+@media (max-width:760px){
+  .gx-sec{padding:52px 0}
+  .gx-title{font-size:clamp(34px,11vw,52px)}
+  .gx-toggle{flex-basis:42px;width:42px;height:42px}
+  .gx-prose,.gx-lead{font-size:15px}
+  .gx-card{min-height:0;padding:16px;border-radius:12px}
+}
+@media (max-width:399px){
+  .gx-facts{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .gx-collapse[open]>.gx-body{animation:none}
+  .gx-collapse::details-content{transition:none}
+  .gx-toggle,.gx-toggle::before,.gx-toggle::after,.gx-shot img{transition:none}
+}
+
+/* ---------------------------------------------------------
+   RACCOLTA (sotto-galleria apribile: una partita, un evento…)
+--------------------------------------------------------- */
+.gx-coll .gx-summary{align-items:center;gap:clamp(14px,2.4vw,26px)}
+.gx-coll .gx-head-text{flex:1;min-width:0}
+
+.gx-thumb{
+  flex:0 0 auto;width:clamp(58px,8vw,92px);aspect-ratio:1;height:auto;
+  object-fit:cover;background:#111;
+}
+
+.gx-count{
+  flex:0 0 auto;white-space:nowrap;
+  font:700 11px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.62;
+}
+
+.gx-coll-desc{margin-bottom:clamp(22px,3vw,34px)}
+
+.gx-coll .gx-title{font-size:clamp(24px,3.2vw,44px)}
+
+@media (max-width:640px){
+  .gx-coll .gx-summary{flex-wrap:wrap}
+  .gx-coll .gx-count{order:5}
+  .gx-thumb{width:54px}
+}
