@@ -140,6 +140,15 @@ window.addEventListener("resize", () => {
         return;
       }
 
+      // Il form usa novalidate (per non mostrare i bordi rossi di default
+      // del browser prima ancora che l'utente scriva); controlliamo quindi
+      // a mano i campi obbligatori prima di inviare, cosi' un invio vuoto
+      // o incompleto non parte comunque verso Web3Forms.
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
       bottone.disabled = true;
       stato.removeAttribute("data-state");
       stato.textContent = "Invio in corso...";
