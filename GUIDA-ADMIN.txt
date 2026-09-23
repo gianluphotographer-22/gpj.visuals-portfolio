@@ -204,6 +204,37 @@ cancellalo da GitHub (Settings > Developer settings > Personal access
 tokens) e creane uno nuovo.
 
 
+12) Recensioni: vederle subito in un Google Sheet (senza copiarle a mano)
+--------------------------------------------------------------------------
+Oggi, quando qualcuno scrive una recensione dal sito, ti arriva solo
+un'email (tramite Web3Forms). Per farla comparire online resta comunque
+un passaggio manuale — la aggiungi all'Excel o al JSON e ripubblichi,
+punto 10 — ma puoi evitare di doverla ricopiare a mano dall'email:
+collegando il modulo a un Google Sheet gratuito, ogni recensione inviata
+crea da sola una nuova riga nel foglio (data, nome, ruolo, email, voto,
+testo), pronta da leggere e da cui poi comporre l'Excel di pubblicazione.
+
+Non serve alcun abbonamento: si usa Google Apps Script, gratuito con un
+normale account Google.
+
+Attivazione (una volta sola):
+- Crea un foglio Google nuovo e vuoto (sheets.google.com).
+- Dal menu del foglio: Estensioni > Apps Script.
+- Cancella il contenuto di esempio e incolla tutto il file
+  claude/google-sheet-recensioni.gs (i passaggi dettagliati sono scritti
+  come commento in cima al file stesso).
+- Pubblicalo come «app web» (Esegui il deployment > Nuovo deployment):
+  chi ha accesso «Chiunque», esegui come «Io».
+- Copia l'URL che ti viene dato (finisce con /exec) e mandalo a me: lo
+  incollo al posto giusto nel codice del sito (assets/js/main.js) e ti
+  preparo l'aggiornamento da pubblicare come al solito.
+
+Da quel momento il modulo recensioni continua a funzionare esattamente
+come prima (stessa email da Web3Forms) e in più scrive ogni recensione
+anche nel foglio. Se in futuro vuoi disattivarlo, basta togliere l'URL
+da quella riga del codice.
+
+
 Note
 ----
 - Le pagine progetto già esistenti restano com'erano (file statici): il

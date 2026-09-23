@@ -196,10 +196,35 @@ window.addEventListener("resize", () => {
    pagina. Richiede una access key gratuita da https://web3forms.com nel
    campo nascosto "access_key" di ogni form (vedi index.html/recensioni.html).
    Funziona su qualunque <form class="contact-form">: contatti, recensioni,
-   e ogni altro form con la stessa struttura che aggiungerai in futuro. */
+   e ogni altro form con la stessa struttura che aggiungerai in futuro.
+
+   Il form delle recensioni (id="review-form") manda in più una copia dei
+   dati anche a un Google Sheet, tramite un piccolo script Google Apps
+   Script pubblicato come "app web" — vedi GUIDA-ADMIN.txt, punto 12, per
+   come crearlo. Finché SHEET_WEBHOOK_URL resta vuoto questo invio in più
+   è semplicemente saltato, e tutto continua a funzionare come prima
+   (la recensione arriva comunque via email da Web3Forms). */
 (function () {
+  var SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxK6Ode2TxFAQSHvtBhFnwcYrdT8OjlKL6kqGKgvTfmpwoovqhA_Qw02N7TpmIO2F1K/exec";
+
   var forms = document.querySelectorAll("form.contact-form");
   if (!forms.length) return;
+
+  function inviaAGoogleSheet(form) {
+    if (!SHEET_WEBHOOK_URL) return;
+    try {
+      var dati = Object.fromEntries(new FormData(form));
+      // mode:"no-cors" evita il pre-flight CORS che Apps Script non
+      // gestisce: non possiamo leggere la risposta, ma va bene così,
+      // è un invio "in aggiunta", non è quello che decide se il form
+      // ha funzionato (quello lo dice sempre Web3Forms, sopra).
+      fetch(SHEET_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(dati),
+      }).catch(function () {});
+    } catch (e) {}
+  }
 
   forms.forEach(function (form) {
     var stato = form.querySelector(".contact-form-status");
@@ -227,6 +252,8 @@ window.addEventListener("resize", () => {
       bottone.disabled = true;
       stato.removeAttribute("data-state");
       stato.textContent = "Invio in corso...";
+
+      if (form.id === "review-form") inviaAGoogleSheet(form);
 
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
