@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Diagnostica immagini &mdash; GPJ</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; padding:28px 20px 60px; background:#111; color:#eee;
+         font:15px/1.6 Inter, system-ui, sans-serif; }
+  .wrap { max-width:900px; margin:auto; }
+  h1 { font-size:26px; margin:0 0 6px; letter-spacing:-.02em; }
+  .sub { opacity:.6; margin:0 0 26px; font-size:14px; }
+  .totali { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+  .pill { padding:9px 15px; border-radius:999px; font-size:13px; font-weight:700;
+          border:1px solid rgba(255,255,255,.18); }
+  .pill.ok { background:rgba(40,180,90,.14); border-color:rgba(40,180,90,.5); }
+  .pill.ko { background:rgba(225,6,0,.16); border-color:rgba(225,6,0,.6); }
+  h2 { font-size:14px; text-transform:uppercase; letter-spacing:.12em;
+       margin:26px 0 8px; opacity:.55; font-weight:800; }
+  ul { list-style:none; padding:0; margin:0; }
+  li { display:flex; gap:10px; align-items:baseline; padding:6px 0;
+       border-bottom:1px solid rgba(255,255,255,.07); font-size:13.5px; }
+  .stato { flex:0 0 78px; font-weight:800; font-size:11px; letter-spacing:.08em; }
+  .ok .stato { color:#3ec27a; }
+  .ko .stato { color:#ff4136; }
+  .att .stato { color:#888; }
+  code { font-family:ui-monospace, Menlo, monospace; word-break:break-all; opacity:.9; }
+  .nota { margin-top:34px; padding:16px 18px; border-left:3px solid #e10600;
+          background:rgba(255,255,255,.04); font-size:13.5px; }
+  button { margin-bottom:24px; padding:11px 20px; border-radius:999px; cursor:pointer;
+           border:1px solid rgba(255,255,255,.25); background:none; color:inherit;
+           font:inherit; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Diagnostica immagini</h1>
+<p class="sub">Controlla se ogni file richiesto dalle pagine esiste davvero sul server.
+Questa pagina serve solo a te: cancellala quando hai finito.</p>
+<button id="ricontrolla">Ricontrolla</button>
+<div class="totali">
+  <span class="pill ok" id="tot-ok">trovati 0</span>
+  <span class="pill ko" id="tot-ko">mancanti 0</span>
+  <span class="pill" id="tot-tot">totale 0</span>
+</div>
+<div id="risultati"></div>
+<div class="nota">
+  <strong>Se compaiono dei MANCANTI:</strong> quei file non sono nel repository,
+  oppure stanno in una cartella diversa da quella scritta.
+  Su GitHub carica sempre le <em>cartelle</em> trascinandole intere, non i file
+  singoli, altrimenti finiscono tutti nella radice.
+  Ricorda che GitHub Pages distingue maiuscole e minuscole nei nomi.
+</div>
+</div>
+<script>
+const MAPPA = {
+ "404.html": [
+  "images/favicon.png",
+  "images/gpj-mark.png"
+ ],
+ "index.html": [
+  "images/7-sins/7-sins-cover.jpg",
+  "images/about.jpg",
+  "images/athlete-portraits-cover.jpg",
+  "images/cuore-biancorosso/bari-cavese-cover.jpg",
+  "images/favicon.png",
+  "images/gpj-mark.png",
+  "images/hero.jpg",
+  "images/live-atmosphere-cover.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-cover.jpg",
+  "images/reviews/persona-01.jpg",
+  "images/reviews/persona-02.jpg",
+  "images/reviews/persona-03.jpg",
+  "images/reviews/persona-04.jpg",
+  "images/timmagini/ideale-triggiano-cover.jpg"
+ ],
+ "numeri.html": [
+  "images/favicon.png",
+  "images/gpj-mark.png",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-4.jpg"
+ ],
+ "projects/athlete-portraits.html": [
+  "images/athlete-portraits-1.jpg",
+  "images/athlete-portraits-10.jpg",
+  "images/athlete-portraits-11.jpg",
+  "images/athlete-portraits-12.jpg",
+  "images/athlete-portraits-2.jpg",
+  "images/athlete-portraits-3.jpg",
+  "images/athlete-portraits-4.jpg",
+  "images/athlete-portraits-5.jpg",
+  "images/athlete-portraits-6.jpg",
+  "images/athlete-portraits-7.jpg",
+  "images/athlete-portraits-8.jpg",
+  "images/athlete-portraits-cover.jpg",
+  "images/favicon.png",
+  "images/gpj-mark.png",
+  "videos/GELSI.MP4"
+ ],
+ "projects/cuore-biancorosso.html": [
+  "images/cuore-biancorosso/altamura-bari-1.jpg",
+  "images/cuore-biancorosso/altamura-bari-10.jpg",
+  "images/cuore-biancorosso/altamura-bari-11.jpg",
+  "images/cuore-biancorosso/altamura-bari-12.jpg",
+  "images/cuore-biancorosso/altamura-bari-13.jpg",
+  "images/cuore-biancorosso/altamura-bari-14.jpg",
+  "images/cuore-biancorosso/altamura-bari-15.jpg",
+  "images/cuore-biancorosso/altamura-bari-16.jpg",
+  "images/cuore-biancorosso/altamura-bari-17.jpg",
+  "images/cuore-biancorosso/altamura-bari-18.jpg",
+  "images/cuore-biancorosso/altamura-bari-19.jpg",
+  "images/cuore-biancorosso/altamura-bari-2.jpg",
+  "images/cuore-biancorosso/altamura-bari-20.jpg",
+  "images/cuore-biancorosso/altamura-bari-21.jpg",
+  "images/cuore-biancorosso/altamura-bari-22.jpg",
+  "images/cuore-biancorosso/altamura-bari-23.jpg",
+  "images/cuore-biancorosso/altamura-bari-24.jpg",
+  "images/cuore-biancorosso/altamura-bari-25.jpg",
+  "images/cuore-biancorosso/altamura-bari-26.jpg",
+  "images/cuore-biancorosso/altamura-bari-27.jpg",
+  "images/cuore-biancorosso/altamura-bari-28.jpg",
+  "images/cuore-biancorosso/altamura-bari-29.jpg",
+  "images/cuore-biancorosso/altamura-bari-3.jpg",
+  "images/cuore-biancorosso/altamura-bari-30.jpg",
+  "images/cuore-biancorosso/altamura-bari-4.jpg",
+  "images/cuore-biancorosso/altamura-bari-5.jpg",
+  "images/cuore-biancorosso/altamura-bari-6.jpg",
+  "images/cuore-biancorosso/altamura-bari-7.jpg",
+  "images/cuore-biancorosso/altamura-bari-8.jpg",
+  "images/cuore-biancorosso/altamura-bari-9.jpg",
+  "images/cuore-biancorosso/bari-cavese-1.jpg",
+  "images/cuore-biancorosso/bari-cavese-10.jpg",
+  "images/cuore-biancorosso/bari-cavese-11.jpg",
+  "images/cuore-biancorosso/bari-cavese-12.jpg",
+  "images/cuore-biancorosso/bari-cavese-13.jpg",
+  "images/cuore-biancorosso/bari-cavese-14.jpg",
+  "images/cuore-biancorosso/bari-cavese-15.jpg",
+  "images/cuore-biancorosso/bari-cavese-16.jpg",
+  "images/cuore-biancorosso/bari-cavese-17.jpg",
+  "images/cuore-biancorosso/bari-cavese-18.jpg",
+  "images/cuore-biancorosso/bari-cavese-2.jpg",
+  "images/cuore-biancorosso/bari-cavese-3.jpg",
+  "images/cuore-biancorosso/bari-cavese-4.jpg",
+  "images/cuore-biancorosso/bari-cavese-5.jpg",
+  "images/cuore-biancorosso/bari-cavese-6.jpg",
+  "images/cuore-biancorosso/bari-cavese-7.jpg",
+  "images/cuore-biancorosso/bari-cavese-8.jpg",
+  "images/cuore-biancorosso/bari-cavese-9.jpg",
+  "images/cuore-biancorosso/bari-cavese-cover.jpg",
+  "images/favicon.png",
+  "images/gpj-mark.png"
+ ],
+ "projects/human-detail.html": [
+  "images/7-sins/7-sins-1.jpg",
+  "images/7-sins/7-sins-10.jpg",
+  "images/7-sins/7-sins-11.jpg",
+  "images/7-sins/7-sins-12.jpg",
+  "images/7-sins/7-sins-13.jpg",
+  "images/7-sins/7-sins-14.jpg",
+  "images/7-sins/7-sins-15.jpg",
+  "images/7-sins/7-sins-16.jpg",
+  "images/7-sins/7-sins-17.jpg",
+  "images/7-sins/7-sins-2.jpg",
+  "images/7-sins/7-sins-3.jpg",
+  "images/7-sins/7-sins-4.jpg",
+  "images/7-sins/7-sins-5.jpg",
+  "images/7-sins/7-sins-6.jpg",
+  "images/7-sins/7-sins-7.jpg",
+  "images/7-sins/7-sins-8.jpg",
+  "images/7-sins/7-sins-9.jpg",
+  "images/7-sins/7-sins-cover.jpg",
+  "images/favicon.png",
+  "images/gpj-mark.png"
+ ],
+ "projects/live-atmosphere.html": [
+  "images/favicon.png",
+  "images/gpj-mark.png",
+  "images/live-atmosphere-1.jpg",
+  "images/live-atmosphere-10.jpg",
+  "images/live-atmosphere-2.jpg",
+  "images/live-atmosphere-3.jpg",
+  "images/live-atmosphere-5.jpg",
+  "images/live-atmosphere-6.jpg",
+  "images/live-atmosphere-7.jpg",
+  "images/live-atmosphere-8.jpg",
+  "images/live-atmosphere-9.jpg",
+  "images/live-atmosphere-cover.jpg"
+ ],
+ "projects/matchday-stories.html": [
+  "images/favicon.png",
+  "images/gpj-mark.png",
+  "images/timmagini/ideale-triggiano-1.jpg",
+  "images/timmagini/ideale-triggiano-10.jpg",
+  "images/timmagini/ideale-triggiano-11.jpg",
+  "images/timmagini/ideale-triggiano-12.jpg",
+  "images/timmagini/ideale-triggiano-13.jpg",
+  "images/timmagini/ideale-triggiano-14.jpg",
+  "images/timmagini/ideale-triggiano-2.jpg",
+  "images/timmagini/ideale-triggiano-3.jpg",
+  "images/timmagini/ideale-triggiano-4.jpg",
+  "images/timmagini/ideale-triggiano-5.jpg",
+  "images/timmagini/ideale-triggiano-6.jpg",
+  "images/timmagini/ideale-triggiano-7.jpg",
+  "images/timmagini/ideale-triggiano-8.jpg",
+  "images/timmagini/ideale-triggiano-9.jpg",
+  "images/timmagini/ideale-triggiano-cover.jpg",
+  "videos/BOVIO.MP4"
+ ],
+ "projects/matrimonio-donnarumma.html": [
+  "images/favicon.png",
+  "images/gpj-mark.png",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-1.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-10.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-2.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-3.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-4.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-5.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-6.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-7.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-8.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-9.jpg",
+  "images/matrimonio-donnarumma/matrimonio-donnarumma-cover.jpg"
+ ],
+ "recensioni.html": [
+  "images/7-sins/7-sins-2.jpg",
+  "images/favicon.png",
+  "images/gpj-mark.png"
+ ]
+};
+async function esiste(p) {
+  try { const r = await fetch(p, { method: 'HEAD', cache: 'no-store' }); return r.ok; }
+  catch (e) { return false; }
+}
+async function controlla() {
+  const box = document.getElementById('risultati');
+  box.innerHTML = '';
+  let ok = 0, ko = 0, tot = 0;
+  for (const [pagina, files] of Object.entries(MAPPA)) {
+    const h2 = document.createElement('h2');
+    h2.textContent = pagina;
+    const ul = document.createElement('ul');
+    box.append(h2, ul);
+    for (const f of files) {
+      tot++;
+      const li = document.createElement('li');
+      li.className = 'att';
+      li.innerHTML = '<span class="stato">&hellip;</span><code>' + f + '</code>';
+      ul.append(li);
+      const c = await esiste(f);
+      li.className = c ? 'ok' : 'ko';
+      li.querySelector('.stato').textContent = c ? 'TROVATO' : 'MANCANTE';
+      c ? ok++ : ko++;
+      document.getElementById('tot-ok').textContent  = 'trovati ' + ok;
+      document.getElementById('tot-ko').textContent  = 'mancanti ' + ko;
+      document.getElementById('tot-tot').textContent = 'totale ' + tot;
+    }
+  }
+}
+document.getElementById('ricontrolla').addEventListener('click', controlla);
+controlla();
+</script>
+</body>
+</html>
