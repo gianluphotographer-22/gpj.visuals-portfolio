@@ -158,8 +158,14 @@ button{font:inherit;color:inherit}
   .contact-form textarea{flex-basis:auto}
 }
 
-footer{background:#0b0b0b;color:#777;padding:28px 42px;display:flex;justify-content:space-between;gap:20px;font-size:11px}
+footer{background:#0b0b0b;color:#777;padding:28px 42px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-size:11px}
 footer strong{color:#fff;font-family:Manrope,sans-serif}
+
+/* Social nel footer, aggiunti via JS (assets/js/main.js) su tutte le pagine */
+.footer-social{display:flex;align-items:center;gap:14px}
+.footer-social a{color:#777;display:inline-flex;align-items:center;justify-content:center;transition:color .2s ease}
+.footer-social a:hover,.footer-social a:focus-visible{color:var(--red)}
+.footer-social svg{width:16px;height:16px}
 
 /* PROJECT PAGES */
 .project-page{background:#fff}

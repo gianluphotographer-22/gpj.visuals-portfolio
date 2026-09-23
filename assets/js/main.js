@@ -446,3 +446,48 @@ window.addEventListener("resize", () => {
   window.addEventListener("scroll", syncVisibility, { passive: true });
   syncVisibility();
 })();
+
+/* Social nel footer, su tutte le pagine. Aggiunti via JS così restano
+   uguali ovunque e si aggiornano da un punto solo: per cambiare o
+   aggiungere un canale basta modificare l'elenco SOCIAL qui sotto. */
+(function () {
+  var footer = document.querySelector("footer");
+  if (!footer || footer.querySelector(".footer-social")) return;
+
+  var SOCIAL = [
+    {
+      nome: "Instagram",
+      url: "https://www.instagram.com/gpj.visuals/",
+      icona:
+        '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>' +
+        '<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>' +
+        '<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>',
+    },
+    {
+      nome: "Facebook",
+      url: "https://www.facebook.com/profile.php?id=61578806254617",
+      icona:
+        '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>',
+    },
+  ];
+
+  var wrap = document.createElement("div");
+  wrap.className = "footer-social";
+
+  SOCIAL.forEach(function (s) {
+    var a = document.createElement("a");
+    a.href = s.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.setAttribute("aria-label", s.nome);
+    a.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      s.icona +
+      "</svg>";
+    wrap.appendChild(a);
+  });
+
+  var brand = footer.querySelector("strong");
+  if (brand) brand.insertAdjacentElement("afterend", wrap);
+  else footer.insertBefore(wrap, footer.firstChild);
+})();
