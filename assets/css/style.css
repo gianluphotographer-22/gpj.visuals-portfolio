@@ -126,14 +126,23 @@ button{font:inherit;color:inherit}
 .contact-form input[type="text"],
 .contact-form input[type="email"],
 .contact-form textarea{
-  flex:1 1 220px;min-width:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);
-  border-radius:var(--radius);padding:16px 20px;color:#fff;font:inherit;font-size:15px;
+  /* Sfondo quasi bianco invece di bianco trasparente su rosso: il
+     testo scritto e il segnaposto restano leggibili subito, senza
+     dover aguzzare la vista sul rosso pieno dietro. */
+  flex:1 1 220px;min-width:0;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.5);
+  border-radius:var(--radius);padding:16px 20px;color:var(--ink);font:inherit;font-size:15px;
   transition:.2s border-color,.2s background
 }
-.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.65)}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(16,16,16,.5)}
 .contact-form input:focus,.contact-form textarea:focus{
-  outline:none;border-color:#fff;background:rgba(255,255,255,.18)
+  outline:none;border-color:#fff;background:#fff
 }
+.contact-form select{
+  flex:1 1 220px;min-width:0;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.5);
+  border-radius:var(--radius);padding:16px 20px;color:var(--ink);font:inherit;font-size:15px;
+  transition:.2s border-color,.2s background
+}
+.contact-form select:focus{ outline:none;border-color:#fff;background:#fff }
 .contact-form textarea{resize:vertical;min-height:120px}
 .contact-form-footer{align-items:center;gap:20px}
 .contact-form-status{margin:0;font-size:13px;color:rgba(255,255,255,.85)}
@@ -173,7 +182,7 @@ footer strong{color:#fff;font-family:Manrope,sans-serif}
 .gallery-section{padding:40px 0 110px;background:var(--paper)}
 .gallery-title{font-family:Manrope,sans-serif;font-size:clamp(44px,6vw,86px);letter-spacing:-.055em;margin-bottom:35px}
 .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.gallery-item{grid-column:span 6;padding:0;border:0;border-radius:14px;overflow:hidden;appearance:none;cursor:zoom-in;background:#ddd}
+.gallery-item{position:relative;grid-column:span 6;padding:0;border:0;border-radius:14px;overflow:hidden;appearance:none;cursor:zoom-in;background:#ddd}
 .gallery-item:nth-child(2),.gallery-item:nth-child(3){grid-column:span 6}
 .gallery-item img{aspect-ratio:16/10;object-fit:cover;transition:.5s}
 .gallery-item:nth-child(even) img{aspect-ratio:4/5}
@@ -1516,7 +1525,26 @@ section{
     height:40px;
   }
 
-  /* Menu mobile: pannello compatto, non fullscreen */
+  /* Menu mobile: pannello compatto, non fullscreen.
+     Il pannello da solo copre solo la parte alta dello schermo: senza
+     uno sfondo dietro, il resto della pagina (hero, pulsanti) restava
+     visibile e persino cliccabile attorno e sotto al pannello. Il
+     ::before su body fa da tendina scura a schermo intero, dietro al
+     pannello ma sopra tutto il resto, e si può anche toccare per
+     chiudere il menu. */
+  body.mobile-menu-open::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:1150;
+    background:rgba(10,10,10,.55);
+    backdrop-filter:blur(2px);
+    opacity:0;
+    animation:navBackdropIn .25s ease forwards;
+  }
+
+  @keyframes navBackdropIn{ to{ opacity:1; } }
+
   .nav{
     inset:58px 10px auto 10px !important;
     width:auto !important;
@@ -2147,6 +2175,93 @@ footer strong::before{
 
 @media (max-width:760px){
   footer strong::before{ width:20px; height:20px; flex-basis:20px; }
+}
+
+/* =========================================================
+   FILIGRANA — marchio in basso a destra sulle foto principali
+   Aggiunta via JS (assets/js/main.js) su .hero, .page-hero e ogni
+   .gallery-item: uno stile solo, per tutte le pagine.
+========================================================= */
+.site-watermark{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  width:30px;
+  height:30px;
+  background-image:url("../../images/gpj-mark.png");
+  background-position:center;
+  background-size:contain;
+  background-repeat:no-repeat;
+  opacity:.55;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.55));
+  pointer-events:none;
+  z-index:1;
+}
+.hero .site-watermark,
+.page-hero .site-watermark{
+  z-index:1;
+  /* In basso a sinistra invece che a destra: a destra ci sta ora il
+     pulsante WhatsApp fisso, sempre sopra a tutto, e si sovrapporrebbe
+     alla filigrana proprio nelle sezioni più grandi (hero). */
+  right:auto;
+  left:14px;
+}
+@media (max-width:760px){
+  .site-watermark{ width:22px; height:22px; right:10px; bottom:10px; }
+  .hero .site-watermark,
+  .page-hero .site-watermark{ right:auto; left:10px; }
+}
+
+/* Pulsante WhatsApp fisso: sempre visibile, in basso a destra,
+   sopra header e contenuto ma sotto menu mobile e lightbox
+   (che sono a schermo intero, quindi lo coprono comunque). */
+.wa-float{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:950;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#25D366;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.28), 0 2px 6px rgba(0,0,0,.18);
+  transition:transform .2s ease, box-shadow .2s ease;
+  text-decoration:none;
+}
+.wa-float:hover{ transform:translateY(-2px) scale(1.04); box-shadow:0 10px 26px rgba(0,0,0,.32), 0 3px 8px rgba(0,0,0,.2); }
+.wa-float svg{ width:29px; height:29px; display:block; }
+.wa-float-label{
+  position:absolute;
+  right:calc(100% + 12px);
+  top:50%;
+  transform:translateY(-50%);
+  background:#0f0f0f;
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.01em;
+  padding:8px 14px;
+  border-radius:8px;
+  white-space:nowrap;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .18s ease, visibility .18s ease;
+  pointer-events:none;
+}
+.wa-float:hover .wa-float-label{ opacity:1; visibility:visible; }
+@media (max-width:760px){
+  .wa-float{ right:16px; bottom:16px; width:54px; height:54px; }
+  .wa-float svg{ width:27px; height:27px; }
+  .wa-float-label{ display:none; }
+}
+/* Sui form di contatto/recensioni teniamo il pulsante un po' più in alto
+   per non sovrapporsi al pulsante di invio in fondo, su schermi piccoli. */
+@media (max-width:480px){
+  .wa-float{ bottom:14px; right:14px; width:50px; height:50px; }
+  .wa-float svg{ width:25px; height:25px; }
 }
 
 /* =========================================================

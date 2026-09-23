@@ -96,6 +96,18 @@ if(menuBtn){
       syncBrandMark();
     }
   });
+
+  /* Toccare fuori dal pannello (sulla tendina scura di sfondo) chiude
+     il menu, come ci si aspetta da un overlay mobile. */
+  document.addEventListener("click", e => {
+    if(!document.body.classList.contains("mobile-menu-open")) return;
+    if(nav && nav.contains(e.target)) return;
+    if(menuBtn.contains(e.target)) return;
+    document.body.classList.remove("mobile-menu-open");
+    document.body.classList.remove("locked");
+    menuBtn.setAttribute("aria-expanded", "false");
+    syncBrandMark();
+  });
 }
 
 const filters = document.querySelectorAll(".filter");
@@ -241,4 +253,115 @@ window.addEventListener("resize", () => {
         });
     });
   });
+})();
+
+
+/* Numeri animati (pagina numeri.html): le cifre partono da 0 e salgono
+   fino al valore reale quando la statistica entra nello schermo. Legge
+   il numero direttamente dal testo già scritto nell'HTML (nessun dato
+   duplicato altrove): capisce il segno "+", i punti delle migliaia,
+   la virgola dei decimali e un'eventuale parola dopo il numero
+   ("mln", "follower"...). Se l'utente preferisce meno animazioni,
+   il numero compare direttamente, senza contare. */
+(function () {
+  var targets = document.querySelectorAll(".stat strong, .bar-row strong, .followers-big, .fitem strong, .growth");
+  if (!targets.length) return;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function parseNumero(testo) {
+    var m = testo.trim().match(/^(\+)?([\d.,]+)(.*)$/);
+    if (!m) return null;
+    var segno = m[1] || "";
+    var cifre = m[2];
+    var seguito = m[3] || "";
+    var decimali = 0;
+    var normalizzato = cifre;
+    if (cifre.indexOf(",") > -1) {
+      var parti = cifre.split(",");
+      decimali = parti[parti.length - 1].length;
+      normalizzato = parti.join("").replace(/\./g, "");
+      normalizzato = normalizzato.slice(0, normalizzato.length - decimali) + "." + normalizzato.slice(normalizzato.length - decimali);
+    } else {
+      normalizzato = cifre.replace(/\./g, "");
+    }
+    var valore = parseFloat(normalizzato);
+    if (isNaN(valore)) return null;
+    return { segno: segno, valore: valore, decimali: decimali, seguito: seguito };
+  }
+
+  function formatta(v, decimali, segno, seguito) {
+    var testo = v.toLocaleString("it-IT", { minimumFractionDigits: decimali, maximumFractionDigits: decimali });
+    return segno + testo + seguito;
+  }
+
+  function animaContatore(el) {
+    var dati = parseNumero(el.textContent);
+    if (!dati) return;
+    if (reduceMotion) return;
+    var finale = el.textContent;
+    var durata = 1400, inizio = null;
+    el.textContent = formatta(0, dati.decimali, dati.segno, dati.seguito);
+    function frame(t) {
+      if (inizio === null) inizio = t;
+      var p = Math.min(1, (t - inizio) / durata);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = formatta(dati.valore * eased, dati.decimali, dati.segno, dati.seguito);
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = finale;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var numObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        animaContatore(entry.target);
+        numObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .4 });
+  targets.forEach(function (el) { numObserver.observe(el); });
+})();
+
+
+/* Filigrana: un piccolo marchio semi-trasparente in basso a destra
+   sulle foto principali (hero, gallerie di progetto), per riconoscere
+   a colpo d'occhio le immagini se vengono condivise o screenshottate
+   fuori dal sito. Aggiunta via JS così non tocca il markup di ogni
+   pagina: uno stesso stile, ovunque, aggiornabile da un punto solo. */
+(function () {
+  var contenitori = document.querySelectorAll(".hero, .page-hero, .gallery-item");
+  if (!contenitori.length) return;
+  var primoMark = document.querySelector(".brand-mark img");
+  if (!primoMark) return;
+  var src = primoMark.getAttribute("src") || "";
+  var prefix = src.startsWith("../") ? "../" : "";
+  contenitori.forEach(function (el) {
+    if (el.querySelector(".site-watermark")) return;
+    var span = document.createElement("span");
+    span.className = "site-watermark";
+    span.setAttribute("aria-hidden", "true");
+    span.style.backgroundImage = "url('" + prefix + "images/gpj-mark.png')";
+    el.appendChild(span);
+  });
+})();
+
+/* Pulsante WhatsApp fisso, su tutte le pagine. Numero e messaggio
+   in un punto solo: per cambiarli basta modificare qui. */
+(function () {
+  if (document.querySelector(".wa-float")) return;
+  var NUMERO = "393913896386";
+  var MESSAGGIO = "Ciao Gianluca, ho visto il tuo portfolio e vorrei parlare di un progetto.";
+  var link = document.createElement("a");
+  link.className = "wa-float";
+  link.href = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(MESSAGGIO);
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.setAttribute("aria-label", "Scrivimi su WhatsApp");
+  link.innerHTML =
+    '<span class="wa-float-label">Scrivimi su WhatsApp</span>' +
+    '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+    '<path fill="#fff" d="M16.02 3C9.4 3 4.02 8.38 4.02 15c0 2.24.62 4.34 1.7 6.14L4 29l8.06-1.66A11.9 11.9 0 0 0 16.02 27C22.64 27 28 21.62 28 15S22.64 3 16.02 3Zm0 21.8c-1.9 0-3.68-.52-5.2-1.44l-.37-.22-4.44.92.94-4.32-.24-.38A9.7 9.7 0 0 1 5.22 15c0-5.96 4.86-10.8 10.8-10.8 5.94 0 10.78 4.84 10.78 10.8 0 5.96-4.84 10.8-10.78 10.8Zm5.9-8.1c-.32-.16-1.9-.94-2.2-1.04-.3-.11-.5-.16-.72.16-.2.32-.83 1.04-1.02 1.25-.19.22-.37.24-.69.08-.32-.16-1.34-.5-2.55-1.58-.94-.84-1.58-1.87-1.76-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.19.21-.32.32-.53.11-.22.05-.4-.03-.56-.08-.16-.72-1.75-.99-2.4-.26-.62-.53-.54-.72-.55h-.62c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67 0 1.57 1.15 3.09 1.31 3.3.16.22 2.26 3.5 5.49 4.9.77.33 1.36.53 1.83.68.77.25 1.47.21 2.02.13.62-.09 1.9-.78 2.16-1.53.27-.75.27-1.4.19-1.53-.08-.14-.29-.22-.61-.38Z"/>' +
+    "</svg>";
+  document.body.appendChild(link);
 })();

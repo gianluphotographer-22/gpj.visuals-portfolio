@@ -167,12 +167,26 @@ GPJ.VISUALS-Portfolio
 
 .reviews-grid {
 
-  display: grid;
+  /* Flexbox invece di grid: quando le recensioni pinnate non sono
+     un multiplo di 3, l'ultima card resta da sola nell'ultima riga.
+     Con grid finiva accostata a sinistra, con un vuoto evidente a
+     destra; con flex + justify-content:center si centra da sola,
+     qualunque sia il numero di recensioni mostrate. */
+  display: flex;
 
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+  flex-wrap: wrap;
+
+  justify-content: center;
 
   gap: 14px;
+
+}
+
+.reviews-grid .review-card {
+
+  flex: 0 1 calc((100% - 2 * 14px) / 3);
+
+  min-width: 260px;
 
 }
 
@@ -400,7 +414,12 @@ GPJ.VISUALS-Portfolio
 ========================================================= */
 
 .numbers-band {
-  background: var(--red);
+  /* Scuro invece di rosso pieno: il rosso pieno resta così un
+     accento raro, usato solo dove deve colpire di più (il form di
+     contatto in fondo alla pagina). Tra le due sezioni nere
+     (qui e "Multimedia" subito sotto) il rosso torna solo nei
+     numeri e nei dettagli, come accento. */
+  background: var(--dark);
   color: #fff;
   padding: 100px 0;
 }
@@ -410,7 +429,7 @@ GPJ.VISUALS-Portfolio
 }
 
 .numbers-band .eyebrow.red {
-  color: rgba(255, 255, 255, .75);
+  color: var(--red);
 }
 
 .numbers-band h2 {
@@ -500,10 +519,9 @@ and
   }
 
 
-  .reviews-grid {
+  .reviews-grid .review-card {
 
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    flex-basis: calc((100% - 14px) / 2);
 
   }
 
@@ -543,6 +561,10 @@ and
 
     display: flex;
 
+    flex-wrap: nowrap;
+
+    justify-content: flex-start;
+
     overflow-x: auto;
 
     gap: 10px;
@@ -572,11 +594,13 @@ and
   }
 
 
-  .review-card {
+  .reviews-grid .review-card {
 
     flex:
       0 0
       min(82vw, 330px);
+
+    min-width: 0;
 
     min-height: 0;
 

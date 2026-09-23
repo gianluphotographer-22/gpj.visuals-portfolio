@@ -47,11 +47,20 @@
     .reviews-page .page-hero { min-height: clamp(340px, 52svh, 620px); }
 
     .reviews-page .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      /* Flex invece di grid: se le recensioni non sono un multiplo di 3
+         (o di 2 da tablet in giù), l'ultima card si centra da sola
+         invece di restare accostata a sinistra con un vuoto a destra. */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 14px;
       margin-top: 40px;
     }
+    .reviews-page .reviews-grid .review-card {
+      flex: 0 1 calc((100% - 2 * 14px) / 3);
+      min-width: 260px;
+    }
+    .reviews-page .reviews-empty{ flex-basis: 100%; }
 
     .reviews-page .review-card {
       min-width: 0;
@@ -98,7 +107,7 @@
     }
 
     .reviews-page .reviews-empty{
-      grid-column:1/-1;text-align:center;padding:50px 20px;
+      text-align:center;padding:50px 20px;
       border:1px dashed var(--line);border-radius:15px;color:var(--muted);
       font-size:15px;line-height:1.7
     }
@@ -109,16 +118,19 @@
     .reviews-page .form-band p.lead{max-width:56ch;color:rgba(255,255,255,.85);line-height:1.7;margin:0 0 10px}
 
     .reviews-page .contact-form select{
-      flex:1 1 180px;min-width:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);
-      border-radius:var(--radius);padding:16px 20px;color:#fff;font:inherit;font-size:15px
+      /* Come gli altri campi del form: sfondo quasi bianco invece di
+         bianco trasparente su rosso, per restare leggibile subito. */
+      flex:1 1 180px;min-width:0;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.5);
+      border-radius:var(--radius);padding:16px 20px;color:var(--ink);font:inherit;font-size:15px
     }
+    .reviews-page .contact-form select:focus{ outline:none;border-color:#fff;background:#fff }
     .reviews-page .contact-form select option{color:#111}
 
     @media (max-width:900px){
-      .reviews-page .reviews-grid{grid-template-columns:repeat(2,1fr)}
+      .reviews-page .reviews-grid .review-card{ flex-basis: calc((100% - 14px) / 2); }
     }
     @media (max-width:640px){
-      .reviews-page .reviews-grid{grid-template-columns:1fr}
+      .reviews-page .reviews-grid .review-card{ flex-basis: 100%; }
       .reviews-page .contact-form select{flex-basis:auto}
     }
 

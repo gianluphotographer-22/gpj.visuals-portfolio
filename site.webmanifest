@@ -2,8 +2,8 @@
   "name": "Gianluca Paglionico — GPJ.Visuals",
   "short_name": "GPJ.Visuals",
   "description": "Portfolio fotografico e video di Gianluca Paglionico: sport, eventi, ritratti.",
-  "start_url": "/portfolio-gpj/index.html",
-  "scope": "/portfolio-gpj/",
+  "start_url": "/gpj.visuals-portfolio/index.html",
+  "scope": "/gpj.visuals-portfolio/",
   "display": "standalone",
   "background_color": "#111111",
   "theme_color": "#e10600",
@@ -12,6 +12,12 @@
     {
       "src": "images/favicon.png",
       "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/favicon-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     }
