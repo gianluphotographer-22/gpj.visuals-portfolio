@@ -156,6 +156,54 @@ quelle pagine con una versione vecchia, rimetti:
     <script src="../assets/js/dynamic.js"></script>
 
 
+10) Recensioni: quali mostrare in homepage
+-------------------------------------------
+Nella barra a sinistra, «Recensioni», trovi tutte le recensioni "generali"
+(quelle che arrivano dal modulo del sito o che aggiungi con l'Excel,
+aggiorna-da-excel.py). Per ognuna c'è un interruttore «Mostra anche in
+homepage»: acceso, quella recensione compare anche nella sezione
+recensioni della pagina principale, oltre che nella pagina Recensioni
+generali. Spento, resta solo lì.
+
+Le modifiche restano come bozza finché non premi «Pubblica» (punto 7 o
+11). «Scarta le modifiche e ricarica dal file» riporta tutto a come
+risulta in dati/recensioni-generali.js, l'ultima versione pubblicata.
+
+Le stesse informazioni si possono cambiare anche dall'Excel (colonna
+«In home (SI/NO)») o a mano nel JSON («pinned»: true/false): sono due
+strade diverse per la stessa cosa, usa quella che preferisci.
+
+
+11) Pubblicazione automatica su GitHub (senza scaricare zip)
+----------------------------------------------------------------
+In alternativa al pacchetto da scaricare e caricare a mano (punto 7), il
+pannello può pubblicare da solo direttamente sul tuo repository GitHub.
+
+Impostazione (una volta sola), da «Impostazioni» > «Pubblicazione
+automatica su GitHub»:
+  - Utente/organizzazione GitHub e nome del repository (già precompilati
+    con i valori di questo sito).
+  - Branch (di solito "main").
+  - Un Personal Access Token che crei tu su GitHub: Settings > Developer
+    settings > Personal access tokens > Fine-grained tokens > Generate
+    new token. Dagli accesso in lettura E scrittura a «Contents», solo
+    per questo repository. Copialo e incollalo nel campo «Personal
+    Access Token»: resta salvato solo in questo browser (localStorage),
+    non viene mai inviato da nessuna parte se non a GitHub stesso quando
+    premi «Pubblica».
+
+Una volta impostato, in «Pubblica» trovi il pulsante «Pubblica su
+GitHub» al posto (o in aggiunta) allo zip: scrive pagine, foto
+modificate, data/content.js e le recensioni direttamente sul repository.
+GitHub Pages rileva la modifica e aggiorna il sito online da solo, di
+solito entro un minuto o due — niente più scaricare, decomprimere e
+ricaricare a mano.
+
+Se in futuro sospetti che il token sia finito nelle mani sbagliate:
+cancellalo da GitHub (Settings > Developer settings > Personal access
+tokens) e creane uno nuovo.
+
+
 Note
 ----
 - Le pagine progetto già esistenti restano com'erano (file statici): il

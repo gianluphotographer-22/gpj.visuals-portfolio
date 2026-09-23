@@ -10,7 +10,7 @@
   /* Accesso online: la pagina risponde solo a chi ha il link completo
      (indirizzo + chiave dopo il #). Per tutti gli altri appare un 404.
      In locale (file:// o localhost) non c'è nessun controllo. */
-  var H = '28144ef209d20cf136d5836a38c24565dada769b59ef3df42ea2313e795b848d';
+  var H = 'aa89becb759b53e12b1f5d0a2ebd947e493ee9214c210412925bab9bfc28cf04';
   var online = /^https?:$/.test(location.protocol) &&
     !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   if (!online || H.indexOf('__') === 0) return;
@@ -141,6 +141,11 @@ input[type=range]{accent-color:var(--red);width:100%}
 .hint{color:var(--muted);font-size:12px;line-height:1.5}
 .hint code,.lead code,.notes code,.steps code{font:12px ui-monospace,Menlo,monospace;background:rgba(16,16,16,.07);padding:1px 5px;border-radius:5px}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.review-row{margin-bottom:12px}
+.review-row-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.review-row-head .muted{color:var(--muted);font-size:13px}
+.review-row-stars{margin-left:auto;color:var(--red);letter-spacing:1px}
+.review-row-text{color:#3d3d3d;font-size:13px;line-height:1.5;margin-bottom:10px}
 
 .url-in{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
 .url-in:focus-within{border-color:var(--red);box-shadow:0 0 0 3px rgba(225,6,0,.14)}
@@ -456,6 +461,7 @@ dialog form{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
       <button class="side-link" type="button" data-action="view" data-view="home">Sezioni homepage</button>
       <button class="side-link" type="button" data-action="view" data-view="images">Immagini del sito</button>
       <button class="side-link" type="button" data-action="view" data-view="cats">Categorie</button>
+      <button class="side-link" type="button" data-action="view" data-view="reviews">Recensioni</button>
       <button class="side-link" type="button" data-action="view" data-view="export">Pubblica</button>
       <button class="side-link" type="button" data-action="view" data-view="settings">Impostazioni</button>
     </div>
@@ -508,6 +514,7 @@ dialog form{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
 
 <!-- Contenuti già pubblicati (se presenti) -->
 <script src="data/content.js"></script>
+<script src="dati/recensioni-generali.js"></script>
 <script src="assets/js/gpj-render.js"></script>
 
 <script>
@@ -522,6 +529,7 @@ const R = window.GPJRender;
 const KEY_DATA = 'gpj_admin_data_v1';
 const KEY_AUTH = 'gpj_admin_auth_v1';
 const KEY_SET  = 'gpj_admin_settings_v1';
+const KEY_REVIEWS = 'gpj_admin_reviews_v1';
 const SESSION  = 'gpj_admin_session';
 
 const LEGACY = [
@@ -634,7 +642,11 @@ const srcFor = R ? R.makeSrc({ base: '', resolve: p => (imgs.get(p) || {}).url }
    STATO
 ========================================================= */
 let S = null;                                     // dati del sito
-let settings = Object.assign({ max: 2200, q: 0.82 }, ls.get(KEY_SET, {}));
+let REVIEWS = null;                               // recensioni (dati/recensioni-generali.*)
+let settings = Object.assign({
+  max: 2200, q: 0.82,
+  ghOwner: 'gianluphotographer-22', ghRepo: 'portfolio-gpj', ghBranch: 'main', ghToken: ''
+}, ls.get(KEY_SET, {}));
 const ui = { view: 'page', pageId: null, legacy: null, open: {}, pv: false, device: 'desktop' };
 let radioN = 0;
 
@@ -722,6 +734,15 @@ function loadData() {
     if (site && site.siteImageDefaults) S.siteImageDefaults = clone(site.siteImageDefaults);
   }
 }
+
+function loadReviews() {
+  const saved = ls.get(KEY_REVIEWS, null);
+  if (Array.isArray(saved)) { REVIEWS = saved; return; }
+  REVIEWS = Array.isArray(window.GPJ_REVIEWS) ? clone(window.GPJ_REVIEWS) : [];
+}
+function persistReviews() { ls.set(KEY_REVIEWS, REVIEWS); }
+function reviewsJson() { return JSON.stringify(REVIEWS, null, 2) + '\n'; }
+function reviewsJs() { return 'window.GPJ_REVIEWS = ' + JSON.stringify(REVIEWS, null, 2) + ';\n'; }
 
 const curPage = () => S.pages.find(p => p.id === ui.pageId) || null;
 function extrasOf(slug) {
@@ -945,7 +966,7 @@ function renderAll() { renderSide(); renderTop(); renderEditor(); renderPreview(
    RENDER — editor
 ========================================================= */
 function renderEditor() {
-  const views = { page: viewPage, home: viewHome, legacy: viewLegacy, images: viewImages, cats: viewCats, export: viewExport, settings: viewSettings };
+  const views = { page: viewPage, home: viewHome, legacy: viewLegacy, images: viewImages, cats: viewCats, reviews: viewReviews, export: viewExport, settings: viewSettings };
   $('#editor').innerHTML = (views[ui.view] || viewPage)();
   const r = $('#rangeQ'); if (r) r.dispatchEvent(new Event('input'));
 }
@@ -1004,6 +1025,28 @@ function viewImages() {
   return '<div class="view-head"><h1 class="view-title">Immagini del sito.</h1>' +
     '<p class="lead">Le foto principali della homepage e le copertine dei progetti già presenti. Cambiale quando vuoi: dopo la pubblicazione si aggiornano ovunque compaiono, comprese le pagine dei singoli progetti.</p></div>' +
     groups.map(g => '<div class="panel"><h3>' + esc(g.name) + '</h3><div class="simg-grid">' + g.items.map(siteImgTile).join('') + '</div></div>').join('');
+}
+
+function viewReviews() {
+  const n = REVIEWS.filter(r => r.pinned).length;
+  const rows = !REVIEWS.length
+    ? '<p class="hint">Nessuna recensione trovata in <code>dati/recensioni-generali.js</code>. Aggiungile con l’Excel (<code>aggiorna-da-excel.py</code>) o a mano nel JSON, poi «Scarta e ricarica» qui sotto.</p>'
+    : REVIEWS.map((r, i) => {
+        const voto = Math.max(1, Math.min(5, parseInt(r.voto, 10) || 5));
+        const stelle = '★'.repeat(voto) + '☆'.repeat(5 - voto);
+        return '<div class="panel review-row">' +
+          '<div class="review-row-head"><b>' + esc(r.nome || 'Senza nome') + '</b>' +
+          (r.ruolo ? '<span class="muted"> — ' + esc(r.ruolo) + '</span>' : '') +
+          '<span class="review-row-stars">' + stelle + '</span></div>' +
+          '<p class="review-row-text">“' + esc((r.testo || '').slice(0, 220)) + ((r.testo || '').length > 220 ? '…' : '') + '”</p>' +
+          fSw('Mostra anche in homepage', 'rev.' + i + '.pinned', !!r.pinned) +
+          '</div>';
+      }).join('');
+  return '<div class="view-head"><h1 class="view-title">Recensioni.</h1>' +
+    '<p class="lead">Le recensioni arrivano dal modulo del sito o dall’Excel (<code>aggiorna-da-excel.py</code>). Da qui scegli quali, tra quelle già pubblicate in «Recensioni generali», mostrare anche in homepage. Attualmente in homepage: <b>' + n + '</b>.</p></div>' +
+    '<div class="panel"><button class="btn ghost sm" type="button" data-action="reload-reviews">Scarta le modifiche e ricarica dal file</button> ' +
+    '<p class="hint">Le modifiche restano qui come bozza finché non premi «Pubblica».</p></div>' +
+    rows;
 }
 
 function coverField(p) {
@@ -1216,6 +1259,8 @@ function buildPlan() {
     if (rec) { files.push({ name: p, size: rec.size }); imgBytes += rec.size; imgCount++; }
     else if (!/^(https?:)?\/\//i.test(p)) ext++;
   });
+  files.unshift({ name: 'dati/recensioni-generali.js', size: 0 });
+  files.unshift({ name: 'dati/recensioni-generali.json', size: 0 });
   files.unshift({ name: 'data/content.js', size: 0 });
 
   if (ext) warns.push(ext + (ext === 1 ? ' foto usa un file' : ' foto usano file') + ' già presente nel sito: controlla che i percorsi siano scritti bene.');
@@ -1238,7 +1283,11 @@ function viewExport() {
     (plan.extraCount ? ' e <b>' + plan.extraCount + (plan.extraCount === 1 ? ' raccolta o sezione' : ' raccolte o sezioni') + '</b> per ' + (plan.extraPages.length === 1 ? 'una pagina già nel sito' : plan.extraPages.length + ' pagine già nel sito') : '') +
     (plan.siteImgChanged.length ? ' e <b>' + plan.siteImgChanged.length + (plan.siteImgChanged.length === 1 ? ' immagine del sito sostituita' : ' immagini del sito sostituite') + '</b>' : '') + '.</p>' +
     (plan.errors.length || plan.warns.length ? '<ul class="notes">' + plan.errors.map(e => '<li class="err">' + esc(e) + '</li>').join('') + plan.warns.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '') +
-    '<div class="btns"><button class="btn red" type="button" data-action="export-zip"' + (plan.errors.length || !hasStuff ? ' disabled' : '') + '>Scarica il pacchetto (.zip)</button>' +
+    (settings.ghToken ?
+      '<div class="btns"><button class="btn red" type="button" data-action="publish-github"' + (plan.errors.length ? ' disabled' : '') + '>Pubblica su GitHub</button></div>' +
+      '<p class="hint">Scrive direttamente sul repository configurato in Impostazioni: il sito si aggiorna da solo, senza scaricare o caricare nulla a mano.</p>'
+      : '<p class="hint">Vuoi che «Pubblica» aggiorni il sito da solo, senza scaricare uno zip? Imposta un token GitHub nelle <button class="btn sm ghost" type="button" data-action="view" data-view="settings">Impostazioni</button>.</p>') +
+    '<div class="btns" style="margin-top:14px"><button class="btn' + (settings.ghToken ? ' ghost' : ' red') + '" type="button" data-action="export-zip"' + (plan.errors.length || !hasStuff ? ' disabled' : '') + '>Scarica il pacchetto (.zip)</button>' +
     '<button class="btn ghost" type="button" data-action="export-js"' + (plan.errors.length ? ' disabled' : '') + '>Solo data/content.js</button></div>' +
     (!hasStuff ? '<p class="hint">Non c\u2019è ancora nulla da pubblicare: attiva «Pubblicata» su una pagina, aggiungi una sezione alla homepage, una raccolta a una pagina già nel sito o cambia un\u2019immagine.</p>' : '') + '</div>' +
 
@@ -1279,7 +1328,15 @@ function viewSettings() {
     '<div class="panel"><h3>Dati</h3><div class="btns">' +
     '<button class="btn ghost" type="button" data-action="reload-site">Scarta la bozza e ricarica dal sito</button>' +
     '<button class="btn ghost danger" type="button" data-action="wipe">Cancella tutti i dati di questo browser</button></div>' +
-    '<p class="hint">«Ricarica dal sito» legge <code>data/content.js</code>: recupera le pagine pubblicate, non le bozze.</p></div>';
+    '<p class="hint">«Ricarica dal sito» legge <code>data/content.js</code>: recupera le pagine pubblicate, non le bozze.</p></div>' +
+
+    '<div class="panel"><h3>Pubblicazione automatica su GitHub</h3>' +
+    '<p class="hint">Con queste informazioni, «Pubblica» può scrivere le pagine e i dati aggiornati direttamente sul tuo repository GitHub, senza scaricare uno zip da caricare a mano: il sito si aggiorna da solo entro un minuto o due. Il token resta salvato solo in questo browser, non viene mai inviato altrove.</p>' +
+    '<div class="grid2">' + fText('Utente o organizzazione GitHub', 'cfg.ghOwner', settings.ghOwner, { ph: 'es. gianluphotographer-22' }) +
+    fText('Nome del repository', 'cfg.ghRepo', settings.ghRepo, { ph: 'es. portfolio-gpj' }) + '</div>' +
+    '<div class="grid2">' + fText('Branch', 'cfg.ghBranch', settings.ghBranch, { ph: 'main' }) +
+    '<label class="fld"><span>Personal Access Token</span><input type="password" data-path="cfg.ghToken" autocomplete="off" value="' + esc(settings.ghToken) + '" placeholder="ghp_…"></label></div>' +
+    '<p class="hint">Il token si crea una volta sola su GitHub: <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens</b>, con accesso in lettura/scrittura ai «Contents» solo di questo repository. Se non lo imposti, «Pubblica» continua a funzionare come prima, con lo zip da scaricare.</p></div>';
 }
 
 /* =========================================================
@@ -1444,7 +1501,7 @@ function markExported() {
 }
 function readmeText(plan) {
   const L = ['PACCHETTO DI PUBBLICAZIONE — GPJ VISUALS', 'Creato il ' + new Date().toLocaleString('it-IT'), '',
-    '1. Copia le cartelle projects, images e data nella cartella del sito.', '   Accetta di sostituire i file con lo stesso nome.'];
+    '1. Copia le cartelle projects, images, data e dati nella cartella del sito.', '   Accetta di sostituire i file con lo stesso nome.'];
   if (plan.vids.length) { L.push('2. Copia questi video nella cartella del sito:'); plan.vids.forEach(v => L.push('   - ' + v)); }
   if (plan.extraPages.length) {
     L.push('', 'Raccolte aggiunte a pagine già presenti (sono dentro data/content.js):');
@@ -1455,6 +1512,85 @@ function readmeText(plan) {
   if (gone.length) { L.push('', 'Da eliminare dal sito (pagine non più pubblicate):'); gone.forEach(s => L.push('   - projects/' + s + '.html')); }
   return L.join('\r\n') + '\r\n';
 }
+/* =========================================================
+   PUBBLICAZIONE AUTOMATICA SU GITHUB
+   Scrive i file direttamente sul repository via GitHub REST API
+   (Contents), cosi' "Pubblica" non richiede piu' scaricare uno zip
+   e caricarlo a mano: il token resta solo in questo browser
+   (localStorage, impostazioni), non transita mai altrove.
+========================================================= */
+function u8ToBase64(u8) {
+  let binary = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < u8.length; i += chunk) {
+    binary += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
+  }
+  return btoa(binary);
+}
+async function ghApi(method, path, body) {
+  const res = await fetch('https://api.github.com/repos/' + settings.ghOwner + '/' + settings.ghRepo + path, {
+    method,
+    headers: Object.assign(
+      { 'Authorization': 'Bearer ' + settings.ghToken, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+      body ? { 'Content-Type': 'application/json' } : {}
+    ),
+    body: body ? JSON.stringify(body) : undefined
+  });
+  return res;
+}
+async function ghPutFile(filePath, bytes, message) {
+  const branch = settings.ghBranch || 'main';
+  const encPath = filePath.split('/').map(encodeURIComponent).join('/');
+  let sha;
+  const getRes = await ghApi('GET', '/contents/' + encPath + '?ref=' + encodeURIComponent(branch));
+  if (getRes.status === 200) { sha = (await getRes.json()).sha; }
+  else if (getRes.status === 401) throw new Error('Token GitHub non valido o scaduto. Controlla le Impostazioni.');
+  else if (getRes.status !== 404) {
+    const j = await getRes.json().catch(() => ({}));
+    throw new Error('Errore leggendo ' + filePath + ' (' + getRes.status + '): ' + (j.message || getRes.statusText));
+  }
+  const putRes = await ghApi('PUT', '/contents/' + encPath, Object.assign(
+    { message, content: u8ToBase64(bytes), branch }, sha ? { sha } : {}
+  ));
+  if (!putRes.ok) {
+    const j = await putRes.json().catch(() => ({}));
+    if (putRes.status === 401) throw new Error('Token GitHub non valido o scaduto. Controlla le Impostazioni.');
+    if (putRes.status === 404) throw new Error('Repository non trovato: controlla utente/organizzazione e nome del repository nelle Impostazioni.');
+    throw new Error('Errore scrivendo ' + filePath + ' (' + putRes.status + '): ' + (j.message || putRes.statusText));
+  }
+}
+async function publishToGitHub() {
+  const plan = buildPlan();
+  if (plan.errors.length) return;
+  if (!settings.ghToken || !settings.ghOwner || !settings.ghRepo) {
+    toast('Imposta prima utente, repository e token in Impostazioni.', 'err'); goto('settings'); return;
+  }
+  busy('Preparo la pubblicazione…');
+  try {
+    const enc = new TextEncoder();
+    const message = 'Aggiornamento dal pannello admin — ' + new Date().toLocaleString('it-IT');
+    const files = [];
+    files.push({ name: 'data/content.js', data: enc.encode(contentJs()) });
+    files.push({ name: 'dati/recensioni-generali.json', data: enc.encode(reviewsJson()) });
+    files.push({ name: 'dati/recensioni-generali.js', data: enc.encode(reviewsJs()) });
+    plan.pub.forEach(p => files.push({ name: 'projects/' + p.slug + '.html', data: enc.encode(R.projectPage(p, { pages: plan.pub, legacy: LEGACY })) }));
+    for (const f of plan.files) {
+      const rec = imgs.get(f.name);
+      if (rec) files.push({ name: f.name, data: new Uint8Array(await rec.blob.arrayBuffer()) });
+    }
+    for (let i = 0; i < files.length; i++) {
+      busy('Pubblico su GitHub… (' + (i + 1) + '/' + files.length + ') ' + files[i].name);
+      await ghPutFile(files[i].name, files[i].data, message);
+    }
+    markExported(); renderEditor();
+    toast('Pubblicato su GitHub: il sito si aggiorna da solo entro un minuto o due.');
+  } catch (e) {
+    console.error(e);
+    toast(e.message || 'Non sono riuscito a pubblicare su GitHub.', 'err');
+  }
+  busy(false);
+}
+
 async function exportZip() {
   const plan = buildPlan();
   if (plan.errors.length) return;
@@ -1463,6 +1599,8 @@ async function exportZip() {
     const enc = new TextEncoder(), files = [];
     files.push({ name: 'LEGGIMI.txt', data: enc.encode(readmeText(plan)) });
     files.push({ name: 'data/content.js', data: enc.encode(contentJs()) });
+    files.push({ name: 'dati/recensioni-generali.json', data: enc.encode(reviewsJson()) });
+    files.push({ name: 'dati/recensioni-generali.js', data: enc.encode(reviewsJs()) });
     plan.pub.forEach(p => files.push({ name: 'projects/' + p.slug + '.html', data: enc.encode(R.projectPage(p, { pages: plan.pub, legacy: LEGACY })) }));
     for (const f of plan.files) {
       const rec = imgs.get(f.name);
@@ -1531,6 +1669,7 @@ function ref(path) {
   else if (head === 'sec') { const f = findSec(parts.shift()); obj = f && f.s; }
   else if (head === 'cfg') obj = settings;
   else if (head === 'ext') obj = ui.legacy ? extrasOf(ui.legacy) : null;
+  else if (head === 'rev') obj = REVIEWS[parseInt(parts.shift(), 10)];
   if (!obj) return null;
   while (parts.length > 1) { obj = obj[parts.shift()]; if (obj == null) return null; }
   return { obj, key: parts[0] };
@@ -1578,6 +1717,7 @@ function afterField(path, type, el) {
     ls.set(KEY_SET, settings);
     const out = $('#rangeOut'); if (out && path === 'cfg.q') out.textContent = Math.round(settings.q * 100) + '%';
   }
+  if (path.indexOf('rev.') === 0) { persistReviews(); renderEditor(); }
 }
 function refreshBlockHead(sid) {
   const f = findSec(sid), el = $('.blk[data-sid="' + sid + '"]');
@@ -1704,6 +1844,7 @@ document.addEventListener('click', async e => {
     case 'del-cat': S.categories = S.categories.filter(c => c.key !== el.dataset.key); renderEditor(); touch(); break;
 
     case 'export-zip': exportZip(); break;
+    case 'publish-github': publishToGitHub(); break;
     case 'export-js': download(new Blob([contentJs()], { type: 'text/javascript' }), 'content.js'); markExported(); renderEditor(); toast('content.js scaricato'); break;
     case 'backup': backup(); break;
     case 'restore': $('#bkPick').click(); break;
@@ -1722,6 +1863,12 @@ document.addEventListener('click', async e => {
       if (!(await askConfirm('Scartare la bozza?', 'La bozza attuale viene sostituita dai contenuti pubblicati nel sito.', 'Scarta e ricarica'))) break;
       S = normalize(clone(site)); S.meta.exportedSlugs = S.pages.map(p => p.slug); S.meta.exportedHash = hashStr(contentJs());
       ui.pageId = S.pages[0] ? S.pages[0].id : null; ui.view = 'page'; persist(); renderAll(); toast('Bozza ricaricata dal sito');
+      break;
+    }
+    case 'reload-reviews': {
+      if (!(await askConfirm('Scartare le modifiche?', 'Le recensioni tornano come sono in dati/recensioni-generali.js.', 'Scarta e ricarica'))) break;
+      REVIEWS = Array.isArray(window.GPJ_REVIEWS) ? clone(window.GPJ_REVIEWS) : [];
+      persistReviews(); renderAll(); toast('Recensioni ricaricate dal file');
       break;
     }
     case 'forget-device': {
@@ -1762,6 +1909,7 @@ async function boot() {
     (await idb.all()).forEach(r => imgs.set(r.path, Object.assign({ url: URL.createObjectURL(r.blob) }, r)));
   } catch (e) { imgOK = false; }
   loadData();
+  loadReviews();
   let ok = false; try { ok = sessionStorage.getItem(SESSION) === '1' && !!ls.get(KEY_AUTH, null); } catch (e) {}
   if (ok) enter(); else showLock();
 }

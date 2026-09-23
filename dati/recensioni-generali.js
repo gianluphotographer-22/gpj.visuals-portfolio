@@ -1,4 +1,4 @@
-[
+window.GPJ_REVIEWS = [
   {
     "nome": "Davide Abrescia",
     "ruolo": "Contropiede PB",
@@ -39,4 +39,4 @@
     "avatar": "images/reviews/persona-04.jpg",
     "categoria": "Sport Photography"
   }
-]
+];

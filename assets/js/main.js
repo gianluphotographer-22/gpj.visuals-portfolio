@@ -1,12 +1,72 @@
 
+/* Recensioni "pinnate" in homepage: legge dati/recensioni-generali.js
+   (window.GPJ_REVIEWS, scritto a mano o dal pannello admin / dallo
+   script Excel) e mostra in #home-reviews-grid solo quelle con
+   pinned:true — così Gianluca sceglie da lì quali far vedere in home,
+   senza dover più toccare il codice della pagina. */
+(function () {
+  const grid = document.getElementById("home-reviews-grid");
+  if (!grid) return;
+  const reviews = (window.GPJ_REVIEWS || []).filter(r => r && r.pinned && r.nome && r.testo);
+  if (!reviews.length) return;
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  grid.innerHTML = reviews.map(r => {
+    const voto = Math.max(1, Math.min(5, parseInt(r.voto, 10) || 5));
+    const stelle = "★".repeat(voto) + "☆".repeat(5 - voto);
+    const iniziale = esc(r.nome.trim().slice(0, 1).toUpperCase());
+    const avatar = r.avatar
+      ? '<img loading="lazy" decoding="async" class="review-avatar" src="' + esc(r.avatar) + '" alt="' + esc(r.nome) + '">'
+      : '<div class="review-avatar" aria-hidden="true" style="display:flex;align-items:center;justify-content:center;background:var(--red);color:#fff;font-weight:800;font-size:18px;font-family:Manrope,sans-serif">' + iniziale + "</div>";
+    const categoria = esc(r.categoria || r.ruolo || "Recensione generale");
+    return (
+      '<article class="review-card reveal">' +
+        '<div class="review-header">' + avatar +
+          '<div class="review-user"><h3>' + esc(r.nome) + "</h3><p>" + esc(r.ruolo || "") + "</p></div>" +
+        "</div>" +
+        '<div class="review-rating" aria-label="' + voto + ' stelle su 5">' + stelle + "</div>" +
+        "<blockquote>“" + esc(r.testo) + "”</blockquote>" +
+        '<div class="review-footer"><span>' + categoria + "</span><span>" + esc(r.anno || "") + "</span></div>" +
+      "</article>"
+    );
+  }).join("");
+})();
+
 const header = document.querySelector(".site-header");
 const menuBtn = document.querySelector(".menu-btn");
 const nav = document.querySelector(".nav");
 
+/* Logo adattivo: nessuno sfondo dietro al marchio, sceglie la
+   variante bianca o rossa leggendo il colore del testo dell'header
+   (che il resto del CSS già imposta correttamente in ogni stato:
+   trasparente-su-hero, scrollato, menu mobile aperto...). */
+function syncBrandMark(){
+  if(!header) return;
+  const marks = document.querySelectorAll(".brand-mark img");
+  if(!marks.length) return;
+  const c = getComputedStyle(header).color;
+  const m = c.match(/[\d.]+/g);
+  const light = m && ((parseFloat(m[0]) + parseFloat(m[1]) + parseFloat(m[2])) / 3 > 150);
+  marks.forEach(img => {
+    const current = img.getAttribute("src") || "";
+    const prefix = current.startsWith("../") ? "../" : "";
+    const file = light ? "gpj-mark.png" : "gpj-mark-red.png";
+    const target = prefix + "images/" + file;
+    if(current !== target) img.setAttribute("src", target);
+  });
+}
+
 function headerState(){
   if(header) header.classList.toggle("scrolled", window.scrollY > 35);
+  syncBrandMark();
 }
 window.addEventListener("scroll", headerState);
+window.addEventListener("resize", syncBrandMark);
 headerState();
 
 if(menuBtn){
@@ -14,6 +74,7 @@ if(menuBtn){
     const open = document.body.classList.toggle("mobile-menu-open");
     document.body.classList.toggle("locked", open);
     menuBtn.setAttribute("aria-expanded", String(open));
+    syncBrandMark();
   });
 
   if(nav){
@@ -22,6 +83,7 @@ if(menuBtn){
         document.body.classList.remove("mobile-menu-open");
         document.body.classList.remove("locked");
         menuBtn.setAttribute("aria-expanded", "false");
+        syncBrandMark();
       });
     });
   }
@@ -31,6 +93,7 @@ if(menuBtn){
       document.body.classList.remove("mobile-menu-open");
       document.body.classList.remove("locked");
       menuBtn.setAttribute("aria-expanded", "false");
+      syncBrandMark();
     }
   });
 }

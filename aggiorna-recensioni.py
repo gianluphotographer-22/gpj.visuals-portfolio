@@ -19,10 +19,14 @@ COME FUNZIONA IN PRATICA
          "ruolo": "Cliente" ,
          "testo": "Il testo della recensione.",
          "voto": 5,
-         "anno": "2026"
+         "anno": "2026",
+         "pinned": false
        }
+       "pinned": true la mostra anche in homepage (lo stesso che si può
+       fare dal pannello admin, sezione Recensioni).
     3. lancia:  python3 aggiorna-recensioni.py
-    4. carica il nuovo recensioni.html sul sito
+    4. carica il nuovo recensioni.html (e dati/recensioni-generali.js,
+       generato in ./nuovo insieme a recensioni.html) sul sito
 
 USO:
     python3 aggiorna-recensioni.py --progetto . --uscita ./nuovo
@@ -66,7 +70,7 @@ def blocco_card(rec: dict) -> str:
             </blockquote>
 
             <div class="review-footer">
-              <span>Recensione generale</span>
+              <span>{rec.get('categoria') or 'Recensione generale'}</span>
               <span>{rec.get('anno', '')}</span>
             </div>
 
@@ -116,6 +120,10 @@ def main():
 
     (uscita / "recensioni.html").write_text(nuovo, encoding="utf-8")
     print(f"recensioni.html rigenerata — {len(recensioni)} recensioni generali pubblicate")
+
+    js = "window.GPJ_REVIEWS = " + json.dumps(recensioni, ensure_ascii=False, indent=2) + ";\n"
+    (uscita / "recensioni-generali.js").write_text(js, encoding="utf-8")
+    print(f"recensioni-generali.js rigenerato in {uscita} (usato dalla homepage per le recensioni pinnate)")
 
 
 if __name__ == "__main__":

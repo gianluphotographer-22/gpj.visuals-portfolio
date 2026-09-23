@@ -5,17 +5,23 @@ aggiorna-da-excel.py
 Alternativa "senza codice" ad aggiorna-recensioni.py: legge le recensioni
 direttamente dal foglio Excel dati/risultati-form.xlsx (foglio "Recensioni"),
 tiene solo quelle con "Pubblica" = SI, rigenera dati/recensioni-generali.json
-e poi rigenera la griglia recensioni dentro recensioni.html.
+(e il suo specchio dati/recensioni-generali.js, letto dalla homepage) e poi
+rigenera la griglia recensioni dentro recensioni.html.
 
 COME FUNZIONA IN PRATICA
   1. Apri dati/risultati-form.xlsx, foglio "Recensioni".
   2. Aggiungi/modifica righe: nome, ruolo, voto, testo, anno...
   3. Nella colonna "Pubblica (SI/NO)" scrivi SI per le righe che vuoi
-     mostrare sul sito (NO o vuoto per tenerle solo in archivio).
-  4. Salva il file Excel.
-  5. Lancia:  python3 aggiorna-da-excel.py
-  6. Carica i file aggiornati (recensioni.html e dati/recensioni-generali.json)
-     sul sito.
+     mostrare sul sito, nella pagina Recensioni generali (NO o vuoto per
+     tenerle solo in archivio).
+  4. Nella colonna "In home (SI/NO)" scrivi SI per le righe che, oltre a
+     comparire in Recensioni generali, vuoi mostrare anche in homepage
+     (la stessa cosa che puoi fare anche dal pannello admin, sezione
+     Recensioni — questa colonna e il pannello scrivono lo stesso dato).
+  5. Salva il file Excel.
+  6. Lancia:  python3 aggiorna-da-excel.py
+  7. Carica i file aggiornati (recensioni.html, dati/recensioni-generali.json
+     e dati/recensioni-generali.js) sul sito — o pubblica dal pannello admin.
 
 USO:
     python3 aggiorna-da-excel.py --excel dati/risultati-form.xlsx --progetto .
@@ -39,10 +45,10 @@ MARCATORE_INIZIO = "<!-- INIZIO GRIGLIA GENERATA -->"
 MARCATORE_FINE = "<!-- FINE GRIGLIA GENERATA -->"
 
 # Intestazioni attese nel foglio "Recensioni" (riga 1)
-COLONNE = ["pubblica", "nome", "ruolo", "email", "voto", "testo", "anno", "data", "note"]
+COLONNE = ["pubblica", "in_home", "nome", "ruolo", "email", "voto", "testo", "anno", "data", "note"]
 
 
-def leggi_recensioni_da_excel(percorso_excel: Path) -> list:
+def leggi_recensioni_da_excel(percorso_excel: Path, esistenti: dict) -> list:
     wb = openpyxl.load_workbook(percorso_excel, data_only=True)
     if "Recensioni" not in wb.sheetnames:
         raise SystemExit(f"Non trovo il foglio 'Recensioni' in {percorso_excel}")
@@ -65,18 +71,28 @@ def leggi_recensioni_da_excel(percorso_excel: Path) -> list:
         if not nome or not testo or "(ESEMPIO)" in nome.upper():
             continue  # riga incompleta o riga di esempio: saltata
 
+        in_home = str(valori.get("in_home") or "").strip().upper()
+        pinned = in_home in ("SI", "SÌ")
+
         try:
             voto = int(float(valori.get("voto") or 5))
         except (TypeError, ValueError):
             voto = 5
         voto = max(1, min(5, voto))
 
+        prec = esistenti.get(nome.strip().lower(), {})
         recensioni.append({
             "nome": nome,
             "ruolo": str(valori.get("ruolo") or "").strip(),
             "testo": testo,
             "voto": voto,
             "anno": str(valori.get("anno") or "").strip() or "2026",
+            "pinned": pinned,
+            # Foto e "categoria" curate a mano (es. dal pannello admin, o in
+            # precedenza in dati/recensioni-generali.json) non sono in questo
+            # Excel: le conserviamo se la stessa persona le aveva già.
+            "avatar": prec.get("avatar"),
+            "categoria": prec.get("categoria"),
         })
 
     return recensioni
@@ -111,7 +127,7 @@ def blocco_card(rec: dict) -> str:
             </blockquote>
 
             <div class="review-footer">
-              <span>Recensione generale</span>
+              <span>{rec.get('categoria') or 'Recensione generale'}</span>
               <span>{rec.get('anno', '')}</span>
             </div>
 
@@ -144,14 +160,31 @@ def main():
     if not excel_path.exists():
         raise SystemExit(f"Non trovo il file Excel: {excel_path}")
 
-    recensioni = leggi_recensioni_da_excel(excel_path)
-
     dati_path = progetto / a.dati
+    esistenti = {}
+    if dati_path.exists():
+        try:
+            for r in json.loads(dati_path.read_text(encoding="utf-8")):
+                nome = str(r.get("nome") or "").strip().lower()
+                if nome:
+                    esistenti[nome] = r
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    recensioni = leggi_recensioni_da_excel(excel_path, esistenti)
+
     dati_path.parent.mkdir(parents=True, exist_ok=True)
     dati_path.write_text(
-        json.dumps(recensioni, ensure_ascii=False, indent=2), encoding="utf-8"
+        json.dumps(recensioni, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(f"{dati_path} aggiornato — {len(recensioni)} recensioni pubblicate")
+
+    js_path = dati_path.with_suffix(".js")
+    js_path.write_text(
+        "window.GPJ_REVIEWS = " + json.dumps(recensioni, ensure_ascii=False, indent=2) + ";\n",
+        encoding="utf-8",
+    )
+    print(f"{js_path} aggiornato (usato dalla homepage per le recensioni pinnate)")
 
     pagina = progetto / "recensioni.html"
     testo = pagina.read_text(encoding="utf-8")
