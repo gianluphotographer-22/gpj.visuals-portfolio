@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta name="theme-color" content="#e10600">
+
+  <meta
+    name="description"
+    content="7 Sins — reportage fotografico sulla squadra social, di Gianluca Paglionico.">
+
+<!-- OPEN GRAPH / SOCIAL -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GPJ.Visuals">
+<meta property="og:title" content="7 Sins — GPJ.Visuals">
+<meta property="og:description" content="7 Sins — reportage fotografico sulla squadra social, di Gianluca Paglionico.">
+<meta property="og:image" content="https://gianluphotographer-22.github.io/gpj.visuals-portfolio/images/7-sins/7-sins-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:url" content="https://gianluphotographer-22.github.io/gpj.visuals-portfolio/projects/human-detail.html">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="7 Sins — GPJ.Visuals">
+<meta name="twitter:description" content="7 Sins — reportage fotografico sulla squadra social, di Gianluca Paglionico.">
+<meta name="twitter:image" content="https://gianluphotographer-22.github.io/gpj.visuals-portfolio/images/7-sins/7-sins-cover.jpg">
+
+
+  <title>7 Sins — GPJ</title>
+
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="apple-touch-icon" href="../images/favicon.png">
+  <link rel="manifest" href="../site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+
+  <style>
+    /* ==============================
+       HERO ADATTIVO
+    ============================== */
+
+    .project-page .page-hero {
+      position: relative;
+      min-height: clamp(420px, 72svh, 850px);
+      overflow: hidden;
+      background: #111;
+    }
+
+    .project-page .page-hero > img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .project-page .page-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.08) 20%,
+          rgba(0, 0, 0, 0.7) 100%
+        );
+    }
+
+    .project-page .page-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+
+    /* ==============================
+       GALLERIA ADATTIVA
+    ============================== */
+
+    .project-page .gallery-grid {
+      display: block;
+      width: 100%;
+      margin-top: 40px;
+      column-count: 3;
+      column-gap: 20px;
+    }
+
+    .project-page .gallery-item {
+      display: block;
+      width: 100%;
+      margin: 0 0 20px;
+      padding: 0;
+      overflow: hidden;
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      appearance: none;
+      border: 0;
+      border-radius: 0;
+      background: #111;
+      cursor: zoom-in;
+    }
+
+    .project-page .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      object-fit: contain;
+      transition:
+        transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 0.35s ease;
+    }
+
+    .project-page .gallery-item:hover img {
+      transform: scale(1.025);
+    }
+
+    .project-page .gallery-item:focus-visible {
+      outline: 3px solid #e10600;
+      outline-offset: 4px;
+    }
+
+
+    /* ==============================
+       VIDEO RESPONSIVO
+    ============================== */
+
+    .project-page .video-frame {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .project-page .video-frame video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+
+    /* ==============================
+       LIGHTBOX RESPONSIVA
+    ============================== */
+
+    .project-page .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding:
+        max(24px, env(safe-area-inset-top))
+        max(24px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(24px, env(safe-area-inset-left));
+      visibility: hidden;
+      opacity: 0;
+      background: rgba(0, 0, 0, 0.94);
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    }
+
+    .project-page .lightbox.is-open,
+    .project-page .lightbox.active,
+    .project-page .lightbox[aria-hidden="false"] {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .project-page .lightbox img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 94vw;
+      max-height: 90svh;
+      object-fit: contain;
+    }
+
+    .project-page .lightbox-close {
+      position: absolute;
+      top: max(20px, env(safe-area-inset-top));
+      right: max(20px, env(safe-area-inset-right));
+      z-index: 2;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+
+    /* ==============================
+       TABLET
+    ============================== */
+
+    @media (max-width: 1024px) {
+      .project-page .gallery-grid {
+        column-count: 2;
+        column-gap: 16px;
+      }
+
+      .project-page .gallery-item {
+        margin-bottom: 16px;
+      }
+    }
+
+
+    /* ==============================
+       SMARTPHONE
+    ============================== */
+
+    @media (max-width: 640px) {
+      .project-page .page-hero {
+        min-height: 65svh;
+      }
+
+      .project-page .gallery-grid {
+        margin-top: 28px;
+        column-count: 1;
+      }
+
+      .project-page .gallery-item {
+        margin-bottom: 14px;
+      }
+
+      .project-page .lightbox {
+        padding: 14px;
+      }
+
+      .project-page .lightbox img {
+        max-width: 100%;
+        max-height: 85svh;
+      }
+
+      .project-page .lightbox-close {
+        top: 14px;
+        right: 14px;
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+
+    /* Riduce le animazioni se richiesto dal dispositivo */
+
+    @media (prefers-reduced-motion: reduce) {
+      .project-page .gallery-item img,
+      .project-page .lightbox {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="project-page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">
+        <img loading="lazy" decoding="async" src="../images/gpj-mark.png" alt="" width="64" height="64">
+      </span>
+      <span class="brand-name">GIANLUCA PAGLIONICO</span>
+    </a>
+
+    <nav class="nav" aria-label="Navigazione principale">
+      <a href="../index.html#work">Portfolio</a>
+      <a href="../index.html#about">Chi sono</a>
+      <a href="../index.html#contact">Contatti</a>
+      <a href="../numeri.html">Numeri</a>
+      <a href="../extra.html">Extra</a>
+    </nav>
+
+    <a class="header-contact" href="../index.html#contact">
+      Parliamone
+    </a>
+
+    <button
+      class="menu-btn"
+      type="button"
+      aria-label="Apri menu"
+      aria-expanded="false">
+      ☰
+    </button>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+
+      <img loading="lazy" decoding="async"
+        src="../images/7-sins/7-sins-cover.jpg"
+        alt="7 SINS"
+        fetchpriority="high"
+        decoding="async">
+
+      <div class="container page-hero-content reveal">
+        <div class="eyebrow project-category">
+          CONTENT SQUADRA
+        </div>
+
+        <h1>7 SINS</h1>
+      </div>
+
+    </section>
+
+
+    <!-- INFORMAZIONI PROGETTO -->
+    <section class="project-info">
+
+      <div class="container project-info-grid">
+
+        <div class="reveal">
+          <p class="project-intro">
+            Non una partita da raccontare, ma una squadra. I 7 Sins sono un progetto calcistico nato sui social, e questo reportage segue la loro giornata tipo: l&rsquo;allenamento, i duelli, gli sfottò tra compagni, il pubblico dietro la rete che chiede un selfie, l&rsquo;abbraccio dopo il gol. Meno cronaca di gara, più il clima che si respira attorno a un gruppo.
+          </p>
+        </div>
+
+        <div class="project-facts reveal">
+
+          <div class="fact">
+            <small>Soggetto</small>
+            <strong>7 Sins</strong>
+          </div>
+
+          <div class="fact">
+            <small>Formato</small>
+            <strong>Content squadra</strong>
+          </div>
+
+          <div class="fact">
+            <small>Ambito</small>
+            <strong>Calcio sociale</strong>
+          </div>
+
+          <div class="fact">
+            <small>Output</small>
+            <strong>Reportage foto</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GALLERIA -->
+    <section class="gallery-section">
+
+      <div class="container">
+
+        <div class="eyebrow red reveal">
+          Galleria
+        </div>
+
+        <h2 class="gallery-title reveal">
+          DENTRO IL GRUPPO
+        </h2>
+
+        <div class="gallery-grid">
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 1">
+
+            <img
+              src="../images/7-sins/7-sins-1.jpg"
+              alt="7 Sins &mdash; immagine 1"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 2">
+
+            <img
+              src="../images/7-sins/7-sins-2.jpg"
+              alt="7 Sins &mdash; immagine 2"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 3">
+
+            <img
+              src="../images/7-sins/7-sins-3.jpg"
+              alt="7 Sins &mdash; immagine 3"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 4">
+
+            <img
+              src="../images/7-sins/7-sins-4.jpg"
+              alt="7 Sins &mdash; immagine 4"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 5">
+
+            <img
+              src="../images/7-sins/7-sins-5.jpg"
+              alt="7 Sins &mdash; immagine 5"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 6">
+
+            <img
+              src="../images/7-sins/7-sins-6.jpg"
+              alt="7 Sins &mdash; immagine 6"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 7">
+
+            <img
+              src="../images/7-sins/7-sins-7.jpg"
+              alt="7 Sins &mdash; immagine 7"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 8">
+
+            <img
+              src="../images/7-sins/7-sins-8.jpg"
+              alt="7 Sins &mdash; immagine 8"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 9">
+
+            <img
+              src="../images/7-sins/7-sins-9.jpg"
+              alt="7 Sins &mdash; immagine 9"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 10">
+
+            <img
+              src="../images/7-sins/7-sins-10.jpg"
+              alt="7 Sins &mdash; immagine 10"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 11">
+
+            <img
+              src="../images/7-sins/7-sins-11.jpg"
+              alt="7 Sins &mdash; immagine 11"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 12">
+
+            <img
+              src="../images/7-sins/7-sins-12.jpg"
+              alt="7 Sins &mdash; immagine 12"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 13">
+
+            <img
+              src="../images/7-sins/7-sins-13.jpg"
+              alt="7 Sins &mdash; immagine 13"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 14">
+
+            <img
+              src="../images/7-sins/7-sins-14.jpg"
+              alt="7 Sins &mdash; immagine 14"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 15">
+
+            <img
+              src="../images/7-sins/7-sins-15.jpg"
+              alt="7 Sins &mdash; immagine 15"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 16">
+
+            <img
+              src="../images/7-sins/7-sins-16.jpg"
+              alt="7 Sins &mdash; immagine 16"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+          <button
+            class="gallery-item"
+            type="button"
+            aria-label="Apri immagine 17">
+
+            <img
+              src="../images/7-sins/7-sins-17.jpg"
+              alt="7 Sins &mdash; immagine 17"
+              loading="lazy"
+              decoding="async">
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PROGETTO SUCCESSIVO -->
+    <section class="next-project">
+
+      <div class="container">
+
+        <div class="next-label">
+          Progetto successivo
+        </div>
+
+        <a href="cuore-biancorosso.html">
+
+          <h2>CUORE BIANCOROSSO</h2>
+
+          <span class="next-arrow" aria-hidden="true">
+            ↗
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <strong>GPJ.Visuals</strong>
+
+    <a href="../index.html#work">
+      Tutti i progetti
+    </a>
+
+    <a href="#">
+      Top ↑
+    </a>
+
+  </footer>
+
+
+  <!-- LIGHTBOX -->
+  <div
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Anteprima immagine"
+    aria-hidden="true">
+
+    <button
+      class="lightbox-close"
+      type="button"
+      aria-label="Chiudi anteprima">
+      ×
+    </button>
+
+    <img loading="lazy" decoding="async" alt="Anteprima immagine">
+
+  </div>
+
+
+  <!-- SCRIPT PRINCIPALE -->
+  <script src="../data/content.js"></script>
+  <script src="../assets/js/gpj-render.js"></script>
+  <script src="../assets/js/dynamic.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+
+</html>
