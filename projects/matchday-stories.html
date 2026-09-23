@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e10600">
+<meta name="description" content="T'Immagini — racconto fotografico e video di Ideale Bari Calcio.">
+
+<!-- OPEN GRAPH / SOCIAL -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GPJ.Visuals">
+<meta property="og:title" content="T'Immagini — GPJ.Visuals">
+<meta property="og:description" content="T'Immagini — racconto fotografico e video di Ideale Bari Calcio.">
+<meta property="og:image" content="https://gianluphotographer-22.github.io/gpj.visuals-portfolio/images/matchday-stories-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:url" content="https://gianluphotographer-22.github.io/gpj.visuals-portfolio/projects/matchday-stories.html">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="T'Immagini — GPJ.Visuals">
+<meta name="twitter:description" content="T'Immagini — racconto fotografico e video di Ideale Bari Calcio.">
+<meta name="twitter:image" content="https://gianluphotographer-22.github.io/gpj.visuals-portfolio/images/matchday-stories-cover.jpg">
+
+<title>T'Immagini — GPJ</title>
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="apple-touch-icon" href="../images/favicon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+/* =========================================================
+   MATCHDAY STORIES — REGOLE RESPONSIVE DELLA PAGINA
+   Le immagini della gallery mantengono sempre il formato
+   originale: nessun taglio e nessuna deformazione.
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.project-page {
+  overflow-x: clip;
+}
+
+.project-page img,
+.project-page video {
+  max-width: 100%;
+}
+
+/* Hero */
+.project-page .page-hero {
+  position: relative;
+  min-height: clamp(480px, 74svh, 820px);
+  overflow: hidden;
+  background: #080808;
+  isolation: isolate;
+}
+
+.project-page .page-hero > img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-page .page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .08) 30%, rgba(0, 0, 0, .78) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, .28), transparent 58%);
+}
+
+.project-page .page-hero-content {
+  position: relative;
+  display: flex;
+  min-height: inherit;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: clamp(42px, 7vw, 92px);
+}
+
+.project-page .page-hero h1 {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: clamp(3rem, 9vw, 9rem);
+  line-height: .88;
+}
+
+/* Informazioni progetto */
+.project-page .project-info-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+  gap: clamp(40px, 7vw, 110px);
+  align-items: start;
+}
+
+.project-page .project-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-page .project-intro,
+.project-page .video-head p {
+  max-width: 68ch;
+  overflow-wrap: break-word;
+}
+
+/* Gallery a colonne, come nel codice Kings League */
+.project-page .gallery-grid {
+  display: block;
+  width: 100%;
+  margin-top: 40px;
+  column-count: 3;
+  column-gap: 20px;
+}
+
+.project-page .gallery-item {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 0;
+  overflow: hidden;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background: #111;
+  cursor: zoom-in;
+}
+
+.project-page .gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition:
+    transform .55s cubic-bezier(.2, .8, .2, 1),
+    opacity .35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-page .gallery-item:hover img {
+    transform: scale(1.025);
+  }
+}
+
+.project-page .gallery-item:focus-visible,
+.project-page .lightbox-close:focus-visible {
+  outline: 3px solid #e10600;
+  outline-offset: 4px;
+}
+
+/* Video sempre proporzionato */
+.project-page .video-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, .72fr);
+  gap: clamp(30px, 6vw, 90px);
+  align-items: end;
+}
+
+.project-page .video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+
+.project-page .video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Lightbox adattiva: l'immagine resta sempre interamente visibile */
+.project-page .lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 54px);
+  background: rgba(0, 0, 0, .94);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+
+.project-page .lightbox.active,
+.project-page .lightbox.open,
+.project-page .lightbox[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.project-page .lightbox img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(94vw, 1800px);
+  max-height: 88svh;
+  object-fit: contain;
+}
+
+.project-page .lightbox-close {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 2;
+}
+
+body.locked {
+  overflow: hidden;
+}
+
+/* Laptop 1051–1280 px */
+@media (min-width: 1051px) and (max-width: 1280px) {
+  .project-page .page-hero {
+    min-height: clamp(460px, 68svh, 700px);
+  }
+}
+
+/* Tablet 761–1050 px */
+@media (min-width: 761px) and (max-width: 1050px) {
+  .project-page .page-hero {
+    min-height: clamp(420px, 62svh, 640px);
+  }
+
+  .project-page .project-info-grid,
+  .project-page .video-head {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+}
+
+/* Smartphone 400–760 px */
+@media (min-width: 400px) and (max-width: 760px) {
+  .project-page .page-hero {
+    min-height: clamp(350px, 56svh, 500px);
+  }
+
+  .project-page .page-hero-content {
+    padding-bottom: 34px;
+  }
+
+  .project-page .page-hero h1 {
+    font-size: clamp(2.65rem, 14vw, 5rem);
+  }
+
+  .project-page .project-info-grid,
+  .project-page .video-head {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .project-page .project-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-page .video-frame {
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-page .lightbox {
+    padding: 14px;
+  }
+
+  .project-page .lightbox img {
+    max-width: 100%;
+    max-height: 82svh;
+  }
+}
+
+/* Smartphone piccoli 320–399 px */
+@media (max-width: 399px) {
+  .project-page .page-hero {
+    min-height: 340px;
+  }
+
+  .project-page .page-hero-content {
+    padding-bottom: 28px;
+  }
+
+  .project-page .page-hero h1 {
+    font-size: clamp(2.35rem, 14vw, 3.4rem);
+  }
+
+  .project-page .project-info-grid,
+  .project-page .video-head {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .project-page .project-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .project-page .lightbox {
+    padding: 10px;
+  }
+
+  .project-page .lightbox img {
+    max-width: 100%;
+    max-height: 80svh;
+  }
+}
+
+/* Tablet: due colonne */
+@media (max-width: 1024px) {
+  .project-page .gallery-grid {
+    column-count: 2;
+    column-gap: 16px;
+  }
+
+  .project-page .gallery-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* Smartphone: una colonna */
+@media (max-width: 640px) {
+  .project-page .gallery-grid {
+    margin-top: 28px;
+    column-count: 1;
+  }
+
+  .project-page .gallery-item {
+    margin-bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .project-page .gallery-item img,
+  .project-page .lightbox {
+    transition: none;
+  }
+}
+
+    /* ==============================
+       RACCOLTA A CAPITOLI
+    ============================== */
+
+    .project-page .match-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 8px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .project-page .match-nav a {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 9px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .25s ease, background .25s ease;
+    }
+
+    .project-page .match-nav a:hover,
+    .project-page .match-nav a:focus-visible {
+      border-color: var(--red, #e10600);
+      background: rgba(225, 6, 0, 0.08);
+    }
+
+    .project-page .match-nav .n {
+      font-size: 11px;
+      opacity: .55;
+    }
+
+    .project-page .match-chapter {
+      scroll-margin-top: 90px;
+      padding-top: 10px;
+    }
+
+    .project-page .match-chapter + .match-chapter {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 20px;
+    }
+
+    .project-page .match-note {
+      max-width: 62ch;
+      margin: 14px 0 0;
+      opacity: .78;
+      line-height: 1.65;
+    }
+
+    .project-page .match-video {
+      margin-top: 34px;
+    }
+
+    .project-page .collection-end {
+      padding: 10px 0 70px;
+    }
+
+    .project-page .collection-end p {
+      max-width: 60ch;
+      opacity: .6;
+      font-size: 15px;
+    }
+</style>
+</head>
+
+<body class="project-page">
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark">
+      <img loading="lazy" decoding="async" src="../images/gpj-mark.png" alt="" width="64" height="64">
+    </span>
+    <span class="brand-name">GIANLUCA PAGLIONICO</span>
+  </a>
+
+  <nav class="nav" aria-label="Navigazione principale">
+    <a href="../index.html#work">Portfolio</a>
+    <a href="../index.html#about">Chi sono</a>
+    <a href="../index.html#contact">Contatti</a><a href="../numeri.html">Numeri</a><a href="../extra.html">Extra</a>
+  </nav>
+
+  <a class="header-contact" href="../index.html#contact">Parliamone</a>
+  <button class="menu-btn" type="button" aria-label="Apri il menu" aria-expanded="false">☰</button>
+</header>
+
+<main>
+  <section class="page-hero">
+    <img loading="lazy" decoding="async" src="../images/timmagini/ideale-triggiano-cover.jpg" alt="Matchday Stories" fetchpriority="high" decoding="async">
+    <div class="container page-hero-content reveal">
+      <div class="eyebrow project-category">IDEALE BARI CALCIO</div>
+      <h1>T'IMMAGINI</h1>
+    </div>
+  </section>
+
+  <section class="project-info">
+    <div class="container project-info-grid">
+      <div class="reveal">
+        <p class="project-intro">Un gruppo unico, un calcio diverso, delle emozioni indescrivibili. Questa raccolta segue l&rsquo;Ideale Bari partita dopo partita: ogni capitolo racconta una giornata a s&eacute;, e cresce ogni volta che c&rsquo;&egrave; una nuova gara da raccontare.</p>
+      </div>
+
+      <div class="project-facts reveal">
+          <div class="fact"><small>Cliente</small><strong>Ideale Bari Calcio</strong></div>
+          <div class="fact"><small>Formato</small><strong>Diario di stagione</strong></div>
+          <div class="fact"><small>Servizi</small><strong>Photo, Video, Social</strong></div>
+          <div class="fact"><small>Stato</small><strong>In aggiornamento</strong></div>
+      </div>
+    </div>
+  </section>
+
+    <!-- INDICE DEI CAPITOLI -->
+    <section class="gallery-section" style="padding-bottom:0">
+      <div class="container">
+        <div class="eyebrow red reveal">1 partite raccontate</div>
+        <h2 class="gallery-title reveal">I CAPITOLI</h2>
+        <ul class="match-nav reveal">
+
+            <li>
+              <a href="#ideale-triggiano"><span class="n">01</span> IDEALE BARI &mdash; TRIGGIANO</a>
+            </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- CAPITOLO 01 — ideale-triggiano -->
+    <section class="gallery-section match-chapter" id="ideale-triggiano">
+      <div class="container">
+        <div class="eyebrow red reveal">01 &mdash; Bisceglie, 10 maggio 2026</div>
+        <h2 class="gallery-title reveal">IDEALE BARI &mdash; TRIGGIANO</h2>
+        <p class="match-note reveal">Un gruppo unico, un calcio diverso, delle emozioni indescrivibili: tra tutte le squadre scattate sul rettangolo verde, quelle vissute con l&rsquo;Ideale Bari restano uniche. Il traguardo raggiunto ancora di pi&ugrave;, perch&eacute; le favole esistono, basta crederci.</p>
+
+        <div class="gallery-grid">
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 1">
+            <img src="../images/timmagini/ideale-triggiano-1.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 1" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 2">
+            <img src="../images/timmagini/ideale-triggiano-2.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 2" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 3">
+            <img src="../images/timmagini/ideale-triggiano-3.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 3" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 4">
+            <img src="../images/timmagini/ideale-triggiano-4.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 4" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 5">
+            <img src="../images/timmagini/ideale-triggiano-5.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 5" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 6">
+            <img src="../images/timmagini/ideale-triggiano-6.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 6" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 7">
+            <img src="../images/timmagini/ideale-triggiano-7.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 7" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 8">
+            <img src="../images/timmagini/ideale-triggiano-8.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 8" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 9">
+            <img src="../images/timmagini/ideale-triggiano-9.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 9" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 10">
+            <img src="../images/timmagini/ideale-triggiano-10.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 10" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 11">
+            <img src="../images/timmagini/ideale-triggiano-11.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 11" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 12">
+            <img src="../images/timmagini/ideale-triggiano-12.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 12" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 13">
+            <img src="../images/timmagini/ideale-triggiano-13.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 13" loading="lazy" decoding="async">
+          </button>
+
+          <button class="gallery-item" type="button" aria-label="Apri immagine 14">
+            <img src="../images/timmagini/ideale-triggiano-14.jpg" alt="IDEALE BARI — TRIGGIANO &mdash; immagine 14" loading="lazy" decoding="async">
+          </button>
+
+        </div>
+
+        <div class="match-video reveal">
+          <div class="video-frame">
+            <video controls playsinline preload="metadata" poster="../images/timmagini/ideale-triggiano-cover.jpg">
+              <source src="../videos/BOVIO.MP4" type="video/mp4">
+              Il browser non supporta la riproduzione video.
+            </video>
+          </div>
+          <p class="video-note">Il goal vittoria di Bovio in Ideale Bari &mdash; Triggiano | Bisceglie, 10 maggio 2026</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RACCOLTA APERTA -->
+    <section class="collection-end">
+      <div class="container reveal">
+        <p>La raccolta &egrave; aperta: ogni nuova partita raccontata diventa un capitolo in fondo a questa pagina.</p>
+      </div>
+    </section>
+
+  <section class="next-project">
+    <div class="container">
+      <div class="next-label">Progetto successivo</div>
+      <a href="athlete-portraits.html">
+        <h2>SCATTI DA RE</h2>
+        <span class="next-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>GPJ.VISUALS </strong>
+  <a href="../index.html#work">Tutti i progetti</a>
+  <a href="#">Top ↑</a>
+</footer>
+
+<div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Anteprima immagine">
+  <button class="lightbox-close" type="button" aria-label="Chiudi">×</button>
+  <img loading="lazy" decoding="async" alt="Anteprima">
+</div>
+
+<script src="../data/content.js"></script>
+  <script src="../assets/js/gpj-render.js"></script>
+  <script src="../assets/js/dynamic.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
