@@ -88,5 +88,15 @@ window.GPJ_REVIEWS = [
     "pinned": true,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "michele perrelli",
+    "ruolo": "",
+    "testo": "Con noi dal giorno 0,una crescita professionale,OTTIMO",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": true,
+    "avatar": null,
+    "categoria": null
   }
 ];
