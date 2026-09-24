@@ -1,25 +1,5 @@
 [
   {
-    "nome": "Giorgio Cimino",
-    "ruolo": "zz",
-    "testo": "ww",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": false,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "ss",
-    "ruolo": "ss",
-    "testo": "sws",
-    "voto": 1,
-    "anno": "2026",
-    "pinned": false,
-    "avatar": null,
-    "categoria": null
-  },
-  {
     "nome": "Davide Abrescia",
     "ruolo": "Contropiede PB",
     "testo": "Creatività. Attenzione ai dettagli. Voglia di migliorare. Nei lavori di Gianluca c'è tutto questo. Con Contropiede abbiamo cominciato un percorso di interviste, creazioni di contenuti e allestimento studio podcast. L'obiettivo è continuare a crescere, insieme.",
@@ -60,16 +40,6 @@
     "categoria": null
   },
   {
-    "nome": "Manuel Gnemmi",
-    "ruolo": "Privato",
-    "testo": "eqwe",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": false,
-    "avatar": null,
-    "categoria": null
-  },
-  {
     "nome": "Vincenzo Alessio Nitti",
     "ruolo": "Consulente Immobiliare e organizzatore di eventi sportivi",
     "testo": "Prima l'uomo, poi il professionista.\nCollaborare con Gianluca, in ambito immobiliare e sportivo, rappresenta per me una CERTEZZA.\nGianluca è innovativo, moderno, ambizioso, fantasioso ma soprattutto EMPATICO.\nLa sua passione è smisurata, cresce giorno dopo giorno e sono sicuro che il futuro sarà ricco di soddisfazioni e risultati.",
@@ -95,7 +65,17 @@
     "testo": "Con noi dal giorno 0,una crescita professionale,OTTIMO",
     "voto": 5,
     "anno": "2026",
-    "pinned": true,
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Michele Tritone",
+    "ruolo": "Centrocampista Ideale Bari",
+    "testo": "Creativo, disponibile e con tanta voglia di prendersi il mondo.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
     "avatar": null,
     "categoria": null
   }
