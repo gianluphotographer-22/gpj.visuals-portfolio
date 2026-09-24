@@ -131,7 +131,7 @@ window.GPJ_CONTENT = {
       "tag": "PADEL",
       "category": "sport",
       "wide": false,
-      "cover": "images/uploads/gpj9252-tjky.webp",
+      "cover": "images/uploads/gpj9220-ze5m.webp",
       "coverAlt": "Quando il calcio incontra il padel, le leggende tornano in campo. Ho avuto l'opportunità di raccontare attraverso la mia macchina fotografica una giornata speciale, fatta di sport, competizione, sorrisi e tanti volti che hanno scritto pagine importanti del calcio italiano.",
       "description": "Raccontare questo evento di padel è stato, prima di tutto, un'esperienza particolare per me. Trovarmi a fotografare alcune delle leggende che per anni ho visto sui campi da calcio mi ha permesso di vi",
       "published": true,
