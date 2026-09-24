@@ -17,7 +17,7 @@ window.GPJ_CONTENT = {
       "wide": false,
       "cover": "images/uploads/gpj0674-7mie.webp",
       "coverAlt": "",
-      "description": "### Lauree\n\nUn giorno atteso, un traguardo da celebrare, emozioni da ricordare.\nRacconto ogni laurea attraverso immagini spontanee e curate, dai momenti di preparazione alla proclamazione, fino ai fes",
+      "description": "Un giorno atteso, un traguardo da celebrare, emozioni da ricordare.\nRacconto ogni laurea attraverso immagini spontanee e curate, dai momenti di preparazione alla proclamazione, fino ai fes",
       "published": true,
       "showInGrid": true,
       "gridPosition": "end",
