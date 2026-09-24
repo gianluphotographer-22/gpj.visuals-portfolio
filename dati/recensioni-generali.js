@@ -6,8 +6,8 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": null,
-    "categoria": null
+    "avatar": "images/reviews/persona-01.jpg",
+    "categoria": "Sport Photography"
   },
   {
     "nome": "Alessandro Gelsi",
@@ -16,8 +16,8 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": null,
-    "categoria": null
+    "avatar": "images/reviews/persona-02.jpg",
+    "categoria": "Portrait / Content"
   },
   {
     "nome": "Paolo Scienza",
@@ -26,8 +26,8 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": null,
-    "categoria": null
+    "avatar": "images/reviews/persona-03.jpg",
+    "categoria": "SSD BAVENO STRESA - FULGOR CHIAVAZZESE"
   },
   {
     "nome": "Alessio Marcone",
@@ -36,77 +36,7 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "Vincenzo Alessio Nitti",
-    "ruolo": "Consulente Immobiliare e organizzatore di eventi sportivi",
-    "testo": "Prima l'uomo, poi il professionista.\nCollaborare con Gianluca, in ambito immobiliare e sportivo, rappresenta per me una CERTEZZA.\nGianluca è innovativo, moderno, ambizioso, fantasioso ma soprattutto EMPATICO.\nLa sua passione è smisurata, cresce giorno dopo giorno e sono sicuro che il futuro sarà ricco di soddisfazioni e risultati.",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "Francesco Marzano",
-    "ruolo": "Content creator",
-    "testo": "Ho avuto il piacere di conoscerlo per un torneo a Bari e sono rimasto davvero soddisfatto. È una persona professionale, disponibile e soprattutto capace di catturare momenti ed emozioni in modo naturale e autentico. Impeccabile. \n\nLe foto sono semplicemente bellissime, curate nei dettagli e con un tocco davvero personale. Si vede la passione e la dedizione che mette nel suo lavoro.\n\nLo consiglio assolutamente a chi cerca un fotografo competente, creativo e affidabile!",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "michele perrelli",
-    "ruolo": "",
-    "testo": "Con noi dal giorno 0,una crescita professionale,OTTIMO",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "Michele Tritone",
-    "ruolo": "Centrocampista Ideale Bari",
-    "testo": "Creativo, disponibile e con tanta voglia di prendersi il mondo.",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "Giuseppe Pappagallo",
-    "ruolo": "One Soccer",
-    "testo": "Dal giorno 0 nostro collaboratore e staffista. Una mente geniale e creativa che ha imparato ad offrire e inventare prodotti di qualità in tempo celere. Continuando così, finalmente, avrà i risultati che merita.",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "Miky Bonerba",
-    "ruolo": "",
-    "testo": "Una persona sempre disponibile, capace di ascoltare e soprattutto di tirare fuori idee davvero strabilianti. Riesce sempre a trovare qualcosa di originale e diverso dal solito, con una creatività che secondo me lo rende unico nel suo genere. È una di quelle persone con cui sai di poter contare e che riesce a sorprenderti ogni volta. Per me, semplicemente, il migliore.",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
-  },
-  {
-    "nome": "Nicola Bonerba",
-    "ruolo": "",
-    "testo": "Fotografo eccezzionale! Riesce sempre a catturare i momenti più belli delle partite, trasmettendo attraverso ogni scatto tutta la passione e le emozioni che si vivono in campo. Sempre disponibile, professionale e attento ai dettagli. Ogni volta che vedo le sue foto rimango davvero soddisfatto. Numero uno!",
-    "voto": 5,
-    "anno": "2026",
-    "pinned": true,
-    "avatar": null,
-    "categoria": null
+    "avatar": "images/reviews/persona-04.jpg",
+    "categoria": "Sport Photography"
   }
 ];
