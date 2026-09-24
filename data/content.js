@@ -123,6 +123,133 @@ window.GPJ_CONTENT = {
           "columns": 3
         }
       ]
+    },
+    {
+      "id": "a0c1ebrix0",
+      "slug": "padel-tra-leggende",
+      "title": "PADEL TRA LEGGENDE",
+      "tag": "PADEL",
+      "category": "sport",
+      "wide": false,
+      "cover": "images/uploads/gpj9252-tjky.webp",
+      "coverAlt": "Quando il calcio incontra il padel, le leggende tornano in campo. Ho avuto l'opportunità di raccontare attraverso la mia macchina fotografica una giornata speciale, fatta di sport, competizione, sorrisi e tanti volti che hanno scritto pagine importanti del calcio italiano.",
+      "description": "Raccontare questo evento di padel è stato, prima di tutto, un'esperienza particolare per me. Trovarmi a fotografare alcune delle leggende che per anni ho visto sui campi da calcio mi ha permesso di vi",
+      "published": true,
+      "showInGrid": true,
+      "gridPosition": "end",
+      "next": "auto",
+      "sections": [
+        {
+          "id": "d6uphgrix1",
+          "type": "info",
+          "eyebrow": "",
+          "title": "",
+          "theme": "white",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "intro": "",
+          "facts": [
+            {
+              "k": "Anno",
+              "v": ""
+            },
+            {
+              "k": "Cliente",
+              "v": ""
+            },
+            {
+              "k": "Servizi",
+              "v": ""
+            },
+            {
+              "k": "Output",
+              "v": ""
+            }
+          ]
+        },
+        {
+          "id": "f3mn0drix1",
+          "type": "gallery",
+          "eyebrow": "Gallery",
+          "title": "",
+          "theme": "light",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "images": [],
+          "columns": 3
+        },
+        {
+          "id": "q7vm7hsd4t",
+          "type": "gallery",
+          "eyebrow": "Gallery",
+          "title": "",
+          "theme": "light",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "images": [
+            {
+              "path": "images/uploads/gpj9257-22a4.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9260-vvbu.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9252-26ux.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9205-0rrt.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9220-izmv.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9196-hfko.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9194-7s6g.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9190-tgtk.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9235-lq8c.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9186-4hod.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9197-3ppb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9180-ocu7.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9191-9isa.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9183-tqdh.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3
+        }
+      ]
     }
   ],
   "home": {
