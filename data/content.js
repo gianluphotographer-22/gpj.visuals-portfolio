@@ -32,7 +32,7 @@ window.GPJ_CONTENT = {
           "collapsible": false,
           "open": true,
           "visible": true,
-          "intro": "### Lauree\n\nMi piace raccontare il giorno della laurea così com’è: fatto di emozioni, sorrisi, abbracci e piccoli momenti spontanei.\nCerco di catturare non solo il traguardo, ma tutto ciò che lo rende speciale, trasformando una giornata importante in ricordi da poter rivivere attraverso le fotografie.\n",
+          "intro": "Mi piace raccontare il giorno della laurea così com’è: fatto di emozioni, sorrisi, abbracci e piccoli momenti spontanei.\nCerco di catturare non solo il traguardo, ma tutto ciò che lo rende speciale, trasformando una giornata importante in ricordi da poter rivivere attraverso le fotografie.\n",
           "facts": [
             {
               "k": "Anno",
@@ -58,7 +58,7 @@ window.GPJ_CONTENT = {
           "open": true,
           "visible": true,
           "images": [],
-          "columns": 3
+          "columns": 4
         },
         {
           "id": "uq8mgdxiue",
@@ -116,7 +116,7 @@ window.GPJ_CONTENT = {
               "alt": ""
             }
           ],
-          "columns": 4
+          "columns": 3
         }
       ]
     }
