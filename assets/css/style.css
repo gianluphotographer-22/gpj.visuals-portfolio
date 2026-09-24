@@ -20,7 +20,18 @@ button{font:inherit;color:inherit}
 .container{width:min(1450px,calc(100% - 80px));margin:auto}
 
 .site-header{
- position:fixed;z-index:1000;inset:0 0 auto;height:82px;padding:0 42px;
+ /* z-index 1201: deve restare sopra alla tendina scura del menu mobile
+    (z-index:1150 più sotto) perché il menu a tendina (.nav, .menu-btn)
+    vive dentro l'header — essendo l'header fixed con un suo z-index,
+    crea un proprio "contesto di sovrapposizione" e tutto il suo
+    contenuto viene impilato nella pagina in blocco a quel livello,
+    indipendentemente dallo z-index più alto che nav/menu-btn hanno
+    *al suo interno*. Con l'header a 1000 (sotto alla tendina a 1150)
+    i tocchi sul menu aperto da telefono finivano sulla tendina scura
+    invece che sui link, e il menu sembrava "non rispondere". Resta
+    comunque sotto alla barra di lettura (z-index:1210), che deve
+    restare visibile sopra a tutto anche a menu aperto. */
+ position:fixed;z-index:1201;inset:0 0 auto;height:82px;padding:0 42px;
  display:flex;align-items:center;justify-content:space-between;color:#fff;
  transition:.3s ease
 }
