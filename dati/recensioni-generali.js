@@ -1,42 +1,52 @@
 window.GPJ_REVIEWS = [
   {
-    "nome": "Davide Abrescia",
-    "ruolo": "Contropiede PB",
-    "testo": "Creatività. Attenzione ai dettagli. Voglia di migliorare. Nei lavori di Gianluca c'è tutto questo. Con Contropiede abbiamo cominciato un percorso di interviste, creazioni di contenuti e allestimento studio podcast. L'obiettivo è continuare a crescere, insieme.",
+    "nome": "Giorgio Cimino",
+    "ruolo": "zz",
+    "testo": "ww",
     "voto": 5,
     "anno": "2026",
-    "pinned": true,
-    "avatar": "images/reviews/persona-01.jpg",
-    "categoria": "Sport Photography"
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   },
   {
-    "nome": "Alessandro Gelsi",
-    "ruolo": "Content Creator",
-    "testo": "Professionalità, disponibilità e grande attenzione ai dettagli. Le immagini hanno dato una nuova identità ai miei contenuti.",
-    "voto": 5,
+    "nome": "ss",
+    "ruolo": "ss",
+    "testo": "sws",
+    "voto": 1,
     "anno": "2026",
-    "pinned": true,
-    "avatar": "images/reviews/persona-02.jpg",
-    "categoria": "Portrait / Content"
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   },
   {
-    "nome": "Paolo Scienza",
-    "ruolo": "SSD Baveno Stresa - Fulgor Chiavazzese",
-    "testo": "Affidabile, veloce con la tempistica dei lavori, professionalità e sopratutto con idea di lavoro alto. Consigliatissimo.",
+    "nome": "Manuel Gnemmi",
+    "ruolo": "Privato",
+    "testo": "eqwe",
     "voto": 5,
     "anno": "2026",
-    "pinned": true,
-    "avatar": "images/reviews/persona-03.jpg",
-    "categoria": "SSD BAVENO STRESA - FULGOR CHIAVAZZESE"
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   },
   {
-    "nome": "Alessio Marcone",
-    "ruolo": "Difensore Kings League e Zeta Milano",
-    "testo": "Gianluca è riuscito a raccontare perfettamente l'atmosfera della partita e a catturare momenti che difficilmente avrei potuto conservare nello stesso modo.",
+    "nome": "Vincenzo Alessio Nitti",
+    "ruolo": "Consulente Immobiliare e organizzatore di eventi sportivi",
+    "testo": "Prima l'uomo, poi il professionista.\nCollaborare con Gianluca, in ambito immobiliare e sportivo, rappresenta per me una CERTEZZA.\nGianluca è innovativo, moderno, ambizioso, fantasioso ma soprattutto EMPATICO.\nLa sua passione è smisurata, cresce giorno dopo giorno e sono sicuro che il futuro sarà ricco di soddisfazioni e risultati.",
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": "images/reviews/persona-04.jpg",
-    "categoria": "Sport Photography"
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Francesco Marzano",
+    "ruolo": "Content creator",
+    "testo": "Ho avuto il piacere di conoscerlo per un torneo a Bari e sono rimasto davvero soddisfatto. È una persona professionale, disponibile e soprattutto capace di catturare momenti ed emozioni in modo naturale e autentico. Impeccabile. \n\nLe foto sono semplicemente bellissime, curate nei dettagli e con un tocco davvero personale. Si vede la passione e la dedizione che mette nel suo lavoro.\n\nLo consiglio assolutamente a chi cerca un fotografo competente, creativo e affidabile!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": true,
+    "avatar": null,
+    "categoria": null
   }
 ];
