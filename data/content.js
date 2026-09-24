@@ -15,7 +15,7 @@ window.GPJ_CONTENT = {
       "tag": "EVENTI",
       "category": "eventi",
       "wide": false,
-      "cover": "images/uploads/gpj0674-7mie.webp",
+      "cover": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-l8bf.webp",
       "coverAlt": "",
       "description": "Un giorno atteso, un traguardo da celebrare, emozioni da ricordare.\nRacconto ogni laurea attraverso immagini spontanee e curate, dai momenti di preparazione alla proclamazione, fino ai fes",
       "published": true,
@@ -113,6 +113,10 @@ window.GPJ_CONTENT = {
             },
             {
               "path": "images/uploads/dsc03657-vub8.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-9sse.webp",
               "alt": ""
             }
           ],
