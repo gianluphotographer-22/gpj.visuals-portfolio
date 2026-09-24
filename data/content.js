@@ -148,7 +148,7 @@ window.GPJ_CONTENT = {
           "collapsible": false,
           "open": true,
           "visible": true,
-          "intro": "",
+          "intro": "Raccontare questo evento di padel è stato, prima di tutto, un'esperienza particolare per me. Trovarmi a fotografare alcune delle leggende che per anni ho visto sui campi da calcio mi ha permesso di vi",
           "facts": [
             {
               "k": "Anno",
@@ -167,18 +167,6 @@ window.GPJ_CONTENT = {
               "v": ""
             }
           ]
-        },
-        {
-          "id": "f3mn0drix1",
-          "type": "gallery",
-          "eyebrow": "Gallery",
-          "title": "",
-          "theme": "light",
-          "collapsible": false,
-          "open": true,
-          "visible": true,
-          "images": [],
-          "columns": 3
         },
         {
           "id": "q7vm7hsd4t",
