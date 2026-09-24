@@ -45,7 +45,7 @@ window.GPJ_REVIEWS = [
     "testo": "Prima l'uomo, poi il professionista.\nCollaborare con Gianluca, in ambito immobiliare e sportivo, rappresenta per me una CERTEZZA.\nGianluca è innovativo, moderno, ambizioso, fantasioso ma soprattutto EMPATICO.\nLa sua passione è smisurata, cresce giorno dopo giorno e sono sicuro che il futuro sarà ricco di soddisfazioni e risultati.",
     "voto": 5,
     "anno": "2026",
-    "pinned": false,
+    "pinned": true,
     "avatar": null,
     "categoria": null
   },
@@ -55,7 +55,7 @@ window.GPJ_REVIEWS = [
     "testo": "Ho avuto il piacere di conoscerlo per un torneo a Bari e sono rimasto davvero soddisfatto. È una persona professionale, disponibile e soprattutto capace di catturare momenti ed emozioni in modo naturale e autentico. Impeccabile. \n\nLe foto sono semplicemente bellissime, curate nei dettagli e con un tocco davvero personale. Si vede la passione e la dedizione che mette nel suo lavoro.\n\nLo consiglio assolutamente a chi cerca un fotografo competente, creativo e affidabile!",
     "voto": 5,
     "anno": "2026",
-    "pinned": false,
+    "pinned": true,
     "avatar": null,
     "categoria": null
   },
@@ -65,7 +65,7 @@ window.GPJ_REVIEWS = [
     "testo": "Con noi dal giorno 0,una crescita professionale,OTTIMO",
     "voto": 5,
     "anno": "2026",
-    "pinned": false,
+    "pinned": true,
     "avatar": null,
     "categoria": null
   },
@@ -75,7 +75,7 @@ window.GPJ_REVIEWS = [
     "testo": "Creativo, disponibile e con tanta voglia di prendersi il mondo.",
     "voto": 5,
     "anno": "2026",
-    "pinned": false,
+    "pinned": true,
     "avatar": null,
     "categoria": null
   },
@@ -85,7 +85,17 @@ window.GPJ_REVIEWS = [
     "testo": "Dal giorno 0 nostro collaboratore e staffista. Una mente geniale e creativa che ha imparato ad offrire e inventare prodotti di qualità in tempo celere. Continuando così, finalmente, avrà i risultati che merita.",
     "voto": 5,
     "anno": "2026",
-    "pinned": false,
+    "pinned": true,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Miky Bonerba",
+    "ruolo": "",
+    "testo": "Una persona sempre disponibile, capace di ascoltare e soprattutto di tirare fuori idee davvero strabilianti. Riesce sempre a trovare qualcosa di originale e diverso dal solito, con una creatività che secondo me lo rende unico nel suo genere. È una di quelle persone con cui sai di poter contare e che riesce a sorprenderti ogni volta. Per me, semplicemente, il migliore.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": true,
     "avatar": null,
     "categoria": null
   }
