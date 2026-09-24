@@ -247,171 +247,180 @@ window.GPJ_CONTENT = {
     "cuore-biancorosso": {
       "sections": [
         {
-          "id": "a2xphom4ps",
-          "type": "collection",
-          "eyebrow": "19 Settembre 2026",
-          "title": "Sorrento-Bari",
+          "id": "cit4pqwkpy",
+          "type": "chapter",
+          "eyebrow": "18 SETTEMBRE 2026",
+          "title": "SORRENTO-BARI",
           "theme": "light",
           "collapsible": false,
-          "open": false,
+          "open": true,
           "visible": true,
-          "description": "Da bordocampo la partita si legge diversa: si sentono i richiami, si vede il pallone arrivare prima che il pubblico se ne accorga. Sorrento-Bari raccontata da lì, tra corse, contrasti e i momenti che restano fuori dall'inquadratura della tv.",
+          "note": "Un punto di vista che dagli spalti non si ha. Sorrento-Bari è il racconto fotografico della gara vissuta da bordocampo, azione dopo azione: i contrasti, le proteste, gli sguardi tra una ripartenza e l'altra. Ogni scatto è il dettaglio che il campo lungo non racconta.",
           "images": [
             {
-              "path": "images/uploads/gpj1217-xsay.webp",
+              "path": "images/uploads/gpj1217-7hkb.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1212-resq.webp",
+              "path": "images/uploads/gpj1212-rrz3.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1236-nzrb.webp",
+              "path": "images/uploads/gpj1236-kzfz.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1147-ahmv.webp",
+              "path": "images/uploads/gpj1147-bx3c.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0400-mkh9.webp",
+              "path": "images/uploads/gpj0400-hpgn.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1213-xai0.webp",
+              "path": "images/uploads/gpj1213-obsz.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0839-fuk5.webp",
+              "path": "images/uploads/gpj0839-f0rw.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0779-nc2b.webp",
+              "path": "images/uploads/gpj0779-ymn7.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0786-6uvu.webp",
+              "path": "images/uploads/gpj0786-va8h.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0602-eil6.webp",
+              "path": "images/uploads/gpj0602-ynsu.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0738-ycim.webp",
+              "path": "images/uploads/gpj0738-cbci.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0777-jlbj.webp",
+              "path": "images/uploads/gpj0777-qg69.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0616-rp1v.webp",
+              "path": "images/uploads/gpj0616-uhb1.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9971-hhve.webp",
+              "path": "images/uploads/gpj9971-i31h.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0399-facb.webp",
+              "path": "images/uploads/gpj0399-gfbe.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9972-tbjh.webp",
+              "path": "images/uploads/gpj9972-4pbx.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0062-ajej.webp",
+              "path": "images/uploads/gpj0062-6km7.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0596-qamj.webp",
+              "path": "images/uploads/gpj0596-7k4q.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9973-ekvu.webp",
+              "path": "images/uploads/gpj9973-j24n.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0048-ls0v.webp",
+              "path": "images/uploads/gpj0048-a4ov.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9777-59a4.webp",
+              "path": "images/uploads/gpj9777-jbku.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj0038-i6v0.webp",
+              "path": "images/uploads/gpj0038-8x6f.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9784-tyn6.webp",
+              "path": "images/uploads/gpj9784-m6fa.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9770-so1l.webp",
+              "path": "images/uploads/gpj9770-pnh0.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9773-2vic.webp",
+              "path": "images/uploads/gpj9773-ceva.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9921-quph.webp",
+              "path": "images/uploads/gpj9921-veux.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9761-ui1g.webp",
+              "path": "images/uploads/gpj9761-1ncv.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9718-q8e6.webp",
+              "path": "images/uploads/gpj9718-b00f.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9721-prvn.webp",
+              "path": "images/uploads/gpj9721-2ncg.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9740-6akc.webp",
+              "path": "images/uploads/gpj9740-eb2h.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9735-s9q5.webp",
+              "path": "images/uploads/gpj9735-l872.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9720-ezjj.webp",
+              "path": "images/uploads/gpj9720-y4yx.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9711-voei.webp",
+              "path": "images/uploads/gpj9711-n4pv.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9716-pyz4.webp",
+              "path": "images/uploads/gpj9716-btvu.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9704-36dn.webp",
+              "path": "images/uploads/gpj9704-uo1w.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9699-tsdl.webp",
+              "path": "images/uploads/gpj9699-7uid.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9665-by3r.webp",
+              "path": "images/uploads/gpj9665-lhrq.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9715-uuo1.webp",
+              "path": "images/uploads/gpj9715-hx3t.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9928-30oi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9614-9ih1.webp",
               "alt": ""
             }
           ],
-          "columns": 3,
-          "placement": "gallery"
+          "columns": 4,
+          "placement": "gallery",
+          "number": 3
         }
       ]
     }
