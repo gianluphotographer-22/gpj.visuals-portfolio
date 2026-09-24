@@ -27,28 +27,24 @@ window.GPJ_CONTENT = {
           "id": "dusvq4v2v9",
           "type": "info",
           "eyebrow": "",
-          "title": "",
+          "title": "UN GIORNO, UN TRAGUARDO",
           "theme": "white",
           "collapsible": false,
           "open": true,
           "visible": true,
-          "intro": "",
+          "intro": "### Lauree\n\nMi piace raccontare il giorno della laurea così com’è: fatto di emozioni, sorrisi, abbracci e piccoli momenti spontanei.\nCerco di catturare non solo il traguardo, ma tutto ciò che lo rende speciale, trasformando una giornata importante in ricordi da poter rivivere attraverso le fotografie.\n",
           "facts": [
             {
               "k": "Anno",
-              "v": ""
+              "v": "2026"
             },
             {
               "k": "Cliente",
-              "v": ""
+              "v": "VARI"
             },
             {
               "k": "Servizi",
-              "v": ""
-            },
-            {
-              "k": "Output",
-              "v": ""
+              "v": "FOTO"
             }
           ]
         },
@@ -67,13 +63,13 @@ window.GPJ_CONTENT = {
         {
           "id": "uq8mgdxiue",
           "type": "collection",
-          "eyebrow": "",
+          "eyebrow": "UN GIORNO SPECIAL",
           "title": "LAUREE",
           "theme": "light",
-          "collapsible": true,
+          "collapsible": false,
           "open": false,
           "visible": true,
-          "description": "### Lauree\n\nMi piace raccontare il giorno della laurea così com’è: fatto di emozioni, sorrisi, abbracci e piccoli momenti spontanei.\nCerco di catturare non solo il traguardo, ma tutto ciò che lo rende speciale, trasformando una giornata importante in ricordi da poter rivivere attraverso le fotografie.\n",
+          "description": "",
           "images": [
             {
               "path": "images/uploads/gpj1137-o4sn.webp",
@@ -120,7 +116,7 @@ window.GPJ_CONTENT = {
               "alt": ""
             }
           ],
-          "columns": 3
+          "columns": 4
         }
       ]
     }
