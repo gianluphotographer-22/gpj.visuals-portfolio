@@ -65,7 +65,7 @@ window.GPJ_REVIEWS = [
     "testo": "Con noi dal giorno 0,una crescita professionale,OTTIMO",
     "voto": 5,
     "anno": "2026",
-    "pinned": true,
+    "pinned": false,
     "avatar": null,
     "categoria": null
   },
@@ -75,7 +75,7 @@ window.GPJ_REVIEWS = [
     "testo": "Creativo, disponibile e con tanta voglia di prendersi il mondo.",
     "voto": 5,
     "anno": "2026",
-    "pinned": true,
+    "pinned": false,
     "avatar": null,
     "categoria": null
   },
