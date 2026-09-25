@@ -252,6 +252,213 @@ window.GPJ_CONTENT = {
         }
       ],
       "publishedSlug": "padel-tra-leggende"
+    },
+    {
+      "id": "w725k6i64o",
+      "slug": "dentro-la-competizione",
+      "title": "DENTRO LA COMPETIZIONE",
+      "tag": "Tornei",
+      "category": "sport",
+      "wide": false,
+      "cover": "images/uploads/gpj1015-eqhx.webp",
+      "coverAlt": "",
+      "description": "Racconto il calcio attraverso immagini che vanno oltre il semplice risultato. Nei tornei seguo ogni momento della competizione.",
+      "published": true,
+      "showInGrid": true,
+      "gridPosition": "end",
+      "next": "auto",
+      "sections": [
+        {
+          "id": "96cu35i64o",
+          "type": "info",
+          "eyebrow": "",
+          "title": "",
+          "theme": "white",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "intro": "Racconto il calcio attraverso immagini che vanno oltre il semplice risultato. Nei tornei seguo ogni momento della competizione: dalla tensione prima della partita all’esultanza, dai duelli in campo alle emozioni a bordo campo.\n\nTra le esperienze più significative c’è **OneSoccer**, realtà che mi ha permesso di vivere e raccontare il calcio da vicino, seguendo tornei, squadre e protagonisti con uno sguardo dinamico e personale.\n\nIl mio obiettivo è trasformare ogni torneo in una storia per immagini, dando valore non solo alle azioni più importanti, ma anche a quei momenti spontanei che rendono ogni competizione unica.\n",
+          "facts": [
+            {
+              "k": "Anno",
+              "v": "2025/2026"
+            },
+            {
+              "k": "Cliente",
+              "v": "ONESOCCER E VARI"
+            },
+            {
+              "k": "Servizi",
+              "v": "Foto e Video"
+            },
+            {
+              "k": "Output",
+              "v": "Photo + Video"
+            }
+          ]
+        },
+        {
+          "id": "7lzk78i64o",
+          "type": "gallery",
+          "eyebrow": "Gallery",
+          "title": "",
+          "theme": "light",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "images": [
+            {
+              "path": "images/uploads/gpj0584-y2ym.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0363-7esh.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0504-muz9.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0394-i344.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0454-19eu.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8710-4j76.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8745-1qnp.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8757-cifu.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8828-pp8x.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8871-ir14.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8923-8yv8.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8958-movr.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9030-i4wg.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9045-1fqi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9052-k8gv.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7885-48qa.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7918-cp5w.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7965-19uf.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7969-412s.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7972-vbyi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8313-ta6m.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8302-46ib.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5280-y2wi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5269-refu.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5254-mzy5.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5188-jn3e.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5181-gstb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5170-z139.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5142-vqmt.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4025-wxuk.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4016-09k7.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3994-zawt.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1016-gz53.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1015-ad0d.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/senza-titolo-923-zxxl.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/senza-titolo-917-k8of.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/senza-titolo-866-hmpk.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3
+        }
+      ]
     }
   ],
   "home": {
