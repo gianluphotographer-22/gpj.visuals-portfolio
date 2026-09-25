@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /diagnostica.html
+
+Sitemap: https://gianluphotographer-22.github.io/gpj.visuals-portfolio/sitemap.xml
