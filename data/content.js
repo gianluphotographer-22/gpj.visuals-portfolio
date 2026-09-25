@@ -260,7 +260,7 @@ window.GPJ_CONTENT = {
       "tag": "Tornei",
       "category": "sport",
       "wide": false,
-      "cover": "images/uploads/gpj1015-eqhx.webp",
+      "cover": "images/uploads/gpj9316-4ta1.webp",
       "coverAlt": "",
       "description": "Racconto il calcio attraverso immagini che vanno oltre il semplice risultato. Nei tornei seguo ogni momento della competizione.",
       "published": true,
@@ -453,6 +453,70 @@ window.GPJ_CONTENT = {
             },
             {
               "path": "images/uploads/senza-titolo-866-hmpk.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8845-e35o.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8907-uilh.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8908-zl03.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8957-0wsb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8976-ouqp.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9077-krl6.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9078-e3k2.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9293-qij1.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9316-hzqy.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9399-duxy.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9420-ww5p.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9421-fnjb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9440-jky1.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9503-jg5h.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9516-w2o7.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj9624-ba3v.webp",
               "alt": ""
             }
           ],
