@@ -218,5 +218,15 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Marco Masotti",
+    "ruolo": "",
+    "testo": "Un professionista come pochi. Svolge il suo lavoro con una passione unica. I suoi lavori sono dei capolavori veri e propri. Inoltre, è un ragazzo genuino e che ti dà il cuore.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
