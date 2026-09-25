@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /diagnostica.html
+
+Sitemap: https://gpjvisuals.it/sitemap.xml

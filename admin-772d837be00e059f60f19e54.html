@@ -1,0 +1,2524 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<script>
+(function () {
+  /* Accesso online: la pagina risponde solo a chi ha il link completo
+     (indirizzo + chiave dopo il #). Per tutti gli altri appare un 404.
+     In locale (file:// o localhost) non c'è nessun controllo. */
+  var H = '33ad1b43b592f70bcc62c22426424a856bb184c2312128eeef367f8cfb5cc49d';
+  var online = /^https?:$/.test(location.protocol) &&
+    !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (!online || H.indexOf('__') === 0) return;
+
+  function sha256(ascii) {
+    function rr(v, a) { return (v >>> a) | (v << (32 - a)); }
+    var mw = Math.pow(2, 32), result = '', i, j, words = [], bl = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [], k = sha256.k = sha256.k || [], pc = k.length, comp = {};
+    for (var c = 2; pc < 64; c++) {
+      if (!comp[c]) {
+        for (i = 0; i < 313; i += c) comp[i] = c;
+        hash[pc] = (Math.pow(c, .5) * mw) | 0;
+        k[pc++] = (Math.pow(c, 1 / 3) * mw) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (i = 0; i < ascii.length; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = (bl / mw) | 0;
+    words[words.length] = bl;
+    for (j = 0; j < words.length;) {
+      var w = words.slice(j, j += 16), old = hash;
+      hash = hash.slice(0, 8);
+      for (i = 0; i < 64; i++) {
+        var w15 = w[i - 15], w2 = w[i - 2], a = hash[0], e = hash[4];
+        var t1 = hash[7] + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25)) + ((e & hash[5]) ^ (~e & hash[6])) + k[i] +
+          (w[i] = (i < 16) ? w[i] : (w[i - 16] + (rr(w15, 7) ^ rr(w15, 18) ^ (w15 >>> 3)) + w[i - 7] +
+          (rr(w2, 17) ^ rr(w2, 19) ^ (w2 >>> 10))) | 0);
+        var t2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22)) + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(t1 + t2) | 0].concat(hash);
+        hash[4] = (hash[4] + t1) | 0;
+      }
+      for (i = 0; i < 8; i++) hash[i] = (hash[i] + old[i]) | 0;
+    }
+    for (i = 0; i < 8; i++) for (j = 3; j + 1; j--) {
+      var b = (hash[i] >> (j * 8)) & 255;
+      result += ((b < 16) ? 0 : '') + b.toString(16);
+    }
+    return result;
+  }
+
+  var ok = false;
+  try { ok = localStorage.getItem('gpj_admin_gate') === H; } catch (e) {}
+
+  if (!ok) {
+    var key = '';
+    try { key = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+    if (key && sha256(key) === H) {
+      ok = true;
+      try { localStorage.setItem('gpj_admin_gate', H); } catch (e) {}
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    }
+  }
+
+  if (ok) { window.__gpjGate = true; return; }
+
+  /* Bloccato: la pagina sembra un normale 404.
+     1) si ferma la lettura del resto del file;
+     2) se il browser lo legge comunque, il contenuto resta nascosto
+        e lo script principale non parte (controlla __gpjBlocked). */
+  window.__gpjBlocked = true;
+  try { window.stop(); } catch (e) {}
+  document.title = '404 Not Found';
+  var st = document.createElement('style');
+  st.textContent =
+    'html{background:#fff!important}body{display:none!important}' +
+    'html::before{content:"Not Found";display:block;padding:40px 24px 12px;font:700 32px Arial,Helvetica,sans-serif;color:#222}' +
+    'html::after{content:"The requested URL was not found on this server.";display:block;padding:0 24px;font:16px/1.5 Arial,Helvetica,sans-serif;color:#222}';
+  document.head.appendChild(st);
+})();
+</script>
+<meta name="theme-color" content="#0d0d0d">
+<title>Admin — GPJ Visuals</title>
+<link rel="icon" type="image/png" href="images/GPJ%20pos.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --red:#e10600; --red2:#b90000;
+  --ink:#101010; --paper:#f5f5f1; --dark:#0d0d0d;
+  --muted:#6b6b6b; --line:rgba(16,16,16,.13);
+  --ok:#178a4a; --tb:64px; --r:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);-webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit}
+h1,h2,h3,p{margin:0}
+:where(a,button,input,select,textarea,summary):focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* ---------- lock ---------- */
+.lock{position:fixed;inset:0;z-index:200;background:var(--dark);color:#fff;display:grid;place-items:center;padding:24px;overflow:auto}
+.lock-card{width:min(420px,100%)}
+.mark{width:52px;height:52px;border-radius:50%;background:var(--red);display:grid;place-items:center;overflow:hidden;font:800 18px Manrope,sans-serif;color:#fff}
+.mark img{width:100%;height:100%;object-fit:contain}
+.lock h1{font:800 clamp(46px,11vw,76px)/.9 Manrope,sans-serif;letter-spacing:-.065em;margin:30px 0 16px}
+.lock p{color:#a0a0a0;line-height:1.65;margin-bottom:26px}
+.lock form{display:grid;gap:12px}
+.lock input{background:#1a1a1a;border-color:#333;color:#fff}
+.lock input::placeholder{color:#777}
+.lock .msg{min-height:20px;color:#ff7a75;font-weight:600;margin:0}
+.lock .fatal{padding:14px 16px;border:1px solid #ff7a75;border-radius:12px;color:#ffb1ad;margin-bottom:22px;line-height:1.55}
+
+/* ---------- form controls ---------- */
+input[type=text],input[type=url],input[type=password],select,textarea{
+  width:100%;min-height:44px;padding:11px 13px;
+  font:inherit;color:inherit;background:#fff;
+  border:1px solid var(--line);border-radius:10px;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea{resize:vertical;line-height:1.55}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23101010' stroke-width='1.8'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(225,6,0,.14)}
+input[type=range]{accent-color:var(--red);width:100%}
+
+.fld{display:grid;gap:6px;min-width:0;align-content:start}
+.fld>span{font-size:12px;font-weight:600;color:#3d3d3d}
+.hint{color:var(--muted);font-size:12px;line-height:1.5}
+.hint code,.lead code,.notes code,.steps code{font:12px ui-monospace,Menlo,monospace;background:rgba(16,16,16,.07);padding:1px 5px;border-radius:5px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.review-row{margin-bottom:12px}
+.review-row-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.review-row-head .muted{color:var(--muted);font-size:13px}
+.review-row-stars{margin-left:auto;color:var(--red);letter-spacing:1px}
+.review-row-text{color:#3d3d3d;font-size:13px;line-height:1.5;margin-bottom:10px}
+
+.url-in{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.url-in:focus-within{border-color:var(--red);box-shadow:0 0 0 3px rgba(225,6,0,.14)}
+.url-in em{font-style:normal;color:var(--muted);padding:0 4px 0 13px;white-space:nowrap}
+.url-in em:last-child{padding:0 13px 0 0}
+.url-in input{border:0;border-radius:0;min-height:42px;padding-left:0;padding-right:0;box-shadow:none!important}
+
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff;gap:2px;width:max-content;max-width:100%}
+.seg label{position:relative}
+.seg input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.seg span{display:block;padding:8px 16px;border-radius:999px;font-weight:700;font-size:13px;color:#444;transition:background .15s,color .15s}
+.seg input:checked+span{background:var(--ink);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--red);outline-offset:2px}
+
+.sw{position:relative;display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.sw input{position:absolute;opacity:0;width:40px;height:24px;margin:0;cursor:pointer}
+.sw i{flex:0 0 40px;height:24px;border-radius:999px;background:#cbcbc5;position:relative;transition:background .2s}
+.sw i::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.28);transition:transform .2s}
+.sw input:checked+i{background:var(--red)}
+.sw input:checked+i::after{transform:translateX(16px)}
+.sw input:focus-visible+i{outline:3px solid var(--red);outline-offset:2px}
+.sw input:disabled+i{opacity:.4}
+.sw input:disabled{cursor:default}
+.sw b{font-weight:600;display:block;line-height:24px}
+.sw small{display:block;color:var(--muted);font-size:12px;line-height:1.45}
+.switches{display:grid;gap:14px}
+
+.themes{display:flex;gap:12px;flex-wrap:wrap}
+.themes label{position:relative;cursor:pointer;display:grid;gap:6px;justify-items:center;font-size:12px;font-weight:600}
+.themes input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.themes i{display:block;width:58px;height:40px;border-radius:10px;border:1px solid var(--line)}
+.themes input:checked+i{outline:2px solid var(--ink);outline-offset:2px}
+.themes input:focus-visible+i{outline:3px solid var(--red);outline-offset:2px}
+.t-light{background:#f5f5f1}.t-white{background:#fff}.t-dark{background:#111}.t-red{background:#e10600}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 20px;border-radius:999px;
+  border:1px solid var(--ink);background:transparent;color:var(--ink);
+  font:700 13px Inter,sans-serif;cursor:pointer;transition:background .2s,color .2s,border-color .2s;
+  text-decoration:none;
+}
+.btn:hover{background:var(--ink);color:#fff}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.red:hover{background:var(--red2);border-color:var(--red2)}
+.btn.sm{min-height:36px;padding:0 14px;font-size:12px}
+.btn.ghost{border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn.danger:hover{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;pointer-events:none}
+.ibtn{
+  flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;
+  border:1px solid var(--line);border-radius:50%;background:#fff;cursor:pointer;
+  color:var(--ink);font-size:15px;line-height:1;transition:background .15s,color .15s;
+}
+.ibtn:hover:not(:disabled){background:var(--ink);color:#fff;border-color:var(--ink)}
+.ibtn:disabled{opacity:.3;cursor:default}
+.row-actions{display:flex;flex-wrap:wrap;gap:8px;padding-top:6px;border-top:1px solid var(--line);margin-top:4px}
+.row-actions .ibtn{width:auto;flex:none;padding:0 14px;border-radius:999px;height:36px;font-size:12px;font-weight:700}
+
+/* ---------- shell ---------- */
+.app{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;min-height:100dvh}
+.side{
+  background:var(--dark);color:#bdbdbd;position:sticky;top:0;height:100vh;height:100dvh;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.side-brand{display:flex;align-items:center;gap:12px;padding:22px 20px 18px}
+.side-brand .mark{width:40px;height:40px;font-size:14px}
+.side-brand b{display:block;color:#fff;font:800 14px/1.1 Manrope,sans-serif;letter-spacing:-.03em}
+.side-brand small{color:#808080;font-size:12px}
+.side-scroll{flex:1;overflow:auto;padding:4px 12px 16px}
+.side h2{font:600 12px Inter,sans-serif;color:#7d7d7d;padding:18px 10px 8px}
+.pg,.side-link{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:10px 12px;border:0;border-radius:10px;background:none;color:#cfcfcf;
+  text-align:left;cursor:pointer;font:600 13px Inter,sans-serif;
+}
+.pg span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pg.lg{align-items:center;padding:8px 12px}
+.pg.lg span{display:grid;gap:2px;white-space:normal}
+.pg.lg span b{font:600 13px/1.25 Inter,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pg.lg span small{font:500 11px/1.2 Inter,sans-serif;color:#7d7d7d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pg .cnt{flex:0 0 auto;min-width:22px;padding:2px 7px;border-radius:999px;background:var(--red);color:#fff;font:700 11px/1.4 Inter,sans-serif;text-align:center}
+.side-note{color:#7d7d7d;font-size:12px;line-height:1.5;padding:0 10px 4px}
+.pg:hover,.side-link:hover{background:#181818}
+.pg.on,.side-link.on{background:#202020;color:#fff;box-shadow:inset 3px 0 0 var(--red)}
+.dot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:#4a4a4a}
+.dot.live{background:#33c174}
+.side-empty{color:#7d7d7d;font-size:13px;padding:6px 10px;line-height:1.5}
+.side .btn{width:100%;margin-top:8px;color:#fff;border-color:#3a3a3a}
+.side .btn:hover{background:#fff;color:#111;border-color:#fff}
+.side-foot{padding:14px 20px;border-top:1px solid #1f1f1f;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#808080}
+.side-foot button{background:none;border:0;color:#cfcfcf;font-weight:700;cursor:pointer;padding:6px 0}
+.side-foot button:hover{color:#fff}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{
+  position:sticky;top:0;z-index:20;height:var(--tb);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:0 clamp(16px,2.4vw,32px);
+  background:rgba(245,245,241,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+}
+.tb-l,.tb-r{display:flex;align-items:center;gap:10px;min-width:0}
+.menu-btn{display:none}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;font:700 12px Inter,sans-serif;cursor:pointer}
+.pill .d{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.pill.warn{background:var(--red);border-color:var(--red);color:#fff}
+.pill.warn .d{background:#fff}
+
+.workspace{display:grid;grid-template-columns:minmax(0,1fr);flex:1;min-height:0}
+.workspace[data-pv="on"]{grid-template-columns:minmax(0,1fr) minmax(380px,46%)}
+.editor{padding:clamp(24px,4vw,52px) clamp(16px,2.4vw,32px) 140px;width:100%;max-width:1000px}
+
+.view-head{margin-bottom:32px}
+.view-title{font:800 clamp(36px,5.4vw,68px)/.94 Manrope,sans-serif;letter-spacing:-.06em;overflow-wrap:anywhere}
+.view-url{margin-top:12px;font:13px ui-monospace,Menlo,monospace;color:var(--muted);overflow-wrap:anywhere}
+.lead{margin-top:16px;max-width:60ch;color:#4a4a4a;font-size:16px;line-height:1.65}
+
+/* ---------- preview ---------- */
+.preview{
+  position:sticky;top:var(--tb);height:calc(100vh - var(--tb));height:calc(100dvh - var(--tb));
+  display:none;flex-direction:column;background:#e4e4de;border-left:1px solid var(--line);
+}
+.workspace[data-pv="on"] .preview{display:flex}
+.pv-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:#fff;border-bottom:1px solid var(--line)}
+.pv-bar b{font:700 13px Inter,sans-serif}
+.pv-bar .seg span{padding:5px 12px;font-size:12px}
+.pv-stage{flex:1;min-height:0;overflow:hidden;padding:14px;display:flex;justify-content:center;align-items:flex-start}
+.pv-stage .pv-wrap{transform-origin:0 0;flex:none}
+.pv-stage iframe{display:block;width:100%;height:100%;border:0;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+
+/* ---------- blocks (sezioni nell'editor) ---------- */
+.blk{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:clip;transition:border-color .2s}
+.blk[open]{border-color:rgba(16,16,16,.3)}
+.blk-sum{display:flex;align-items:center;gap:14px;min-height:68px;padding:12px 16px;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+.blk-sum::-webkit-details-marker{display:none}
+.blk-sum:hover{background:#fafaf8}
+.blk-ico{flex:0 0 40px;height:40px;border-radius:10px;background:var(--paper);display:grid;place-items:center}
+.blk-ico svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.blk-txt{flex:1;min-width:0;display:grid;gap:3px}
+.blk-txt b{font:700 16px/1.2 Manrope,sans-serif;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blk-txt small{color:var(--muted);font-size:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.badge{padding:1px 8px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:#444;font-weight:600;font-size:11px}
+.badge.red{background:rgba(225,6,0,.08);border-color:rgba(225,6,0,.3);color:var(--red2)}
+.blk-tools{display:flex;gap:6px;flex:none}
+.blk-chev{position:relative;flex:0 0 34px;width:34px;height:34px;border:1px solid var(--line);border-radius:50%}
+.blk-chev::before,.blk-chev::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.blk-chev::after{transform:translate(-50%,-50%) rotate(90deg)}
+.blk[open]>.blk-sum .blk-chev::after{transform:translate(-50%,-50%) rotate(0)}
+.blk-body{padding:20px 18px 22px;border-top:1px solid var(--line);display:grid;gap:20px}
+@supports (selector(::details-content)){
+  .blk::details-content{block-size:0;overflow:hidden;transition:block-size .4s cubic-bezier(.2,.8,.2,1),content-visibility .4s allow-discrete}
+  .blk[open]::details-content{block-size:auto}
+}
+:root{interpolate-size:allow-keywords}
+
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:44px 0 16px}
+.sec-head h2{font:800 clamp(28px,3.4vw,40px)/1 Manrope,sans-serif;letter-spacing:-.05em}
+.sec-head .hint{margin-top:6px}
+.sec-head .btns{display:flex;gap:8px}
+.empty-box{border:1.5px dashed rgba(16,16,16,.25);border-radius:var(--r);padding:28px;text-align:center;color:var(--muted)}
+
+.adder{margin-top:14px;padding:20px;border:1.5px dashed rgba(16,16,16,.25);border-radius:var(--r)}
+.adder h3{font:700 15px Manrope,sans-serif;margin-bottom:14px}
+.adder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.add-type{display:grid;gap:4px;justify-items:start;text-align:left;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:border-color .15s,transform .15s}
+.add-type:hover{border-color:var(--red);transform:translateY(-2px)}
+.add-type svg{width:22px;height:22px;stroke:var(--red);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:6px}
+.add-type b{font:700 14px Manrope,sans-serif}
+.add-type small{color:var(--muted);font-size:12px;line-height:1.4}
+
+/* ---------- liste (dati, immagini, schede) ---------- */
+.lst{display:grid;gap:8px;margin-bottom:10px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) 34px;gap:8px;align-items:center}
+.imgs{display:grid;gap:8px;list-style:none;padding:0;margin:0}
+.img-row{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:12px;background:#fafaf8}
+.img-row img{width:64px;height:64px;object-fit:cover;border-radius:8px;background:#ddd}
+.img-name{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+.img-name .tag{display:inline-block;margin-right:6px;padding:0 7px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:10px}
+.img-row input{min-height:38px;padding:8px 11px;font-size:13px}
+.row-tools{display:flex;gap:6px}
+.drop{border:1.5px dashed rgba(16,16,16,.3);border-radius:12px;padding:22px 16px;text-align:center;color:var(--muted);cursor:pointer;transition:border-color .15s,background .15s,color .15s;display:grid;gap:4px}
+.drop b{color:var(--ink);font-weight:700}
+.drop.over{border-color:var(--red);background:rgba(225,6,0,.05);color:var(--red)}
+.path-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafaf8;display:grid;gap:12px}
+.item-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.item-h b{font:700 14px Manrope,sans-serif}
+
+.cover-box{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:start}
+.cover-prev{aspect-ratio:4/5;border-radius:10px;background:#e7e7e2;overflow:hidden;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:12px;padding:8px}
+.cover-prev img{width:100%;height:100%;object-fit:cover}
+.cover-prev.over{outline:2px dashed var(--red)}
+.cover-ctl{display:grid;gap:12px}
+.cover-btns{display:flex;gap:8px;flex-wrap:wrap}
+.simg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.simg{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;padding:14px;border:1px solid var(--line);border-radius:12px}
+.simg-prev{position:relative;aspect-ratio:4/5;border-radius:8px;background:#e7e7e2;overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:11px;text-align:center;padding:6px}
+.simg-prev img{width:100%;height:100%;object-fit:cover}
+.simg-prev.over{outline:2px dashed var(--red)}
+.simg-flag{position:absolute;top:5px;left:5px;font-size:9px;padding:2px 6px}
+.simg-ctl{display:grid;gap:8px;align-content:start}
+.simg-ctl b{font:700 13px Manrope,sans-serif;line-height:1.3}
+.simg .path-add{margin-top:0}
+
+/* ---------- viste secondarie ---------- */
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:14px;display:grid;gap:16px}
+.panel h3{font:700 18px/1.2 Manrope,sans-serif;letter-spacing:-.03em}
+.panel p{color:#4a4a4a;line-height:1.6}
+.panel .btns{display:flex;gap:10px;flex-wrap:wrap}
+.notes{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.notes li{padding:11px 14px;border-radius:10px;background:var(--paper);border:1px solid var(--line);line-height:1.5}
+.notes li.err{background:rgba(225,6,0,.07);border-color:rgba(225,6,0,.35);color:var(--red2);font-weight:600}
+.steps{margin:0;padding-left:22px;display:grid;gap:10px;line-height:1.6}
+.steps li::marker{font-weight:800;color:var(--red)}
+.files{margin:0;padding:0;list-style:none;font:12px/1.9 ui-monospace,Menlo,monospace;color:#444;max-height:260px;overflow:auto}
+.files li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}
+.files li span:last-child{color:var(--muted);white-space:nowrap}
+.media-list{max-height:none}
+.media-list li{align-items:center;padding:8px 0;gap:12px}
+.media-list .media-path{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;min-width:0}
+.media-list .btn{font:12px/1.4 Inter,sans-serif}
+.cat-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.cat-row:last-child{border-bottom:0}
+.cat-row small{color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.range-out{font-weight:700;margin-left:6px}
+
+/* ---------- toast, busy, dialog ---------- */
+.toast{
+  position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));z-index:300;
+  transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;
+  max-width:calc(100vw - 32px);text-align:center;transition:opacity .3s,transform .3s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.err{background:var(--red)}
+.busy{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:300;background:#111;color:#fff;padding:10px 18px;border-radius:999px;font-weight:600;display:flex;align-items:center;gap:10px}
+.busy::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid #555;border-top-color:#fff;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+dialog{border:0;border-radius:18px;padding:28px;width:min(440px,calc(100vw - 32px));color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog h3{font:800 24px/1.1 Manrope,sans-serif;letter-spacing:-.04em;margin-bottom:10px}
+dialog p{color:#4a4a4a;line-height:1.6;margin-bottom:24px}
+dialog form{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+.scrim{display:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1279px){
+  .workspace[data-pv="on"]{grid-template-columns:minmax(0,1fr)}
+  .workspace[data-pv="on"] .preview{position:fixed;inset:0;z-index:90;height:auto}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{position:fixed;inset:0 auto 0 0;width:min(320px,86vw);z-index:110;transform:translateX(-102%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .app.menu-open .side{transform:none}
+  .app.menu-open .scrim{display:block;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.5)}
+  .menu-btn{display:grid}
+}
+@media (max-width:640px){
+  .grid2,.two{grid-template-columns:1fr}
+  .cover-box{grid-template-columns:96px minmax(0,1fr)}
+  .blk-sum{gap:10px;padding:10px 12px}
+  .blk-tools .ibtn:not([data-keep]){display:none}
+  .blk-body{padding:18px 14px 20px}
+  .pair{grid-template-columns:minmax(0,1fr) 34px}
+  .pair input:nth-child(2){grid-column:1}
+  .pair .ibtn{grid-row:1/3;grid-column:2}
+  .cat-row{grid-template-columns:1fr auto}
+  .tb-r .btn span{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===================== ACCESSO ===================== -->
+<section class="lock" id="lock" hidden>
+  <div class="lock-card">
+    <div class="mark"><img src="images/GPJ%20neg.png" alt="" onerror="this.remove()"></div>
+    <h1 id="lockTitle">Area riservata.</h1>
+    <p id="lockText">Inserisci la password per gestire pagine e sezioni del portfolio.</p>
+    <div class="fatal" id="lockFatal" hidden></div>
+    <form id="lockForm" autocomplete="off">
+      <input type="password" id="pw1" placeholder="Password" aria-label="Password" autocomplete="current-password" required>
+      <input type="password" id="pw2" placeholder="Ripeti la password" aria-label="Ripeti la password" autocomplete="new-password" hidden>
+      <p class="msg" id="lockMsg" role="alert"></p>
+      <button class="btn red" type="submit" id="lockBtn">Entra</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== APP ===================== -->
+<div class="app" id="app" hidden>
+
+  <aside class="side" id="side" aria-label="Navigazione admin">
+    <div class="side-brand">
+      <div class="mark"><img src="images/GPJ%20neg.png" alt="" onerror="this.remove()"></div>
+      <div><b>GPJ Visuals</b><small>Pannello admin</small></div>
+    </div>
+
+    <div class="side-scroll">
+      <h2>Pagine progetto</h2>
+      <div id="pageList"></div>
+      <button class="btn sm" type="button" data-action="new-page">Nuova pagina</button>
+
+      <h2>Pagine già nel sito</h2>
+      <p class="side-note">Aggiungi raccolte e foto senza toccare la pagina.</p>
+      <div id="legacyList"></div>
+
+      <h2>Pagine extra</h2>
+      <p class="side-note">Solo etichetta, titolo e paragrafo di apertura: il resto è da modificare a mano.</p>
+      <div id="extraList"></div>
+
+      <h2>Sito</h2>
+      <button class="side-link" type="button" data-action="view" data-view="home">Sezioni homepage</button>
+      <button class="side-link" type="button" data-action="view" data-view="images">Immagini del sito</button>
+      <button class="side-link" type="button" data-action="view" data-view="media">Foto e video salvati</button>
+      <button class="side-link" type="button" data-action="view" data-view="cats">Categorie</button>
+      <button class="side-link" type="button" data-action="view" data-view="reviews">Recensioni</button>
+      <button class="side-link" type="button" data-action="view" data-view="export">Pubblica</button>
+      <button class="side-link" type="button" data-action="view" data-view="settings">Impostazioni</button>
+    </div>
+
+    <div class="side-foot">
+      <span id="saveState" role="status">Pronto</span>
+      <button type="button" data-action="lock">Esci</button>
+    </div>
+  </aside>
+  <div class="scrim" data-action="menu"></div>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <div class="workspace" id="workspace" data-pv="off">
+      <div class="editor" id="editor"></div>
+
+      <aside class="preview" id="preview" aria-label="Anteprima">
+        <div class="pv-bar">
+          <b>Anteprima</b>
+          <div class="seg" role="group" aria-label="Dispositivo">
+            <label><input type="radio" name="dev" value="desktop" data-action="device" checked><span>Computer</span></label>
+            <label><input type="radio" name="dev" value="mobile" data-action="device"><span>Telefono</span></label>
+          </div>
+          <button class="ibtn" type="button" data-action="toggle-preview" aria-label="Chiudi anteprima">×</button>
+        </div>
+        <div class="pv-stage" id="pvStage">
+          <div class="pv-wrap" id="pvWrap"><iframe id="pvFrame" title="Anteprima della pagina"></iframe></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="imgPick" accept="image/*" multiple hidden>
+<input type="file" id="vidPick" accept="video/*" hidden>
+<input type="file" id="bkPick" accept="application/json,.json" hidden>
+
+<div class="toast" id="toast" role="status"></div>
+<div class="busy" id="busy" hidden></div>
+
+<dialog id="dlg">
+  <h3 id="dlgTitle"></h3>
+  <p id="dlgText"></p>
+  <form method="dialog">
+    <button class="btn" value="cancel">Annulla</button>
+    <button class="btn red" value="ok" id="dlgOk">Conferma</button>
+  </form>
+</dialog>
+
+<!-- Contenuti già pubblicati (se presenti) -->
+<script src="data/content.js"></script>
+<script src="dati/recensioni-generali.js"></script>
+<script src="assets/js/gpj-render.js"></script>
+
+<script>
+(() => {
+'use strict';
+if (window.__gpjBlocked) return;   // accesso negato: non parte nulla
+
+/* =========================================================
+   COSTANTI
+========================================================= */
+const R = window.GPJRender;
+const KEY_DATA = 'gpj_admin_data_v1';
+const KEY_AUTH = 'gpj_admin_auth_v1';
+const KEY_SET  = 'gpj_admin_settings_v1';
+const KEY_REVIEWS = 'gpj_admin_reviews_v1';
+const SESSION  = 'gpj_admin_session';
+
+const LEGACY = [
+  // \u00abchapters\u00bb = quanti capitoli scritti a mano ha gi\u00e0 la pagina
+  // (servono per numerare correttamente i capitoli aggiunti da qui).
+  { slug: 'matchday-stories',  title: 'T\u2019IMMAGINI',      sub: 'Ideale Bari Calcio', chapters: 1 },
+  { slug: 'athlete-portraits', title: 'SCATTI DA RE',         sub: 'Kings League' },
+  { slug: 'live-atmosphere',   title: 'WIN OR GO HOME',       sub: 'Events' },
+  { slug: 'visual-campaign',   title: 'Visual Campaign',      sub: 'Brand content' },
+  { slug: 'match-film',        title: 'Match Film',           sub: 'Video / Reel' },
+  { slug: 'intensity',         title: 'Intensity',            sub: 'Sport detail' },
+  { slug: 'human-detail',      title: 'Human Detail',         sub: 'Editorial portrait' },
+  { slug: 'drone-works',       title: 'IL LIMITE E\u2019 IL CIELO', sub: 'Drone works', missing: true },
+  // Queste due pagine esistono gi\u00e0 nel sito (create con uno script a
+  // parte, non dal pannello) ma non erano mai state aggiunte qui:
+  // per questo non comparivano tra le pagine a cui aggiungere una
+  // raccolta, n\u00e9 tra le scelte per \u00abProgetto successivo\u00bb.
+  { slug: 'cuore-biancorosso',    title: 'CUORE BIANCOROSSO',   sub: 'Stagione biancorossa', chapters: 2 },
+  { slug: 'matrimonio-donnarumma', title: 'OLTRE LA TRANSENNA', sub: 'Paparazzo' }
+];
+// Pagine "extra" del sito: non sono progetti (niente foto, raccolte o
+// capitoli), solo pagine di testo già scritte a mano. Da qui si può
+// cambiare soltanto l'apertura (etichetta, titolo, paragrafo): il resto
+// del contenuto resta da modificare a mano nel file, come spiega la guida.
+const EXTRA_PAGES = [
+  { slug: 'numeri',              title: 'In numeri',           sub: 'Numeri Instagram' },
+  { slug: 'curiosita-e-record',  title: 'Curiosità e numeri',  sub: 'Record personali' },
+  { slug: 'il-mio-percorso',     title: 'Il mio percorso',     sub: 'Cronologia progetti' },
+  { slug: 'dietro-le-quinte',    title: 'Dietro le quinte',    sub: 'Backstage' },
+  { slug: 'extra',               title: 'Extra',               sub: 'Pagina indice' }
+];
+const extraPageOf = slug => EXTRA_PAGES.find(x => x.slug === slug) || null;
+const EXTRA_PLACE = ['gallery', 'video', 'end'];
+const SITE_IMAGES = [
+  { key: 'hero',  label: 'Foto grande in apertura', group: 'In apertura' },
+  { key: 'about', label: 'Foto nella sezione «Chi sono»', group: 'Chi sono' },
+  { key: 'cover-matchday-stories',  label: 'Copertina — T\u2019IMMAGINI',           group: 'Copertine dei progetti' },
+  { key: 'cover-athlete-portraits', label: 'Copertina — SCATTI DA RE',              group: 'Copertine dei progetti' },
+  { key: 'cover-live-atmosphere',   label: 'Copertina — WIN OR GO HOME',            group: 'Copertine dei progetti' },
+  { key: 'cover-visual-campaign',   label: 'Copertina — Visual Campaign',           group: 'Copertine dei progetti' },
+  { key: 'cover-match-film',        label: 'Copertina — Match Film',                group: 'Copertine dei progetti' },
+  { key: 'cover-intensity',         label: 'Copertina — Intensity',                 group: 'Copertine dei progetti' },
+  { key: 'cover-human-detail',      label: 'Copertina — Human Detail',              group: 'Copertine dei progetti' },
+  { key: 'cover-drone-works',       label: 'Copertina — IL LIMITE E\u2019 IL CIELO', group: 'Copertine dei progetti' },
+  { key: 'review-1', label: 'Foto del 1\u00b0 cliente in Recensioni', group: 'Recensioni' },
+  { key: 'review-2', label: 'Foto del 2\u00b0 cliente in Recensioni', group: 'Recensioni' },
+  { key: 'review-3', label: 'Foto del 3\u00b0 cliente in Recensioni', group: 'Recensioni' },
+  { key: 'review-4', label: 'Foto del 4\u00b0 cliente in Recensioni', group: 'Recensioni' }
+];
+const BUILTIN_CATS = [
+  { key: 'sport',    label: 'Sport / Video' },
+  { key: 'portrait', label: 'Ritratti' },
+  { key: 'content',  label: 'Content' },
+  { key: 'drone',    label: 'Drone Works' }
+];
+const TYPES = ['collection', 'gallery', 'text', 'info', 'video', 'cards'];
+const TYPE_META = {
+  collection: { label: 'Raccolta',   hint: 'Foto di una partita o di un evento, apribile', ph: 'Es. Bari \u2013 Juve Stabia', eb: 'Es. 12 ottobre 2025' },
+  text:    { label: 'Testo',         hint: 'Titolo e paragrafi',          ph: 'Es. La storia del progetto' },
+  info:    { label: 'Info progetto', hint: 'Frase di apertura e dati',    ph: 'Facoltativo' },
+  gallery: { label: 'Galleria',      hint: 'Foto con ingrandimento',      ph: 'Es. Una stagione indimenticabile' },
+  video:   { label: 'Video',         hint: 'MP4, YouTube o Vimeo',        ph: 'Es. Video / Showreel' },
+  cards:   { label: 'Schede',        hint: 'Card con testo e link',       ph: 'Es. Certificazioni' },
+  // Non \u00e8 nell\u2019elenco TYPES: non \u00e8 un tipo scelto dal riquadro generico
+  // \u00abAggiungi una sezione\u00bb, ma solo dal bottone \u00abNuovo capitolo\u00bb nelle
+  // pagine che hanno gi\u00e0 l\u2019indice \u00abI CAPITOLI\u00bb (vedi LEGACY.chapters).
+  chapter: { label: 'Capitolo',      hint: 'Un\u2019altra partita raccontata come capitolo a s\u00e9, con foto e testo', ph: 'Es. BARI \u2013 CAVESE', eb: 'Es. 10 maggio 2026' }
+};
+const ICON = {
+  collection: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="15" height="12" rx="1.5"/><path d="M6 4h15v12"/><circle cx="8" cy="11" r="1.4"/><path d="M4 18l4.5-4.5 3 3 2.5-2.5 3.5 3.5"/></svg>',
+  page:    '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>',
+  text:    '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+  info:    '<svg viewBox="0 0 24 24"><path d="M4 6h9M4 11h6M4 16h9"/><rect x="15" y="5" width="5" height="14" rx="1"/></svg>',
+  gallery: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="9" rx="1"/><rect x="13" y="4" width="7" height="5" rx="1"/><rect x="13" y="11" width="7" height="9" rx="1"/><rect x="4" y="15" width="7" height="5" rx="1"/></svg>',
+  video:   '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg>',
+  cards:   '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="1.5"/><rect x="4" y="13" width="16" height="7" rx="1.5"/></svg>',
+  chapter: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="15" height="12" rx="1.5"/><path d="M6 4h15v12"/><circle cx="8" cy="11" r="1.4"/><path d="M4 18l4.5-4.5 3 3 2.5-2.5 3.5 3.5"/></svg>'
+};
+const THEMES = [['light', 'Chiaro'], ['white', 'Bianco'], ['dark', 'Scuro'], ['red', 'Rosso']];
+
+/* =========================================================
+   UTILITÀ
+========================================================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = R ? R.esc : (s => String(s));
+const uid = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+const clone = o => JSON.parse(JSON.stringify(o));
+const nowTime = () => new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+const fmtBytes = n => n <= 0 ? '0 KB' : n >= 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+const move = (arr, i, d) => { const j = i + d; if (j < 0 || j >= arr.length) return false; [arr[i], arr[j]] = [arr[j], arr[i]]; return true; };
+
+function hashStr(str, seed = 0) {
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+
+const ls = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+
+/* =========================================================
+   IMMAGINI — IndexedDB + cache in memoria
+========================================================= */
+const idb = {
+  db: null,
+  open() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open('gpj_admin', 2);
+      r.onupgradeneeded = () => {
+        const db = r.result;
+        if (!db.objectStoreNames.contains('images')) db.createObjectStore('images', { keyPath: 'path' });
+        if (!db.objectStoreNames.contains('videos')) db.createObjectStore('videos', { keyPath: 'path' });
+      };
+      r.onsuccess = () => { this.db = r.result; res(); };
+      r.onerror = () => rej(r.error);
+    });
+  },
+  store(name, mode) { return this.db.transaction(name, mode).objectStore(name); },
+  req(q) { return new Promise((res, rej) => { q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); }); },
+  all(name) { return this.req(this.store(name, 'readonly').getAll()); },
+  put(name, rec) { return this.req(this.store(name, 'readwrite').put(rec)); },
+  del(name, key) { return this.req(this.store(name, 'readwrite').delete(key)); },
+  clear(name) { return this.req(this.store(name, 'readwrite').clear()); }
+};
+const imgs = new Map();           // path -> { blob, url, w, h, orig, size }
+let imgOK = true;
+// I video scelti da «Scegli file» si salvano qui allo stesso modo delle
+// foto (IndexedDB di questo browser): il file resta pronto per essere
+// incluso in automatico nel pacchetto e nella pubblicazione su GitHub,
+// niente più copia a mano nella cartella videos/ per quelli caricati così.
+const vidStore = new Map();       // path (es. "videos/foo.mp4") -> { blob, url, orig, size }
+const srcFor = R ? R.makeSrc({ base: '', resolve: p => (imgs.get(p) || {}).url || (vidStore.get(p) || {}).url }) : (p => p);
+
+/* =========================================================
+   STATO
+========================================================= */
+let S = null;                                     // dati del sito
+let REVIEWS = null;                               // recensioni (dati/recensioni-generali.*)
+let settings = Object.assign({
+  max: 2200, q: 0.82,
+  ghOwner: 'gianluphotographer-22', ghRepo: 'gpj.visuals-portfolio', ghBranch: 'main', ghToken: '',
+  siteUrl: 'https://gpjvisuals.it/',
+  reviewsSheetUrl: '', reviewsSheetLast: null
+}, ls.get(KEY_SET, {}));
+const ui = { view: 'page', pageId: null, legacy: null, open: {}, pv: false, device: 'desktop' };
+let radioN = 0;
+
+function newSection(type, home, legacy) {
+  const s = { id: uid(), type, eyebrow: '', title: '', theme: 'light', collapsible: false, open: true, visible: true };
+  if (type === 'collection') Object.assign(s, { collapsible: true, open: false, description: '', images: [], columns: 3 });
+  if (type === 'text')    Object.assign(s, { theme: 'white', body: '' });
+  if (type === 'info')    Object.assign(s, { theme: 'white', intro: '', facts: [{ k: 'Anno', v: '' }, { k: 'Cliente', v: '' }, { k: 'Servizi', v: '' }, { k: 'Output', v: '' }] });
+  if (type === 'gallery') Object.assign(s, { eyebrow: 'Gallery', images: [], columns: 3 });
+  if (type === 'video')   Object.assign(s, { theme: 'dark', eyebrow: 'Motion', title: 'Video', url: '', description: '', note: '' });
+  if (type === 'cards')   Object.assign(s, { theme: 'white', intro: '', items: [{ meta: '', title: '', text: '', link: '', label: '' }] });
+  if (type === 'chapter') Object.assign(s, { note: '', images: [], columns: 3 });
+  if (home) Object.assign(s, { placement: 'reviews', showInNav: false, navLabel: '' });
+  if (legacy) s.placement = 'gallery';
+  return s;
+}
+function newPage() {
+  return {
+    id: uid(), slug: '', slugAuto: true, title: '', tag: '', category: 'content',
+    wide: false, cover: '', coverAlt: '', description: '',
+    published: false, showInGrid: true, gridPosition: 'end', next: 'auto',
+    sections: [newSection('info'), newSection('gallery')]
+  };
+}
+function fixSection(s) {
+  s.id = s.id || uid();
+  s.theme = s.theme || 'light';
+  s.open = s.open !== false;
+  s.visible = s.visible !== false;
+  if (s.type === 'info' && !Array.isArray(s.facts)) s.facts = [];
+  if (s.type === 'gallery' || s.type === 'collection' || s.type === 'chapter') { if (!Array.isArray(s.images)) s.images = []; if (!s.columns) s.columns = 3; }
+  if (s.type === 'cards' && !Array.isArray(s.items)) s.items = [];
+  const need = { text: ['body'], info: ['intro'], video: ['url', 'description', 'note'], cards: ['intro'], gallery: [], collection: ['description'], chapter: ['note'] };
+  ['eyebrow', 'title'].concat(need[s.type] || []).forEach(k => { if (s[k] == null) s[k] = ''; });
+  (s.facts || []).forEach(f => { f.k = f.k || ''; f.v = f.v || ''; });
+  (s.images || []).forEach(i => { i.alt = i.alt || ''; });
+  (s.items || []).forEach(i => ['meta', 'title', 'text', 'link', 'label'].forEach(k => { if (i[k] == null) i[k] = ''; }));
+  return s;
+}
+// Testi "fissi" della homepage (hero, chi sono, servizi, contatti): sono
+// scritti nel codice di index.html, non sono sezioni come le altre. Qui
+// teniamo solo le SOSTITUZIONI che l'utente ha scritto dal pannello — un
+// campo vuoto vuol dire "lascia il testo originale della pagina", esattamente
+// come per le immagini del sito (SITE_IMAGES).
+function normHomeFixed(home) {
+  home.hero = (home.hero && typeof home.hero === 'object') ? home.hero : {};
+  ['eyebrow', 'title', 'subtitle', 'ctaWork', 'ctaContact'].forEach(k => { if (home.hero[k] == null) home.hero[k] = ''; });
+  home.about = (home.about && typeof home.about === 'object') ? home.about : {};
+  ['eyebrow', 'title', 'body'].forEach(k => { if (home.about[k] == null) home.about[k] = ''; });
+  home.servicesHead = (home.servicesHead && typeof home.servicesHead === 'object') ? home.servicesHead : {};
+  ['eyebrow', 'title'].forEach(k => { if (home.servicesHead[k] == null) home.servicesHead[k] = ''; });
+  home.services = Array.isArray(home.services) ? home.services : [];
+  while (home.services.length < 5) home.services.push({ title: '', text: '' });
+  home.services = home.services.slice(0, 5).map(s => ({ title: (s && s.title) || '', text: (s && s.text) || '' }));
+  home.contact = (home.contact && typeof home.contact === 'object') ? home.contact : {};
+  ['eyebrow', 'title', 'body', 'email', 'instagramUrl', 'instagramLabel'].forEach(k => { if (home.contact[k] == null) home.contact[k] = ''; });
+}
+// Lo stesso principio, ma per il testo "in apertura" (titolo, sottotitolo,
+// intro, dati Squadra/Formato/...) delle pagine già nel sito — una per
+// pagina (slug), non collegato alle raccolte/capitoli che ci si aggiungono.
+function normLegacyMeta(m) {
+  m = m || {};
+  ['tag', 'title', 'intro'].forEach(k => { if (m[k] == null) m[k] = ''; });
+  m.facts = Array.isArray(m.facts) ? m.facts : [];
+  while (m.facts.length < 4) m.facts.push({ k: '', v: '' });
+  m.facts = m.facts.slice(0, 4).map(f => ({ k: (f && f.k) || '', v: (f && f.v) || '' }));
+  return m;
+}
+function legacyMetaOf(slug) {
+  if (!S.legacyMeta[slug]) S.legacyMeta[slug] = {};
+  return normLegacyMeta(S.legacyMeta[slug]);
+}
+function normalize(d) {
+  d = d || {};
+  d.version = 1;
+  d.categories = Array.isArray(d.categories) ? d.categories : [];
+  d.pages = Array.isArray(d.pages) ? d.pages : [];
+  d.home = d.home || {};
+  d.home.sections = Array.isArray(d.home.sections) ? d.home.sections : [];
+  normHomeFixed(d.home);
+  d.legacyMeta = (d.legacyMeta && typeof d.legacyMeta === 'object' && !Array.isArray(d.legacyMeta)) ? d.legacyMeta : {};
+  Object.keys(d.legacyMeta).forEach(k => normLegacyMeta(d.legacyMeta[k]));
+  d.extras = (d.extras && typeof d.extras === 'object' && !Array.isArray(d.extras)) ? d.extras : {};
+  Object.keys(d.extras).forEach(k => {
+    const e = d.extras[k] = d.extras[k] || {};
+    e.addAt = e.addAt === 'start' ? 'start' : 'end';
+    e.sections = (Array.isArray(e.sections) ? e.sections : []).map(x => { fixSection(x); x.placement = EXTRA_PLACE.includes(x.placement) ? x.placement : 'gallery'; return x; });
+  });
+  d.siteImages = (d.siteImages && typeof d.siteImages === 'object' && !Array.isArray(d.siteImages)) ? d.siteImages : {};
+  d.siteImageDefaults = (d.siteImageDefaults && typeof d.siteImageDefaults === 'object' && !Array.isArray(d.siteImageDefaults)) ? d.siteImageDefaults : {};
+  d.meta = Object.assign({ exportedSlugs: [], exportedHash: '' }, d.meta);
+  d.pages.forEach(p => {
+    p.id = p.id || uid();
+    p.title = p.title || ''; p.tag = p.tag || ''; p.slug = p.slug || '';
+    p.slugAuto = p.slugAuto === true;
+    p.publishedSlug = p.publishedSlug || '';
+    p.category = p.category || 'content';
+    p.published = p.published !== false;
+    p.showInGrid = p.showInGrid !== false;
+    p.gridPosition = p.gridPosition === 'start' ? 'start' : 'end';
+    p.next = p.next || 'auto';
+    p.sections = (Array.isArray(p.sections) ? p.sections : []).map(fixSection);
+  });
+  d.home.sections = d.home.sections.map(s => { fixSection(s); s.placement = s.placement || 'reviews'; return s; });
+  return d;
+}
+const siteCount = c => (c.pages || []).length + ((c.home || {}).sections || []).length +
+  Object.keys(c.extras || {}).reduce((n, k) => n + (((c.extras[k] || {}).sections) || []).length, 0);
+function loadData() {
+  const saved = ls.get(KEY_DATA, null);
+  const site = window.GPJ_CONTENT;
+  if (saved) {
+    S = normalize(saved);
+    if (site && site.siteImageDefaults && !Object.keys(S.siteImageDefaults).length) S.siteImageDefaults = clone(site.siteImageDefaults);
+    return;
+  }
+  if (site && siteCount(site) > 0) {
+    S = normalize(clone(site));
+    S.meta.exportedSlugs = S.pages.map(p => p.slug);
+    S.meta.exportedHash = hashStr(contentJs());
+  } else {
+    S = normalize({});
+    if (site && site.siteImageDefaults) S.siteImageDefaults = clone(site.siteImageDefaults);
+  }
+}
+
+function loadReviews() {
+  const saved = ls.get(KEY_REVIEWS, null);
+  if (Array.isArray(saved)) { REVIEWS = saved; return; }
+  REVIEWS = Array.isArray(window.GPJ_REVIEWS) ? clone(window.GPJ_REVIEWS) : [];
+}
+function persistReviews() { ls.set(KEY_REVIEWS, REVIEWS); }
+function reviewsJson() { return JSON.stringify(REVIEWS, null, 2) + '\n'; }
+function reviewsJs() { return 'window.GPJ_REVIEWS = ' + JSON.stringify(REVIEWS, null, 2) + ';\n'; }
+
+/* Lettura CSV minimale (virgole tra campi, campi tra virgolette con
+   virgole/newline dentro, "" come virgoletta letterale) — quanto basta
+   per leggere l'export CSV di un Google Sheet pubblicato sul web. */
+function parseCsv(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  text = String(text || '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else inQuotes = false; }
+      else field += c;
+    } else if (c === '"') inQuotes = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else field += c;
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(v => (v || '').trim() !== ''));
+}
+
+const curPage = () => S.pages.find(p => p.id === ui.pageId) || null;
+function extrasOf(slug) {
+  if (!S.extras[slug]) S.extras[slug] = { addAt: 'end', sections: [] };
+  return S.extras[slug];
+}
+const legacyOf = slug => LEGACY.find(l => l.slug === slug) || null;
+const curList = () => ui.view === 'home' ? S.home.sections
+  : ui.view === 'legacy' ? extrasOf(ui.legacy).sections
+  : (curPage() ? curPage().sections : []);
+function findSec(id) {
+  const lists = [S.home.sections].concat(S.pages.map(p => p.sections), Object.keys(S.extras).map(k => S.extras[k].sections));
+  for (const list of lists) {
+    const i = list.findIndex(s => s.id === id);
+    if (i > -1) return { list, i, s: list[i] };
+  }
+  return null;
+}
+function uniqueSlug(base, exceptId) {
+  base = base || 'pagina';
+  const taken = new Set(LEGACY.map(l => l.slug).concat(S.pages.filter(p => p.id !== exceptId).map(p => p.slug)));
+  let s = base, n = 2;
+  while (taken.has(s)) s = base + '-' + n++;
+  return s;
+}
+
+/* =========================================================
+   SALVATAGGIO AUTOMATICO
+========================================================= */
+let tSave, tPv;
+function setSave(t) { const el = $('#saveState'); if (el) el.textContent = t; }
+function persist() {
+  if (ls.set(KEY_DATA, S)) setSave('Bozza salvata alle ' + nowTime());
+  else { setSave('Salvataggio non riuscito'); toast('Non riesco a salvare la bozza in questo browser. Scarica un backup.', 'err'); }
+}
+function touch() {
+  setSave('Salvataggio…');
+  clearTimeout(tSave); tSave = setTimeout(persist, 300);
+  clearTimeout(tPv);   tPv   = setTimeout(renderPreview, 260);
+  renderSide(); renderTop();
+}
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+let tToast;
+function toast(msg, kind) {
+  const el = $('#toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (kind === 'err' ? ' err' : '');
+  clearTimeout(tToast);
+  tToast = setTimeout(() => el.classList.remove('show'), kind === 'err' ? 5200 : 3200);
+}
+function busy(msg) {
+  const el = $('#busy');
+  if (msg) { el.textContent = msg; el.hidden = false; } else el.hidden = true;
+}
+function askConfirm(title, text, ok) {
+  return new Promise(res => {
+    $('#dlgTitle').textContent = title;
+    $('#dlgText').textContent = text;
+    $('#dlgOk').textContent = ok || 'Conferma';
+    const d = $('#dlg');
+    d.returnValue = '';
+    d.onclose = () => res(d.returnValue === 'ok');
+    d.showModal();
+  });
+}
+
+/* =========================================================
+   ACCESSO
+========================================================= */
+async function hashPw(pw, salt) {
+  const text = salt + ':' + pw;
+  try {
+    if (window.crypto && crypto.subtle) {
+      const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join('');
+    }
+  } catch (e) {}
+  return 'x' + hashStr(text) + hashStr(text, 7);
+}
+let fails = 0, lockedUntil = 0;
+
+function showLock() {
+  const first = !ls.get(KEY_AUTH, null);
+  $('#app').hidden = true;
+  $('#lock').hidden = false;
+  $('#lockTitle').textContent = first ? 'Crea la password.' : 'Area riservata.';
+  $('#lockText').textContent = first
+    ? 'Scegli una password per proteggere questo pannello. Resta salvata solo su questo browser.'
+    : 'Inserisci la password per gestire pagine e sezioni del portfolio.';
+  $('#pw2').hidden = !first; $('#pw2').required = first;
+  $('#pw1').autocomplete = first ? 'new-password' : 'current-password';
+  $('#lockBtn').textContent = first ? 'Crea password ed entra' : 'Entra';
+  $('#lockMsg').textContent = '';
+  $('#pw1').value = ''; $('#pw2').value = '';
+  setTimeout(() => $('#pw1').focus(), 50);
+}
+$('#lockForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = $('#lockMsg');
+  const auth = ls.get(KEY_AUTH, null);
+  const pw = $('#pw1').value;
+  if (!auth) {
+    if (pw.length < 8) return void (msg.textContent = 'Usa almeno 8 caratteri.');
+    if (pw !== $('#pw2').value) return void (msg.textContent = 'Le due password non coincidono.');
+    const salt = uid() + uid();
+    ls.set(KEY_AUTH, { salt, hash: await hashPw(pw, salt) });
+    return enter();
+  }
+  if (Date.now() < lockedUntil) return void (msg.textContent = 'Troppi tentativi. Riprova tra ' + Math.ceil((lockedUntil - Date.now()) / 1000) + ' secondi.');
+  if ((await hashPw(pw, auth.salt)) === auth.hash) { fails = 0; return enter(); }
+  fails++;
+  if (fails >= 5) { lockedUntil = Date.now() + 30000; fails = 0; msg.textContent = 'Troppi tentativi. Riprova tra 30 secondi.'; }
+  else msg.textContent = 'Password non corretta.';
+});
+
+function enter() {
+  try { sessionStorage.setItem(SESSION, '1'); } catch (e) {}
+  $('#lock').hidden = true;
+  $('#app').hidden = false;
+  ui.view = S.pages.length ? 'page' : 'page';
+  ui.pageId = S.pages.length ? S.pages[0].id : null;
+  ui.pv = window.innerWidth >= 1280;
+  renderAll();
+}
+function lock() {
+  try { sessionStorage.removeItem(SESSION); } catch (e) {}
+  $('#app').classList.remove('menu-open');
+  showLock();
+}
+
+/* =========================================================
+   COSTRUTTORI DI CAMPI
+========================================================= */
+const attr = o => Object.entries(o || {}).filter(([, v]) => v !== undefined && v !== false && v !== '' && v !== null)
+  .map(([k, v]) => v === true ? k : k + '="' + esc(v) + '"').join(' ');
+const hintHtml = h => h ? '<small class="hint">' + h + '</small>' : '';
+
+const fText = (label, path, val, o = {}) =>
+  '<label class="fld"><span>' + label + '</span><input type="text" data-path="' + path + '" value="' + esc(val) + '" ' +
+  attr({ placeholder: o.ph, maxlength: o.max, autocomplete: 'off' }) + '>' + hintHtml(o.hint) + '</label>';
+const fArea = (label, path, val, o = {}) =>
+  '<label class="fld"><span>' + label + '</span><textarea data-path="' + path + '" rows="' + (o.rows || 4) + '" ' +
+  attr({ placeholder: o.ph, maxlength: o.max }) + '>' + esc(val) + '</textarea>' + hintHtml(o.hint) + '</label>';
+const fSelect = (label, path, val, opts, o = {}) =>
+  '<label class="fld"><span>' + label + '</span><select data-path="' + path + '">' +
+  opts.map(([v, l]) => '<option value="' + esc(v) + '"' + (String(v) === String(val) ? ' selected' : '') + '>' + esc(l) + '</option>').join('') +
+  '</select>' + hintHtml(o.hint) + '</label>';
+const fSw = (label, path, val, o = {}) =>
+  '<label class="sw"><input type="checkbox" data-path="' + path + '" data-type="bool"' + (val ? ' checked' : '') + (o.disabled ? ' disabled' : '') +
+  '><i></i><span><b>' + label + '</b>' + (o.hint ? '<small>' + o.hint + '</small>' : '') + '</span></label>';
+function fSeg(label, path, val, opts, o = {}) {
+  const name = 'r' + (++radioN);
+  return '<div class="fld"><span>' + label + '</span><div class="seg" role="radiogroup">' +
+    opts.map(([v, l]) => '<label><input type="radio" name="' + name + '" data-path="' + path + '"' + (o.type ? ' data-type="' + o.type + '"' : '') +
+      ' value="' + esc(v) + '"' + (String(v) === String(val) ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+    '</div>' + hintHtml(o.hint) + '</div>';
+}
+
+/* =========================================================
+   RENDER — barra laterale e barra superiore
+========================================================= */
+function publicPages() { return S.pages.filter(p => p.published); }
+function extraEntries() {
+  const out = {};
+  Object.keys(S.extras).forEach(k => {
+    const secs = S.extras[k].sections.filter(s => s.visible !== false);
+    if (secs.length) out[k] = { sections: secs };
+  });
+  return out;
+}
+function hasAny(obj) { return obj && Object.values(obj).some(v => v !== '' && v != null); }
+function contentObj() {
+  const o = {
+    version: 1,
+    categories: S.categories,
+    pages: publicPages().map(p => { const c = clone(p); delete c.slugAuto; return c; }),
+    home: { sections: S.home.sections.filter(s => s.visible !== false) }
+  };
+  if (hasAny(S.home.hero)) o.home.hero = S.home.hero;
+  if (hasAny(S.home.about)) o.home.about = S.home.about;
+  if (hasAny(S.home.servicesHead)) o.home.servicesHead = S.home.servicesHead;
+  if ((S.home.services || []).some(s => s.title || s.text)) o.home.services = S.home.services;
+  if (hasAny(S.home.contact)) o.home.contact = S.home.contact;
+  const ex = extraEntries();
+  if (Object.keys(ex).length) o.extras = ex;
+  const lm = {};
+  Object.keys(S.legacyMeta || {}).forEach(k => {
+    const m = S.legacyMeta[k];
+    if (m.tag || m.title || m.intro || (m.facts || []).some(f => f.k || f.v)) lm[k] = m;
+  });
+  if (Object.keys(lm).length) o.legacyMeta = lm;
+  o.siteImageDefaults = S.siteImageDefaults;
+  const si = {};
+  Object.keys(S.siteImages).forEach(k => { if (S.siteImages[k]) si[k] = S.siteImages[k]; });
+  if (Object.keys(si).length) o.siteImages = si;
+  return o;
+}
+function contentJs() {
+  return '/* Generato dall\u2019admin \u2014 non modificare a mano. */\nwindow.GPJ_CONTENT = ' + JSON.stringify(contentObj(), null, 2) + ';\n';
+}
+const isDirty = () => S.meta.exportedHash !== hashStr(contentJs());
+
+function renderSide() {
+  $('#pageList').innerHTML = S.pages.length
+    ? S.pages.map(p => '<button class="pg' + (ui.view === 'page' && ui.pageId === p.id ? ' on' : '') + '" type="button" data-action="open-page" data-id="' + p.id + '">' +
+        '<i class="dot' + (p.published ? ' live' : '') + '" title="' + (p.published ? 'Pubblicata' : 'Bozza') + '"></i><span>' + esc(p.title || 'Senza titolo') + '</span></button>').join('')
+    : '<p class="side-empty">Ancora nessuna pagina.</p>';
+  $('#legacyList').innerHTML = LEGACY.map(l => {
+    const n = ((S.extras[l.slug] || {}).sections || []).length;
+    return '<button class="pg lg' + (ui.view === 'legacy' && ui.legacy === l.slug ? ' on' : '') + '" type="button" data-action="open-legacy" data-slug="' + l.slug + '">' +
+      '<span><b>' + esc(l.title) + '</b><small>' + esc(l.sub || '') + '</small></span>' + (n ? '<em class="cnt" title="' + n + (n === 1 ? ' raccolta o sezione' : ' raccolte o sezioni') + '">' + n + '</em>' : '') + '</button>';
+  }).join('');
+  $('#extraList').innerHTML = EXTRA_PAGES.map(x => {
+    const m = S.legacyMeta[x.slug];
+    const has = !!(m && (m.tag || m.title || m.intro));
+    return '<button class="pg lg' + (ui.view === 'extra' && ui.legacy === x.slug ? ' on' : '') + '" type="button" data-action="open-extra" data-slug="' + x.slug + '">' +
+      '<span><b>' + esc(x.title) + '</b><small>' + esc(x.sub || '') + '</small></span>' + (has ? '<em class="cnt" title="Testi personalizzati">✓</em>' : '') + '</button>';
+  }).join('');
+  $$('.side-link').forEach(b => b.classList.toggle('on', b.dataset.view === ui.view));
+}
+function renderTop() {
+  const dirty = isDirty();
+  const canPv = ui.view === 'page' || ui.view === 'home' || ui.view === 'legacy';
+  $('#topbar').innerHTML =
+    '<div class="tb-l"><button class="ibtn menu-btn" type="button" data-action="menu" aria-label="Apri il menu">☰</button>' +
+    '<button class="pill' + (dirty ? ' warn' : '') + '" type="button" data-action="view" data-view="export"><i class="d"></i>' +
+    (dirty ? 'Modifiche da pubblicare' : 'Tutto pubblicato') + '</button></div>' +
+    '<div class="tb-r">' +
+    (canPv ? '<button class="btn sm ghost" type="button" data-action="toggle-preview"><span>' + (ui.pv ? 'Chiudi anteprima' : 'Anteprima') + '</span></button>' : '') +
+    '<button class="btn sm red" type="button" data-action="view" data-view="export"><span>Pubblica</span></button></div>';
+  $('#workspace').dataset.pv = (canPv && ui.pv) ? 'on' : 'off';
+}
+function renderAll() { renderSide(); renderTop(); renderEditor(); renderPreview(); }
+
+/* =========================================================
+   RENDER — editor
+========================================================= */
+function renderEditor() {
+  const views = { page: viewPage, home: viewHome, legacy: viewLegacy, extra: viewExtraPage, images: viewImages, media: viewMedia, cats: viewCats, reviews: viewReviews, export: viewExport, settings: viewSettings };
+  $('#editor').innerHTML = (views[ui.view] || viewPage)();
+  const r = $('#rangeQ'); if (r) r.dispatchEvent(new Event('input'));
+}
+
+function viewEmpty() {
+  return '<div class="view-head"><h1 class="view-title">Crea la prima pagina.</h1>' +
+    '<p class="lead">Ogni pagina è un progetto del portfolio: copertina, testo, gallerie, video. Le sezioni si aggiungono, si riordinano e si possono rendere comprimibili.</p>' +
+    '<p class="lead">Vuoi invece aggiungere le foto di un\u2019altra partita a una pagina che c\u2019è già, per esempio T\u2019IMMAGINI? Scegli la pagina nell\u2019elenco «Pagine già nel sito», a sinistra.</p></div>' +
+    '<button class="btn red" type="button" data-action="new-page">Nuova pagina</button>';
+}
+
+function viewPage() {
+  const p = curPage();
+  if (!p) return viewEmpty();
+  return '<div class="view-head"><h1 class="view-title" id="vtTitle">' + esc(p.title || 'Nuova pagina') + '</h1>' +
+    '<p class="view-url" id="vtUrl">projects/' + esc(p.slug || '…') + '.html</p></div>' +
+    detailsBlock(p) + sectionsBlock(p.sections, 'page');
+}
+// Un gruppo di campi "a parte", per i testi fissi di homepage/pagine già
+// nel sito (non sono sezioni: non si spostano, non si duplicano, ce n'è
+// sempre e solo uno). Riusa lo stesso details/summary delle sezioni così
+// il tasto per aprire/chiudere si comporta allo stesso modo.
+function fixedGroup(key, title, hint, body) {
+  return '<details class="blk" data-sid="' + key + '"' + (ui.open[key] ? ' open' : '') + '>' +
+    '<summary class="blk-sum"><span class="blk-txt"><b class="blk-title">' + esc(title) + '</b>' +
+    (hint ? '<small>' + esc(hint) + '</small>' : '') + '</span><span class="blk-chev"></span></summary>' +
+    '<div class="blk-body">' + body + '</div></details>';
+}
+function homeFixedPanel() {
+  const h = S.home;
+  const svc = h.services.map((s, i) => '<div class="grid2">' +
+    fText('Titolo servizio ' + (i + 1), 'home.services.' + i + '.title', s.title, { ph: 'Vuoto = testo originale' }) +
+    fText('Descrizione', 'home.services.' + i + '.text', s.text, { ph: 'Vuoto = testo originale' }) + '</div>').join('');
+  return '<div class="view-head"><h1 class="view-title">Testi fissi della homepage.</h1>' +
+    '<p class="lead">Titolo di apertura, «Chi sono», servizi e contatti: sono scritti nel codice della pagina, non sono sezioni. Scrivi qui solo quello che vuoi cambiare — un campo lasciato vuoto tiene il testo originale del sito, come per le immagini.</p></div>' +
+    fixedGroup('__heroFixed', 'Apertura (hero)', 'Titolo grande, sottotitolo, i due bottoni', '<div class="grid2">' +
+      fText('Etichetta sopra il titolo', 'home.hero.eyebrow', h.hero.eyebrow, { ph: 'Photography • Video • Visual Storytelling' }) +
+      fText('Sottotitolo', 'home.hero.subtitle', h.hero.subtitle, { ph: 'Scopri la mia visione' }) + '</div>' +
+      fArea('Titolo grande', 'home.hero.title', h.hero.title, { rows: 2, hint: 'Una riga per ogni riga del titolo (di solito due). Vuoto = testo originale.', ph: 'Il mondo\nattraverso la mia lente' }) +
+      '<div class="grid2">' + fText('Bottone rosso', 'home.hero.ctaWork', h.hero.ctaWork, { ph: 'Esplora i lavori' }) +
+      fText('Bottone bianco', 'home.hero.ctaContact', h.hero.ctaContact, { ph: 'Contattami' }) + '</div>') +
+    fixedGroup('__aboutFixed', 'Chi sono', 'Foto già cambiabile da «Immagini del sito»', '<div class="grid2">' +
+      fText('Etichetta', 'home.about.eyebrow', h.about.eyebrow, { ph: 'About' }) +
+      fText('Titolo', 'home.about.title', h.about.title, { ph: 'Foto e movimento, nello stesso linguaggio visivo.' }) + '</div>' +
+      fArea('Testo', 'home.about.body', h.about.body, { rows: 5, hint: 'Una riga vuota inizia un nuovo paragrafo. Vuoto = testo originale.' })) +
+    fixedGroup('__servicesFixed', 'Servizi', 'Numero e ordine restano quelli del sito', '<div class="grid2">' +
+      fText('Etichetta', 'home.servicesHead.eyebrow', h.servicesHead.eyebrow, { ph: 'Services' }) +
+      fText('Titolo', 'home.servicesHead.title', h.servicesHead.title, { ph: 'Multimedia.' }) + '</div>' + svc) +
+    fixedGroup('__contactFixed', 'Contatti', 'Email e Instagram, più il testo intorno al modulo', '<div class="grid2">' +
+      fText('Etichetta', 'home.contact.eyebrow', h.contact.eyebrow, { ph: 'Hai un progetto?' }) +
+      fText('Titolo', 'home.contact.title', h.contact.title, { ph: 'Facciamolo vedere.' }) + '</div>' +
+      fArea('Testo', 'home.contact.body', h.contact.body, { rows: 3, hint: 'Vuoto = testo originale.' }) +
+      '<div class="grid2">' + fText('Email di contatto', 'home.contact.email', h.contact.email, { ph: 'gianluphotographer@gmail.com', hint: 'Aggiorna sia il link «scrivimi» sia il pulsante.' }) +
+      fText('Link Instagram', 'home.contact.instagramUrl', h.contact.instagramUrl, { ph: 'https://www.instagram.com/…' }) + '</div>' +
+      fText('Etichetta del link Instagram', 'home.contact.instagramLabel', h.contact.instagramLabel, { ph: 'Instagram ↗' }));
+}
+function viewHome() {
+  return homeFixedPanel() +
+    '<div class="view-head"><h1 class="view-title">Sezioni della homepage.</h1>' +
+    '<p class="lead">Blocchi extra da inserire nella pagina principale, nella posizione che scegli. Possono essere comprimibili e comparire nel menu.</p></div>' +
+    sectionsBlock(S.home.sections, 'home');
+}
+
+function legacyMetaPanel(l) {
+  const m = legacyMetaOf(l.slug);
+  const facts = m.facts.map((f, i) => '<div class="pair">' +
+    '<input type="text" data-path="lmeta.facts.' + i + '.k" value="' + esc(f.k) + '" placeholder="Vuoto = originale" aria-label="Nome del dato ' + (i + 1) + '">' +
+    '<input type="text" data-path="lmeta.facts.' + i + '.v" value="' + esc(f.v) + '" placeholder="Vuoto = originale" aria-label="Valore del dato ' + (i + 1) + '">' +
+    '</div>').join('');
+  return fixedGroup('__lmetaFixed', 'Testo di apertura della pagina', 'Titolo, sottotitolo e i dati in alto (es. Squadra, Formato\u2026)',
+    '<div class="grid2">' +
+    fText('Etichetta sopra il titolo', 'lmeta.tag', m.tag, { ph: 'Vuoto = testo originale' }) +
+    fText('Titolo grande', 'lmeta.title', m.title, { ph: 'Vuoto = testo originale' }) + '</div>' +
+    fArea('Testo introduttivo', 'lmeta.intro', m.intro, { rows: 4, hint: 'Il paragrafo sotto ai dati. Vuoto = testo originale.' }) +
+    '<div class="fld"><span>Dati (es. Squadra, Formato, Servizi, Stato)</span><div class="lst">' + facts + '</div></div>');
+}
+function viewLegacy() {
+  const l = legacyOf(ui.legacy);
+  if (!l) return viewEmpty();
+  const e = extrasOf(l.slug);
+  const hasChapters = l.chapters != null;
+  if (hasChapters) R.numberChapters(e.sections, l.chapters);
+  return '<div class="view-head"><h1 class="view-title">' + esc(l.title) + '</h1>' +
+    '<p class="view-url">projects/' + esc(l.slug) + '.html \u00b7 pagina gi\u00e0 nel sito</p>' +
+    '<p class="lead">Qui sotto puoi <b>modificare i testi gi\u00e0 presenti</b> nella pagina (titolo, intro, dati), oppure aggiungere <b>raccolte</b>, per esempio le foto di un\u2019altra partita: compaiono sotto le sue foto, chiuse, con titolo, anteprima e numero di foto. ' +
+    (hasChapters ? 'Questa pagina ha anche un indice \u00abI CAPITOLI\u00bb: con \u00abNuovo capitolo\u00bb aggiungi una partita che entra a farne parte, numerata in automatico, con titolo e testo in vista (non chiusa come le raccolte). ' : '') +
+    'Puoi tornare quando vuoi per aggiungere altre foto, altri capitoli o altre raccolte.</p></div>' +
+    (l.missing ? '<div class="panel"><ul class="notes"><li>Questa pagina non \u00e8 ancora nel sito: le raccolte compariranno solo quando il file <code>projects/' + esc(l.slug) + '.html</code> ci sar\u00e0.</li></ul></div>' : '') +
+    legacyMetaPanel(l) +
+    '<div class="panel"><div class="btns"><button class="btn red" type="button" data-action="add-section" data-type="collection">Nuova raccolta</button>' +
+    (hasChapters ? '<button class="btn ghost" type="button" data-action="add-section" data-type="chapter">Nuovo capitolo</button>' : '') + '</div>' +
+    fSeg('Le nuove raccolte vanno', 'ext.addAt', e.addAt, [['end', 'In fondo'], ['start', 'In cima']], { hint: 'Con \u00abIn cima\u00bb l\u2019ultima partita aggiunta \u00e8 la prima che si vede. Non riguarda i capitoli, che vanno sempre in fondo all\u2019indice.' }) + '</div>' +
+    sectionsBlock(e.sections, 'legacy');
+}
+
+function viewExtraPage() {
+  const x = extraPageOf(ui.legacy);
+  if (!x) return viewEmpty();
+  const m = legacyMetaOf(x.slug);
+  return '<div class="view-head"><h1 class="view-title">' + esc(x.title) + '</h1>' +
+    '<p class="view-url">' + esc(x.slug) + '.html · pagina extra del sito</p>' +
+    '<p class="lead">Questa non è una pagina progetto: qui puoi cambiare solo <b>l’apertura</b> (l’etichetta sopra il titolo, il titolo grande e il paragrafo introduttivo). Il resto del contenuto — numeri, schede, cronologia, foto — resta da modificare a mano nel file, come spiega la guida.</p></div>' +
+    fixedGroup('__extraFixed', 'Testo di apertura della pagina', 'Etichetta, titolo e paragrafo introduttivo',
+      '<div class="grid2">' +
+      fText('Etichetta sopra il titolo', 'lmeta.tag', m.tag, { ph: 'Vuoto = testo originale' }) +
+      fText('Titolo grande', 'lmeta.title', m.title, { ph: 'Vuoto = testo originale' }) + '</div>' +
+      fArea('Testo introduttivo', 'lmeta.intro', m.intro, { rows: 4, hint: 'Il paragrafo sotto il titolo. Vuoto = testo originale.' }));
+}
+
+function siteImgSrc(key) {
+  return S.siteImages[key] || S.siteImageDefaults[key] || '';
+}
+function siteImgTile(it) {
+  const cur = siteImgSrc(it.key);
+  const changed = !!S.siteImages[it.key] && S.siteImages[it.key] !== S.siteImageDefaults[it.key];
+  return '<div class="simg" data-drop="siteimg" data-key="' + it.key + '">' +
+    '<div class="simg-prev">' + (cur ? '<img src="' + esc(srcFor(cur)) + '" alt="">' : '<span>Nessuna immagine</span>') + (changed ? '<span class="badge red simg-flag">Sostituita</span>' : '') + '</div>' +
+    '<div class="simg-ctl"><b>' + esc(it.label) + '</b>' +
+    '<div class="cover-btns"><button class="btn sm" type="button" data-action="pick-siteimg" data-key="' + it.key + '">Cambia foto</button>' +
+    (changed ? '<button class="btn sm ghost" type="button" data-action="reset-siteimg" data-key="' + it.key + '">Ripristina l\u2019originale</button>' : '') + '</div>' +
+    '<div class="path-add"><input type="text" placeholder="Oppure un file già nel sito, es. images/foto.jpg" data-role="simgpath" data-key="' + it.key + '" aria-label="Percorso di un\u2019immagine">' +
+    '<button class="btn sm ghost" type="button" data-action="set-siteimg-path" data-key="' + it.key + '">Usa questo</button></div></div></div>';
+}
+function viewImages() {
+  const groups = [];
+  SITE_IMAGES.forEach(it => { let g = groups.find(x => x.name === it.group); if (!g) groups.push(g = { name: it.group, items: [] }); g.items.push(it); });
+  return '<div class="view-head"><h1 class="view-title">Immagini del sito.</h1>' +
+    '<p class="lead">Le foto principali della homepage e le copertine dei progetti già presenti. Cambiale quando vuoi: dopo la pubblicazione si aggiornano ovunque compaiono, comprese le pagine dei singoli progetti.</p></div>' +
+    groups.map(g => '<div class="panel"><h3>' + esc(g.name) + '</h3><div class="simg-grid">' + g.items.map(siteImgTile).join('') + '</div></div>').join('');
+}
+
+function mediaRow(r, inUse, kind) {
+  return '<li class="media-row"><span class="media-path">' + esc(r.path) +
+    (inUse ? '' : ' <b class="badge red" style="margin-left:6px">Non usata</b>') + '</span>' +
+    '<span>' + fmtBytes(r.size) + '</span>' +
+    '<button class="btn sm ghost danger" type="button" data-action="delete-media" data-kind="' + kind + '" data-path="' + esc(r.path) + '">Elimina</button></li>';
+}
+function viewMedia() {
+  const used = allUsedPaths();
+  let totalImg = 0, totalVid = 0, unused = 0;
+  const imgList = Array.from(imgs.values()).sort((a, b) => b.size - a.size);
+  const vidList = Array.from(vidStore.values()).sort((a, b) => b.size - a.size);
+  const imgRows = imgList.map(r => { totalImg += r.size; const u = used.paths.has(r.path); if (!u) unused++; return mediaRow(r, u, 'img'); }).join('');
+  const vidRows = vidList.map(r => { totalVid += r.size; const u = used.vids.has(r.path); if (!u) unused++; return mediaRow(r, u, 'vid'); }).join('');
+  return '<div class="view-head"><h1 class="view-title">Foto e video salvati.</h1>' +
+    '<p class="lead">Tutto quello che hai caricato da questo pannello e che vive in questo browser: cosa è ancora agganciato a una pagina o sezione, e cosa invece non serve più e puoi eliminare per liberare spazio.</p></div>' +
+    '<div class="panel"><h3>Spazio occupato</h3><p>' + imgList.length + (imgList.length === 1 ? ' foto' : ' foto') + ' (' + fmtBytes(totalImg) + ')' +
+    (vidList.length ? ', ' + vidList.length + (vidList.length === 1 ? ' video' : ' video') + ' (' + fmtBytes(totalVid) + ')' : '') + '.' +
+    (unused ? ' <b>' + unused + (unused === 1 ? ' file non è più usato' : ' file non sono più usati') + ' in nessuna pagina.</b>' : (imgList.length || vidList.length) ? ' Tutto è ancora agganciato a qualcosa.' : '') + '</p>' +
+    (!imgOK ? '<p class="hint">Questo browser non riesce a tenere le foto salvate tra una sessione e l’altra: qui vedi solo quelle di questa sessione.</p>' : '') + '</div>' +
+    (imgList.length ? '<details class="blk" open><summary class="blk-sum"><span class="blk-txt"><b>Foto</b><small>' + imgList.length + '</small></span><span class="blk-chev"></span></summary><div class="blk-body"><ul class="files media-list">' + imgRows + '</ul></div></details>' : '') +
+    (vidList.length ? '<details class="blk" open><summary class="blk-sum"><span class="blk-txt"><b>Video</b><small>' + vidList.length + '</small></span><span class="blk-chev"></span></summary><div class="blk-body"><ul class="files media-list">' + vidRows + '</ul></div></details>' : '') +
+    (!imgList.length && !vidList.length ? '<p class="hint">Non hai ancora caricato niente da qui.</p>' : '');
+}
+
+function viewReviews() {
+  const n = REVIEWS.filter(r => r.pinned).length;
+  const rows = !REVIEWS.length
+    ? '<p class="hint">Nessuna recensione trovata in <code>dati/recensioni-generali.js</code>. Aggiungile con l’Excel (<code>aggiorna-da-excel.py</code>) o a mano nel JSON, poi «Scarta e ricarica» qui sotto.</p>'
+    : REVIEWS.map((r, i) => {
+        const voto = Math.max(1, Math.min(5, parseInt(r.voto, 10) || 5));
+        const stelle = '★'.repeat(voto) + '☆'.repeat(5 - voto);
+        return '<div class="panel review-row">' +
+          '<div class="review-row-head"><b>' + esc(r.nome || 'Senza nome') + '</b>' +
+          (r.ruolo ? '<span class="muted"> — ' + esc(r.ruolo) + '</span>' : '') +
+          '<span class="review-row-stars">' + stelle + '</span></div>' +
+          '<p class="review-row-text">“' + esc((r.testo || '').slice(0, 220)) + ((r.testo || '').length > 220 ? '…' : '') + '”</p>' +
+          fSw('Mostra anche in homepage', 'rev.' + i + '.pinned', !!r.pinned) +
+          '</div>';
+      }).join('');
+  const last = settings.reviewsSheetLast;
+  return '<div class="view-head"><h1 class="view-title">Recensioni.</h1>' +
+    '<p class="lead">Le recensioni arrivano dal modulo del sito (via Google Sheet, importale qui sotto) o dall’Excel (<code>aggiorna-da-excel.py</code>). Da qui scegli quali, tra quelle in elenco, mostrare anche in homepage. Attualmente in homepage: <b>' + n + '</b>.</p></div>' +
+    '<div class="panel"><h3>Importa dal Google Sheet</h3>' +
+    '<p class="hint">Incolla il link «Pubblica sul web» del foglio delle recensioni, in formato CSV — non il link normale di condivisione. Nel foglio: File → Condividi → Pubblica sul web → scegli la scheda «Recensioni» (o il nome del tuo foglio) e il formato CSV, poi copia qui il link che ti dà.</p>' +
+    fText('Link CSV pubblicato', 'cfg.reviewsSheetUrl', settings.reviewsSheetUrl, { ph: 'https://docs.google.com/spreadsheets/d/e/…/pub?output=csv' }) +
+    '<div class="btns"><button class="btn red" type="button" data-action="import-sheet-reviews">Importa dal foglio</button></div>' +
+    '<p class="hint">Importa ogni riga con nome e testo, e sostituisce l’elenco qui sotto con quelle — da qui scegli tu, riga per riga, quali mostrare anche in homepage («In home» nel foglio è solo un suggerimento di partenza). Resta comunque una bozza finché non premi «Pubblica».' +
+    (last ? ' Ultimo importo: <b>' + last.count + '</b> recensioni, il ' + esc(new Date(last.at).toLocaleString('it-IT')) + '.' : '') + '</p></div>' +
+    '<div class="panel"><button class="btn ghost sm" type="button" data-action="reload-reviews">Scarta le modifiche e ricarica dal file</button> ' +
+    '<p class="hint">Le modifiche restano qui come bozza finché non premi «Pubblica».</p></div>' +
+    rows;
+}
+
+function coverField(p) {
+  const has = !!p.cover;
+  return '<div class="fld"><span>Immagine di copertina</span><div class="cover-box">' +
+    '<div class="cover-prev" data-drop="cover">' + (has ? '<img src="' + esc(srcFor(p.cover)) + '" alt="">' : 'Nessuna immagine') + '</div>' +
+    '<div class="cover-ctl"><div class="cover-btns"><button class="btn sm" type="button" data-action="pick-cover">' + (has ? 'Cambia immagine' : 'Scegli immagine') + '</button>' +
+    (has ? '<button class="btn sm ghost" type="button" data-action="clear-cover">Rimuovi</button>' : '') + '</div>' +
+    fText('Oppure un percorso già nel sito', 'page.cover', p.cover, { ph: 'images/copertina.jpg' }) +
+    fText('Descrizione della copertina', 'page.coverAlt', p.coverAlt, { ph: 'Facoltativa' }) +
+    '</div></div></div>';
+}
+
+function detailsBlock(p) {
+  const cats = BUILTIN_CATS.concat(S.categories);
+  if (p.category && !cats.some(c => c.key === p.category)) cats.push({ key: p.category, label: p.category });
+  const nextOpts = [['auto', 'Automatico: la pagina successiva nell\u2019elenco'], ['none', 'Nessuno']]
+    .concat(S.pages.filter(x => x.id !== p.id).map(x => ['page:' + x.id, x.title || 'Senza titolo']))
+    .concat(LEGACY.map(l => ['legacy:' + l.slug, l.title]));
+  const idx = S.pages.indexOf(p);
+  return '<details class="blk" data-sid="__main"' + (ui.open.__main === false ? '' : ' open') + '>' +
+    '<summary class="blk-sum"><span class="blk-ico">' + ICON.page + '</span>' +
+    '<span class="blk-txt"><b>Dettagli della pagina</b><small>Titolo, copertina, categoria e pubblicazione</small></span><span class="blk-chev"></span></summary>' +
+    '<div class="blk-body">' +
+    fSw('Pubblicata', 'page.published', p.published, { hint: 'Se è spenta resta una bozza e non entra nel pacchetto da pubblicare.' }) +
+    fText('Titolo', 'page.title', p.title, { ph: 'Es. T\u2019IMMAGINI' }) +
+    '<div class="grid2">' + fText('Etichetta', 'page.tag', p.tag, { ph: 'Es. IDEALE BARI CALCIO', hint: 'Compare sopra il titolo e sulla card.' }) +
+    fSelect('Categoria', 'page.category', p.category, cats.map(c => [c.key, c.label]), { hint: 'Decide sotto quale filtro compare la card.' }) + '</div>' +
+    '<label class="fld"><span>Indirizzo della pagina</span><div class="url-in"><em>projects/</em>' +
+    '<input type="text" data-path="page.slug" value="' + esc(p.slug) + '" spellcheck="false" autocomplete="off" aria-label="Indirizzo della pagina"><em>.html</em></div></label>' +
+    coverField(p) +
+    '<div class="grid2">' + fSeg('Formato della card', 'page.wide', p.wide, [['false', 'Standard'], ['true', 'Larga']], { type: 'boolstr' }) +
+    fSeg('Posizione nella griglia', 'page.gridPosition', p.gridPosition, [['end', 'In fondo'], ['start', 'In cima']]) + '</div>' +
+    fSw('Mostra nella griglia dei progetti', 'page.showInGrid', p.showInGrid, { hint: 'Spegnila se la pagina deve essere raggiungibile solo con il link.' }) +
+    fArea('Descrizione per Google', 'page.description', p.description, { rows: 2, max: 200, hint: 'Una o due frasi. Se la lasci vuota uso titolo ed etichetta.' }) +
+    fSelect('Progetto successivo', 'page.next', p.next, nextOpts, { hint: 'È il grande link in fondo alla pagina.' }) +
+    '<div class="row-actions">' +
+    '<button class="ibtn" type="button" data-action="page-up"' + (idx === 0 ? ' disabled' : '') + '>Sposta su</button>' +
+    '<button class="ibtn" type="button" data-action="page-down"' + (idx === S.pages.length - 1 ? ' disabled' : '') + '>Sposta giù</button>' +
+    '<button class="ibtn" type="button" data-action="dup-page">Duplica pagina</button>' +
+    '<button class="ibtn" type="button" data-action="del-page">Elimina pagina</button></div>' +
+    '</div></details>';
+}
+
+function badges(s) {
+  return (s.collapsible ? '<span class="badge red">Comprimibile</span>' : '') + (s.visible === false ? '<span class="badge">Nascosta</span>' : '');
+}
+function sectionsBlock(list, scope) {
+  return '<div class="sec-head"><div><h2>' + (scope === 'legacy' ? 'Raccolte e sezioni' : 'Sezioni') + '</h2><p class="hint">' +
+    (scope === 'home' ? 'Si inseriscono nella homepage nella posizione scelta.' : scope === 'legacy' ? 'Compaiono sotto le foto della pagina, nella posizione scelta per ciascuna.' : 'Si impilano nella pagina dall\u2019alto verso il basso.') + '</p></div>' +
+    (list.length > 1 ? '<div class="btns"><button class="btn sm ghost" type="button" data-action="collapse-all">Comprimi tutte</button>' +
+    '<button class="btn sm ghost" type="button" data-action="expand-all">Espandi tutte</button></div>' : '') + '</div>' +
+    '<div id="blocks">' + (list.map((s, i) => blockHtml(s, i, list.length, scope)).join('') ||
+      '<div class="empty-box">' + (scope === 'legacy' ? 'Ancora nessuna raccolta. Premi «Nuova raccolta» qui sopra.' : 'Ancora nessuna sezione. Aggiungine una qui sotto.') + '</div>') + '</div>' +
+    '<div class="adder"><h3>Aggiungi una sezione</h3><div class="adder-grid">' +
+    TYPES.map(t => '<button class="add-type" type="button" data-action="add-section" data-type="' + t + '">' + ICON[t] +
+      '<b>' + TYPE_META[t].label + '</b><small>' + TYPE_META[t].hint + '</small></button>').join('') + '</div></div>';
+}
+
+function blockHtml(s, i, n, scope) {
+  const m = TYPE_META[s.type];
+  const tool = (act, label, txt, dis, keep) => '<button class="ibtn" type="button" data-action="' + act + '" data-sid="' + s.id + '" aria-label="' + label + '" title="' + label + '"' +
+    (dis ? ' disabled' : '') + (keep ? ' data-keep' : '') + '>' + txt + '</button>';
+  return '<details class="blk" data-sid="' + s.id + '"' + (ui.open[s.id] ? ' open' : '') + '>' +
+    '<summary class="blk-sum"><span class="blk-ico">' + ICON[s.type] + '</span>' +
+    '<span class="blk-txt"><b class="blk-title">' + esc(s.title || m.label) + '</b><small>' + (s.type === 'chapter' && s.number ? 'Capitolo ' + (s.number < 10 ? '0' + s.number : s.number) : m.label) + ' <span class="blk-badges">' + badges(s) + '</span></small></span>' +
+    '<span class="blk-tools">' + tool('sec-up', 'Sposta su', '↑', i === 0) + tool('sec-down', 'Sposta giù', '↓', i === n - 1) +
+    tool('sec-dup', 'Duplica sezione', '⧉') + tool('sec-del', 'Elimina sezione', '×', false, true) + '</span>' +
+    '<span class="blk-chev"></span></summary><div class="blk-body">' + blockBody(s, scope) + '</div></details>';
+}
+
+function blockBody(s, scope) {
+  const P = 'sec.' + s.id + '.';
+  const tname = 't' + s.id;
+  const isChapter = s.type === 'chapter';
+  let h = '<div class="grid2">' + fText('Titolo', P + 'title', s.title, { ph: TYPE_META[s.type].ph }) +
+    fText(s.type === 'collection' ? 'Data o competizione' : isChapter ? 'Data o luogo' : 'Etichetta sopra il titolo', P + 'eyebrow', s.eyebrow, { ph: TYPE_META[s.type].eb || 'Es. Gallery' }) + '</div>';
+  if (isChapter) {
+    h += hintHtml('Comparirà nell\u2019indice «I CAPITOLI» come «' + (s.number ? (s.number < 10 ? '0' + s.number : s.number) : '0N') + ' — ' + esc(s.eyebrow || 'quello che scrivi qui sopra') + '», con il numero calcolato in automatico in base a quanti capitoli ci sono già.');
+  }
+  h += typeFields(s, P);
+  if (!isChapter) {
+    h += '<div class="fld"><span>Colore di sfondo</span><div class="themes">' +
+      THEMES.map(([v, l]) => '<label><input type="radio" name="' + tname + '" data-path="' + P + 'theme" value="' + v + '"' + (s.theme === v ? ' checked' : '') +
+        '><i class="t-' + v + '"></i>' + l + '</label>').join('') + '</div></div>';
+  }
+  h += '<div class="switches">' +
+    (isChapter ? '' :
+      fSw('Sezione comprimibile', P + 'collapsible', s.collapsible, { hint: 'I visitatori possono aprirla e chiuderla toccando il titolo.' }) +
+      fSw('Aperta all\u2019ingresso', P + 'open', s.open !== false, { disabled: !s.collapsible, hint: 'Se è spenta la sezione parte chiusa.' })) +
+    fSw('Mostra sul sito', P + 'visible', s.visible !== false) + '</div>';
+  if (scope === 'legacy' && !isChapter) {
+    h += fSelect('Dove compare nella pagina', P + 'placement', s.placement || 'gallery', Object.entries(R.EXTRA_PLACEMENTS));
+  }
+  if (scope === 'home') {
+    h += '<div class="grid2">' + fSelect('Posizione nella homepage', P + 'placement', s.placement || 'reviews', Object.entries(R.PLACEMENTS)) +
+      fText('Nome nel menu', P + 'navLabel', s.navLabel, { ph: 'Vuoto = titolo della sezione' }) + '</div>' +
+      fSw('Aggiungi una voce al menu', P + 'showInNav', !!s.showInNav, { hint: 'Il menu in alto porterà direttamente a questa sezione.' });
+  }
+  return h;
+}
+
+function typeFields(s, P) {
+  const sid = s.id;
+  if (s.type === 'text') return fArea('Testo', P + 'body', s.body, { rows: 9, hint: 'Una riga vuota inizia un nuovo paragrafo.' });
+
+  if (s.type === 'info') {
+    return fArea('Frase di apertura', P + 'intro', s.intro, { rows: 4 }) +
+      '<div class="fld"><span>Dati del progetto</span><div class="lst">' +
+      s.facts.map((f, i) => '<div class="pair"><input type="text" data-path="' + P + 'facts.' + i + '.k" value="' + esc(f.k) + '" placeholder="Dato, es. Anno" aria-label="Nome del dato">' +
+        '<input type="text" data-path="' + P + 'facts.' + i + '.v" value="' + esc(f.v) + '" placeholder="Valore" aria-label="Valore">' +
+        '<button class="ibtn" type="button" data-action="del-fact" data-sid="' + sid + '" data-idx="' + i + '" aria-label="Rimuovi dato">×</button></div>').join('') +
+      '</div><div><button class="btn sm ghost" type="button" data-action="add-fact" data-sid="' + sid + '"' + (s.facts.length >= 8 ? ' disabled' : '') + '>Aggiungi dato</button></div></div>';
+  }
+
+  if (s.type === 'gallery' || s.type === 'collection' || s.type === 'chapter') {
+    const rows = s.images.map((im, i) => {
+      const own = imgs.has(im.path);
+      const b = (act, label, txt, dis) => '<button class="ibtn" type="button" data-action="' + act + '" data-sid="' + sid + '" data-idx="' + i + '" aria-label="' + label + '"' + (dis ? ' disabled' : '') + '>' + txt + '</button>';
+      return '<li class="img-row"><img src="' + esc(srcFor(im.path)) + '" alt="" loading="lazy">' +
+        '<div><div class="img-name" title="' + esc(im.path) + '">' + (own ? '<span class="tag">Nuova</span>' : '') + esc(im.path.split('/').pop()) + '</div>' +
+        '<input type="text" data-path="' + P + 'images.' + i + '.alt" value="' + esc(im.alt) + '" placeholder="Descrizione per chi non vede l\u2019immagine" aria-label="Descrizione immagine"></div>' +
+        '<div class="row-tools">' + b('img-up', 'Sposta su', '↑', i === 0) + b('img-down', 'Sposta giù', '↓', i === s.images.length - 1) + b('img-del', 'Rimuovi immagine', '×') + '</div></li>';
+    }).join('');
+    return (s.type === 'collection' ? fArea('Descrizione', P + 'description', s.description, { rows: 3, hint: 'Facoltativa: due righe sulla partita o sull\u2019evento.' }) : '') +
+      (s.type === 'chapter' ? fArea('Testo del capitolo', P + 'note', s.note, { rows: 3, hint: 'Due o tre righe sulla partita: compaiono sotto il titolo, come negli altri capitoli.' }) : '') +
+      fSeg('Colonne', P + 'columns', s.columns, [[2, '2'], [3, '3'], [4, '4']], { type: 'number' }) +
+      '<div class="fld"><span>Foto (' + s.images.length + ')</span>' +
+      (rows ? '<ul class="imgs">' + rows + '</ul>' : '') +
+      '<div class="drop" data-drop="gallery" data-sid="' + sid + '" data-action="pick-images" tabindex="0" role="button"><b>Trascina qui le foto o scegli dal computer</b>' +
+      '<span>Le ottimizzo in automatico prima di salvarle (' + settings.max + ' px, WebP).</span></div>' +
+      '<div class="path-add"><input type="text" placeholder="Oppure un file già nel sito, es. images/foto.jpg" data-role="pathin" data-sid="' + sid + '" aria-label="Percorso di un\u2019immagine">' +
+      '<button class="btn sm ghost" type="button" data-action="add-img-path" data-sid="' + sid + '">Aggiungi</button></div></div>';
+  }
+
+  if (s.type === 'video') {
+    return '<div class="fld"><span>Video</span><div class="path-add"><input type="text" data-path="' + P + 'url" value="' + esc(s.url) + '" placeholder="Link YouTube o Vimeo, oppure videos/nomefile.mp4" aria-label="Indirizzo del video">' +
+      '<button class="btn sm" type="button" data-action="pick-video" data-sid="' + sid + '">Scegli file</button></div>' +
+      hintHtml('Scegliendo un file lo converto in automatico in un MP4 compatibile con tutti i browser (la prima volta ci vuole un attimo in pi\u00f9: scarico la libreria di conversione), poi lo salvo qui: entrer\u00e0 da solo nel pacchetto o nella pubblicazione su GitHub, nella cartella <code>videos</code>. In alternativa, scrivi qui sopra un percorso (es. <code>videos/nomefile.mp4</code>) di un file che copi a mano, oppure un link YouTube o Vimeo.') + '</div>' +
+      fArea('Testo introduttivo', P + 'description', s.description, { rows: 3 }) +
+      fText('Didascalia', P + 'note', s.note, { ph: 'Es. Il gol vittoria, 10 maggio 2026' });
+  }
+
+  if (s.type === 'cards') {
+    const items = s.items.map((it, i) => {
+      const b = (act, label, txt, dis) => '<button class="ibtn" type="button" data-action="' + act + '" data-sid="' + sid + '" data-idx="' + i + '" aria-label="' + label + '"' + (dis ? ' disabled' : '') + '>' + txt + '</button>';
+      const Q = P + 'items.' + i + '.';
+      return '<div class="item"><div class="item-h"><b>Scheda ' + (i + 1) + '</b><div class="row-tools">' +
+        b('item-up', 'Sposta su', '↑', i === 0) + b('item-down', 'Sposta giù', '↓', i === s.items.length - 1) + b('del-item', 'Rimuovi scheda', '×') + '</div></div>' +
+        '<div class="grid2">' + fText('Titolo', Q + 'title', it.title) + fText('Dettaglio in alto', Q + 'meta', it.meta, { ph: 'Es. 2026' }) + '</div>' +
+        fArea('Testo', Q + 'text', it.text, { rows: 3 }) +
+        '<div class="grid2">' + fText('Link', Q + 'link', it.link, { ph: 'https://…' }) + fText('Testo del link', Q + 'label', it.label, { ph: 'Visualizza' }) + '</div></div>';
+    }).join('');
+    return fArea('Introduzione', P + 'intro', s.intro, { rows: 2 }) +
+      '<div class="fld"><span>Schede (' + s.items.length + ')</span><div class="lst">' + items + '</div>' +
+      '<div><button class="btn sm ghost" type="button" data-action="add-item" data-sid="' + sid + '">Aggiungi scheda</button></div></div>';
+  }
+  return '';
+}
+
+/* ---------- categorie ---------- */
+function viewCats() {
+  const used = k => S.pages.filter(p => p.category === k).length;
+  return '<div class="view-head"><h1 class="view-title">Categorie.</h1>' +
+    '<p class="lead">Ogni categoria diventa un filtro sopra la griglia dei progetti. Le prime quattro sono già nel sito; le nuove compaiono quando almeno una pagina pubblicata le usa.</p></div>' +
+    '<div class="panel"><h3>Categorie del sito</h3><div>' +
+    BUILTIN_CATS.map(c => '<div class="cat-row"><div><b>' + esc(c.label) + '</b><br><small>Già nel sito · ' + used(c.key) + ' pagine tue</small></div><span class="badge">Fissa</span><span></span></div>').join('') +
+    S.categories.map(c => '<div class="cat-row"><div><b>' + esc(c.label) + '</b><br><small>' + used(c.key) + ' pagine</small></div><span class="badge red">Nuova</span>' +
+      '<button class="ibtn" type="button" data-action="del-cat" data-key="' + esc(c.key) + '" aria-label="Elimina categoria"' + (used(c.key) ? ' disabled title="Usata da alcune pagine"' : '') + '>×</button></div>').join('') +
+    '</div></div>' +
+    '<div class="panel"><h3>Nuova categoria</h3><div class="path-add"><input type="text" id="catIn" placeholder="Es. Eventi" maxlength="30" aria-label="Nome della categoria">' +
+    '<button class="btn red" type="button" data-action="add-cat">Aggiungi</button></div></div>';
+}
+
+/* ---------- pubblica ---------- */
+function collectPaths(sections, set, vids) {
+  sections.forEach(s => {
+    (s.images || []).forEach(i => i.path && set.add(i.path));
+    if (s.type === 'video' && s.url && !/^(https?:)?\/\//i.test(s.url)) vids.add(s.url.replace(/^(\.\.?\/)+/, ''));
+  });
+}
+// Tutti i percorsi (foto e video) agganciati a qualcosa, bozze comprese:
+// serve alla libreria "Foto e video salvati" per capire cosa è ancora
+// usato da qualche parte e cosa invece si può eliminare senza problemi.
+// Volutamente più largo di buildPlan() (che guarda solo cosa è pubblicato):
+// meglio segnalare qualcosa come "usato" per errore che come "non usato".
+function allUsedPaths() {
+  const paths = new Set(), v = new Set();
+  S.pages.forEach(p => { if (p.cover) paths.add(p.cover); collectPaths(p.sections, paths, v); });
+  collectPaths(S.home.sections, paths, v);
+  Object.keys(S.extras || {}).forEach(k => collectPaths(S.extras[k].sections, paths, v));
+  Object.keys(S.siteImages || {}).forEach(k => { if (S.siteImages[k]) paths.add(S.siteImages[k]); });
+  return { paths, vids: v };
+}
+function buildPlan() {
+  const pub = publicPages();
+  const siteImgChanged = SITE_IMAGES.filter(it => S.siteImages[it.key] && S.siteImages[it.key] !== S.siteImageDefaults[it.key]);
+  const homeSecs = S.home.sections.filter(s => s.visible !== false);
+  const errors = [], warns = [], files = [];
+  const paths = new Set(), vids = new Set();
+
+  pub.forEach(p => {
+    if (!p.title.trim()) errors.push('Una pagina pubblicata non ha il titolo. Aprila e scrivilo, oppure spegni «Pubblicata».');
+    else if (!p.cover) warns.push('«' + p.title + '» non ha l\u2019immagine di copertina.');
+    if (p.title.trim() && !p.slug) errors.push('«' + p.title + '» non ha un indirizzo.');
+    if (p.cover) paths.add(p.cover);
+    collectPaths(p.sections, paths, vids);
+    p.sections.filter(s => s.visible !== false && s.collapsible && !s.title).forEach(() => warns.push('«' + (p.title || 'Senza titolo') + '» ha una sezione comprimibile senza titolo: sul sito comparirà come «Sezione».'));
+    files.push({ name: 'projects/' + p.slug + '.html', size: 0 });
+  });
+  collectPaths(homeSecs, paths, vids);
+  homeSecs.filter(s => s.collapsible && !s.title).forEach(() => warns.push('Una sezione comprimibile della homepage non ha il titolo: comparirà come «Sezione».'));
+
+  siteImgChanged.forEach(it => paths.add(S.siteImages[it.key]));
+
+  const extras = extraEntries(); let extraCount = 0;
+  Object.keys(extras).forEach(k => {
+    const l = legacyOf(k), name = l ? l.title : k;
+    extras[k].sections.forEach(s => {
+      extraCount++;
+      collectPaths([s], paths, vids);
+      if (s.type === 'chapter') {
+        if (!s.title.trim()) warns.push('«' + name + '»: un capitolo non ha titolo. Aprilo e scrivilo, oppure non comparirà con un nome nell’indice «I CAPITOLI».');
+        if (!(s.images || []).some(i => i.path)) warns.push('«' + name + '»: il capitolo «' + (s.title || 'senza titolo') + '» non ha foto e non comparirà.');
+      } else {
+        if (s.collapsible && !s.title) warns.push('«' + name + '»: una raccolta comprimibile non ha il titolo e comparirà come «' + (s.type === 'collection' ? 'Raccolta' : 'Sezione') + '».');
+        if (s.type === 'collection' && !(s.images || []).some(i => i.path) && !s.description) warns.push('«' + name + '»: la raccolta «' + (s.title || 'senza titolo') + '» è vuota e non comparirà.');
+      }
+    });
+    if (l && l.missing) warns.push('«' + name + '» non è ancora nel sito: le sue raccolte non si vedranno finché la pagina non esiste.');
+  });
+
+  let ext = 0, imgBytes = 0, imgCount = 0;
+  paths.forEach(p => {
+    const rec = imgs.get(p);
+    if (rec) { files.push({ name: p, size: rec.size }); imgBytes += rec.size; imgCount++; }
+    else if (!/^(https?:)?\/\//i.test(p)) ext++;
+  });
+  let vidBytes = 0, vidCount = 0; const vidsMissing = [];
+  vids.forEach(v => {
+    const rec = vidStore.get(v);
+    if (rec) { files.push({ name: v, size: rec.size }); vidBytes += rec.size; vidCount++; }
+    else vidsMissing.push(v);
+  });
+  // Indirizzo cambiato su una pagina già pubblicata: invece di lasciare
+  // il vecchio link a un 404, al posto del vecchio file scrivo una
+  // paginetta che manda in automatico chi lo apre al nuovo indirizzo.
+  const redirects = [];
+  pub.forEach(p => {
+    if (p.publishedSlug && p.publishedSlug !== p.slug) {
+      redirects.push({ from: 'projects/' + p.publishedSlug + '.html', to: p.slug + '.html', title: p.title || 'Senza titolo' });
+      warns.push('L’indirizzo di «' + (p.title || 'Senza titolo') + '» è cambiato (' + p.publishedSlug + ' → ' + p.slug + '): metto al posto del vecchio file un reindirizzamento automatico verso quello nuovo.');
+    }
+  });
+  redirects.forEach(r => files.push({ name: r.from, size: 0 }));
+  files.push({ name: 'sitemap.xml', size: 0 });
+
+  files.unshift({ name: 'dati/recensioni-generali.js', size: 0 });
+  files.unshift({ name: 'dati/recensioni-generali.json', size: 0 });
+  files.unshift({ name: 'data/content.js', size: 0 });
+
+  if (ext) warns.push(ext + (ext === 1 ? ' foto usa un file' : ' foto usano file') + ' già presente nel sito: controlla che i percorsi siano scritti bene.');
+  vidsMissing.forEach(v => warns.push('Video da copiare a mano nella cartella del sito (non caricato da qui): ' + v));
+  const slugs = pub.map(p => p.slug);
+  const redirected = new Set(redirects.map(r => r.from));
+  (S.meta.exportedSlugs || []).filter(s => !slugs.includes(s) && !redirected.has('projects/' + s + '.html')).forEach(s => warns.push('Da eliminare dal sito: projects/' + s + '.html (la pagina non è più pubblicata).'));
+
+  return { pub, homeSecs, extraCount, extraPages: Object.keys(extras), siteImgChanged, errors, warns, files, imgCount, imgBytes, vidCount, vidBytes, vids: vidsMissing, redirects };
+}
+// Pagina statica minima che manda chi apre un vecchio indirizzo a quello
+// nuovo, sia per chi ha JavaScript disabilitato (meta refresh) sia per i
+// motori di ricerca (canonical + redirect via script, il modo più
+// affidabile su un sito senza server: GitHub Pages non fa redirect 301).
+function redirectHtml(to) {
+  return '<!doctype html>\n<html lang="it"><head><meta charset="utf-8">\n' +
+    '<meta http-equiv="refresh" content="0; url=' + esc(to) + '">\n' +
+    '<link rel="canonical" href="' + esc(to) + '">\n' +
+    '<meta name="robots" content="noindex">\n' +
+    '<title>Pagina spostata</title></head><body>\n' +
+    '<p>Questa pagina si è spostata: <a href="' + esc(to) + '">continua qui</a>.</p>\n' +
+    '<script>location.replace(' + JSON.stringify(to) + ');<\/script>\n' +
+    '</body></html>\n';
+}
+// Sitemap generata da qui: sa sempre quali pagine sono davvero pubblicate
+// (comprese quelle nuove) invece di restare un file scritto a mano che si
+// disallinea col tempo. Include le pagine fisse, le pagine "già nel sito"
+// (progetti e pagine extra) e i progetti pubblicati da qui.
+function buildSitemapXml(plan) {
+  const owner = settings.ghOwner || 'gianluphotographer-22', repo = settings.ghRepo || 'gpj.visuals-portfolio';
+  const base = (settings.siteUrl || ('https://' + owner + '.github.io/' + repo + '/')).replace(/\/*$/, '/');
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [{ loc: '', pr: '1.0' }, { loc: 'numeri.html', pr: '0.6' }, { loc: 'recensioni.html', pr: '0.6' }];
+  EXTRA_PAGES.filter(x => x.slug !== 'numeri').forEach(x => urls.push({ loc: x.slug + '.html', pr: '0.5' }));
+  LEGACY.filter(l => !l.missing).forEach(l => urls.push({ loc: 'projects/' + l.slug + '.html', pr: (l.slug === 'cuore-biancorosso' || l.slug === 'matrimonio-donnarumma') ? '0.9' : '0.8' }));
+  plan.pub.forEach(p => urls.push({ loc: 'projects/' + p.slug + '.html', pr: '0.8' }));
+  const body = urls.map(u => '  <url>\n    <loc>' + esc(base + u.loc) + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <priority>' + u.pr + '</priority>\n  </url>').join('\n');
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + '\n</urlset>\n';
+}
+
+function viewExport() {
+  const plan = buildPlan();
+  const dirty = isDirty();
+  // Conta anche i testi fissi cambiati su una pagina già nel sito o su una
+  // pagina extra (lmeta): senza foto, sezioni o nuove pagine, prima non
+  // sbloccavano da soli il pulsante «Pubblica».
+  const lmCount = Object.keys(S.legacyMeta || {}).filter(k => {
+    const m = S.legacyMeta[k];
+    return m && (m.tag || m.title || m.intro || (Array.isArray(m.facts) && m.facts.some(f => f && (f.k || f.v))));
+  }).length;
+  const hasStuff = plan.pub.length + plan.homeSecs.length + plan.extraCount + plan.siteImgChanged.length + lmCount > 0;
+  return '<div class="view-head"><h1 class="view-title">Pubblica.</h1>' +
+    '<p class="lead">Scarica un pacchetto con le pagine e le foto aggiornate, poi copialo nella cartella del sito.</p></div>' +
+    '<div class="panel"><h3>' + (dirty ? 'Ci sono modifiche da pubblicare' : 'Il pacchetto è aggiornato') + '</h3>' +
+    '<p>Il pacchetto contiene <b>' + plan.pub.length + (plan.pub.length === 1 ? ' pagina' : ' pagine') + '</b>, <b>' + plan.imgCount + (plan.imgCount === 1 ? ' foto' : ' foto') +
+    '</b> (' + fmtBytes(plan.imgBytes) + ')' +
+    (plan.vidCount ? ', <b>' + plan.vidCount + (plan.vidCount === 1 ? ' video' : ' video') + '</b> (' + fmtBytes(plan.vidBytes) + ')' : '') +
+    ' e <b>' + plan.homeSecs.length + (plan.homeSecs.length === 1 ? ' sezione' : ' sezioni') + '</b> per la homepage' +
+    (plan.extraCount ? ' e <b>' + plan.extraCount + (plan.extraCount === 1 ? ' raccolta o sezione' : ' raccolte o sezioni') + '</b> per ' + (plan.extraPages.length === 1 ? 'una pagina già nel sito' : plan.extraPages.length + ' pagine già nel sito') : '') +
+    (plan.siteImgChanged.length ? ' e <b>' + plan.siteImgChanged.length + (plan.siteImgChanged.length === 1 ? ' immagine del sito sostituita' : ' immagini del sito sostituite') + '</b>' : '') + '.</p>' +
+    (plan.errors.length || plan.warns.length ? '<ul class="notes">' + plan.errors.map(e => '<li class="err">' + esc(e) + '</li>').join('') + plan.warns.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '') +
+    (settings.ghToken ?
+      '<div class="btns"><button class="btn red" type="button" data-action="publish-github"' + (plan.errors.length ? ' disabled' : '') + '>Pubblica su GitHub</button></div>' +
+      '<p class="hint">Scrive direttamente sul repository configurato in Impostazioni: il sito si aggiorna da solo, senza scaricare o caricare nulla a mano.</p>'
+      : '<p class="hint">Vuoi che «Pubblica» aggiorni il sito da solo, senza scaricare uno zip? Imposta un token GitHub nelle <button class="btn sm ghost" type="button" data-action="view" data-view="settings">Impostazioni</button>.</p>') +
+    '<div class="btns" style="margin-top:14px"><button class="btn' + (settings.ghToken ? ' ghost' : ' red') + '" type="button" data-action="export-zip"' + (plan.errors.length || !hasStuff ? ' disabled' : '') + '>Scarica il pacchetto (.zip)</button>' +
+    '<button class="btn ghost" type="button" data-action="export-js"' + (plan.errors.length ? ' disabled' : '') + '>Solo data/content.js</button></div>' +
+    (!hasStuff ? '<p class="hint">Non c\u2019è ancora nulla da pubblicare: attiva «Pubblicata» su una pagina, aggiungi una sezione alla homepage, una raccolta a una pagina già nel sito o cambia un\u2019immagine.</p>' : '') + '</div>' +
+
+    '<details class="blk"><summary class="blk-sum"><span class="blk-ico">' + ICON.page + '</span><span class="blk-txt"><b>File nel pacchetto</b><small>' + plan.files.length + ' file</small></span><span class="blk-chev"></span></summary>' +
+    '<div class="blk-body"><ul class="files">' + plan.files.map(f => '<li><span>' + esc(f.name) + '</span><span>' + (f.size ? fmtBytes(f.size) : '') + '</span></li>').join('') + '</ul></div></details>' +
+
+    '<div class="panel"><h3>Cosa fare dopo il download</h3><ol class="steps">' +
+    '<li>Apri lo ZIP: dentro ci sono le cartelle <code>projects</code>, <code>images</code> e <code>data</code>.</li>' +
+    '<li>Copiale nella cartella del sito e accetta di sostituire i file con lo stesso nome (dentro c’è anche <code>videos</code>, se hai caricato video da qui, e <code>sitemap.xml</code> aggiornata da sola).</li>' +
+    '<li>Carica il sito online. Per un controllo veloce, apri <code>index.html</code> dal computer.</li></ol></div>' +
+
+    '<div class="panel"><h3>Backup della bozza</h3>' +
+    '<p>La bozza vive in questo browser, comprese le foto non ancora pubblicate. Fai un backup prima di cambiare computer o cancellare i dati di navigazione.</p>' +
+    '<div class="btns"><button class="btn" type="button" data-action="backup">Scarica il backup (.json)</button>' +
+    '<button class="btn ghost" type="button" data-action="restore">Ripristina da un backup</button></div></div>';
+}
+
+/* ---------- impostazioni ---------- */
+function viewSettings() {
+  return '<div class="view-head"><h1 class="view-title">Impostazioni.</h1></div>' +
+    '<div class="panel"><h3>Password</h3><div class="two"><label class="fld"><span>Password attuale</span><input type="password" id="pwOld" autocomplete="current-password"></label>' +
+    '<label class="fld"><span>Nuova password</span><input type="password" id="pwNew" autocomplete="new-password"></label></div>' +
+    '<div><button class="btn" type="button" data-action="pw-change">Cambia password</button></div>' +
+    '<p class="hint">La password protegge questo pannello sul tuo browser. Le bozze restano in questo browser: su un altro dispositivo il pannello parte vuoto (usa il backup, oppure «Scarta la bozza e ricarica dal sito» qui sotto).</p></div>' +
+
+    (window.__gpjGate ? '<div class="panel"><h3>Accesso online</h3>' +
+    '<p>Questa pagina risponde solo a chi ha il link completo, con la chiave dopo il <code>#</code>. Per tutti gli altri appare un errore 404. Questo dispositivo è già abilitato.</p>' +
+    '<div><button class="btn ghost" type="button" data-action="forget-device">Dimentica questo dispositivo</button></div>' +
+    '<p class="hint">Dopo averlo premuto, su questo dispositivo potrai rientrare solo riaprendo il link completo. Il pannello non può modificare il sito da solo: cambia solo quando carichi tu i file scaricati da «Pubblica».</p></div>' : '') +
+
+    '<div class="panel"><h3>Ottimizzazione delle foto</h3>' +
+    fSelect('Lato più lungo', 'cfg.max', settings.max, [[1600, '1600 px, pagine leggere'], [2200, '2200 px, consigliato'], [3000, '3000 px, massima qualità']], {}) +
+    '<label class="fld"><span>Qualità <b class="range-out" id="rangeOut">' + Math.round(settings.q * 100) + '%</b></span>' +
+    '<input type="range" id="rangeQ" data-path="cfg.q" data-type="number" min="0.6" max="0.95" step="0.05" value="' + settings.q + '"></label>' +
+    '<p class="hint">Vale per le foto che carichi da ora in poi. Le foto sono salvate in WebP: più leggere di un JPG, a parità di qualità.</p></div>' +
+
+    '<div class="panel"><h3>Dati</h3><div class="btns">' +
+    '<button class="btn ghost" type="button" data-action="reload-site">Scarta la bozza e ricarica dal sito</button>' +
+    '<button class="btn ghost danger" type="button" data-action="wipe">Cancella tutti i dati di questo browser</button></div>' +
+    '<p class="hint">«Ricarica dal sito» legge <code>data/content.js</code>: recupera le pagine pubblicate, non le bozze.</p></div>' +
+
+    '<div class="panel"><h3>Pubblicazione automatica su GitHub</h3>' +
+    '<p class="hint">Con queste informazioni, «Pubblica» può scrivere le pagine e i dati aggiornati direttamente sul tuo repository GitHub, senza scaricare uno zip da caricare a mano: il sito si aggiorna da solo entro un minuto o due. Il token resta salvato solo in questo browser, non viene mai inviato altrove.</p>' +
+    '<div class="grid2">' + fText('Utente o organizzazione GitHub', 'cfg.ghOwner', settings.ghOwner, { ph: 'es. gianluphotographer-22' }) +
+    fText('Nome del repository', 'cfg.ghRepo', settings.ghRepo, { ph: 'es. gpj.visuals-portfolio' }) + '</div>' +
+    '<div class="grid2">' + fText('Branch', 'cfg.ghBranch', settings.ghBranch, { ph: 'main' }) +
+    '<label class="fld"><span>Personal Access Token</span><input type="password" data-path="cfg.ghToken" autocomplete="off" value="' + esc(settings.ghToken) + '" placeholder="ghp_…"></label></div>' +
+    '<p class="hint">Il token si crea una volta sola su GitHub: <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens</b>, con accesso in lettura/scrittura ai «Contents» solo di questo repository. Se non lo imposti, «Pubblica» continua a funzionare come prima, con lo zip da scaricare.</p></div>' +
+
+    '<div class="panel"><h3>Indirizzo del sito</h3>' +
+    '<p class="hint">Usato per generare la sitemap.xml e i link automatici. Mettici il tuo dominio, con lo slash finale.</p>' +
+    fText('Dominio del sito', 'cfg.siteUrl', settings.siteUrl, { ph: 'https://gpjvisuals.it/' }) + '</div>';
+}
+
+/* =========================================================
+   ANTEPRIMA
+========================================================= */
+function renderPreview() {
+  if (!(ui.view === 'page' || ui.view === 'home' || ui.view === 'legacy') || !ui.pv) return;
+  const frame = $('#pvFrame');
+  let html;
+  const resolve = p => (imgs.get(p) || {}).url || (vidStore.get(p) || {}).url;
+  if (ui.view === 'home') html = R.homePreview(S.home.sections, { resolve });
+  else if (ui.view === 'legacy') {
+    const l = legacyOf(ui.legacy), secs = extrasOf(ui.legacy).sections;
+    if (l && l.chapters != null) R.numberChapters(secs, l.chapters);
+    html = R.extrasPreview(secs, { resolve, title: (l || {}).title });
+  }
+  else if (curPage()) html = R.projectPage(curPage(), { preview: true, resolve, pages: publicPages(), legacy: LEGACY });
+  else html = '<p style="font:14px Inter,sans-serif;padding:40px;color:#707070">Crea una pagina per vedere l\u2019anteprima.</p>';
+  let y = 0;
+  try { y = frame.contentWindow.scrollY || 0; } catch (e) {}
+  frame.onload = () => { try { frame.contentWindow.scrollTo(0, y); } catch (e) {} };
+  frame.srcdoc = html;
+  fitPreview();
+}
+function fitPreview() {
+  const stage = $('#pvStage'), wrap = $('#pvWrap'), frame = $('#pvFrame');
+  if (!stage || !stage.clientWidth) return;
+  const W = ui.device === 'mobile' ? 390 : 1280;
+  const availW = stage.clientWidth - 28, availH = stage.clientHeight - 28;
+  const k = Math.min(1, availW / W);
+  wrap.style.width = W + 'px';
+  wrap.style.height = Math.max(200, availH / k) + 'px';
+  wrap.style.transform = 'scale(' + k + ')';
+  frame.style.width = '100%'; frame.style.height = '100%';
+  stage.style.paddingLeft = Math.max(14, (stage.clientWidth - W * k) / 2) + 'px';
+}
+if (window.ResizeObserver) new ResizeObserver(fitPreview).observe($('#pvStage'));
+window.addEventListener('resize', fitPreview);
+
+/* =========================================================
+   IMMAGINI — ottimizzazione e salvataggio
+========================================================= */
+function loadViaImg(file) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => { res({ w: img.naturalWidth || img.width, h: img.naturalHeight || img.height, draw: (c, w, h) => c.drawImage(img, 0, 0, w, h), free: () => URL.revokeObjectURL(url) }); };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('decode')); };
+    img.src = url;
+  });
+}
+async function decode(file) {
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    return { w: bmp.width, h: bmp.height, draw: (c, w, h) => c.drawImage(bmp, 0, 0, w, h), free: () => bmp.close && bmp.close() };
+  } catch (e) { return loadViaImg(file); }
+}
+const toBlob = (canvas, type, q) => new Promise(r => canvas.toBlob(r, type, q));
+const extOf = t => ({ 'image/webp': 'webp', 'image/jpeg': 'jpg', 'image/png': 'png', 'image/svg+xml': 'svg', 'image/gif': 'gif' }[t] || 'jpg');
+
+async function storeImage(file) {
+  let blob = file, w = 0, h = 0;
+  if (!/svg|gif/.test(file.type)) {
+    const src = await decode(file);
+    const scale = Math.min(1, settings.max / Math.max(src.w, src.h));
+    w = Math.max(1, Math.round(src.w * scale)); h = Math.max(1, Math.round(src.h * scale));
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    src.draw(c.getContext('2d'), w, h); src.free();
+    let out = await toBlob(c, 'image/webp', settings.q);
+    if (!out || out.type !== 'image/webp') out = await toBlob(c, 'image/jpeg', settings.q);
+    blob = (out && (scale < 1 || out.size < file.size)) ? out : file;
+  }
+  const base = R.slugify(file.name.replace(/\.[^.]+$/, '')) || 'foto';
+  const path = 'images/uploads/' + base + '-' + uid().slice(0, 4) + '.' + extOf(blob.type);
+  const rec = { path, blob, w, h, orig: file.size, size: blob.size };
+  if (imgOK) { try { await idb.put('images', rec); } catch (e) {} }
+  imgs.set(path, Object.assign({ url: URL.createObjectURL(blob) }, rec));
+  return { path, orig: file.size, size: blob.size };
+}
+// Come storeImage, ma per i video: il file si salva così com'è (nessuna
+// conversione qui — quella la fa convertVideo() prima di chiamare
+// questa funzione, quando riesce).
+async function storeVideo(file) {
+  const base = (file.name || 'video').trim().replace(/[^A-Za-z0-9._-]+/g, '-') || 'video.mp4';
+  const path = 'videos/' + base.replace(/\.[^.]+$/, '') + '.mp4';
+  const rec = { path, blob: file, orig: file.size, size: file.size };
+  if (imgOK) { try { await idb.put('videos', rec); } catch (e) {} }
+  vidStore.set(path, Object.assign({ url: URL.createObjectURL(file) }, rec));
+  return { path, size: file.size };
+}
+
+/* =========================================================
+   CONVERSIONE VIDEO (ffmpeg.wasm)
+   Gira per intero nel browser (nessun server coinvolto): converte
+   qualunque video scelto in MP4 H.264/AAC, il formato che tutti i
+   browser sanno riprodurre, e lo ridimensiona per il web. La libreria
+   (circa 30 MB) si scarica solo la prima volta che serve, poi resta
+   in cache del browser. È lenta rispetto a un programma installato sul
+   computer — anche qualche minuto per una clip corta — ma non richiede
+   installare nulla. Se qualcosa va storto (rete assente, file troppo
+   grande, formato che non riesce a leggere...) il video originale
+   viene comunque salvato così com'è: meglio un video pesante che
+   nessun video.
+========================================================= */
+const FFMPEG_CDN = 'https://cdn.jsdelivr.net/npm';
+const VIDEO_CONVERT_MAX_MB = 300; // oltre, rischia di mandare in crisi la memoria del browser: salvo l'originale senza nemmeno provare
+const VIDEO_MAX_W = 1280, VIDEO_CRF = 30, VIDEO_AUDIO_KBPS = '96k';
+let ffmpegInstance = null, ffmpegLoading = null;
+function getFfmpeg() {
+  if (ffmpegInstance) return Promise.resolve(ffmpegInstance);
+  if (ffmpegLoading) return ffmpegLoading;
+  ffmpegLoading = (async () => {
+    const [{ FFmpeg }, { toBlobURL }] = await Promise.all([
+      import(FFMPEG_CDN + '/@ffmpeg/ffmpeg@0.12/dist/esm/index.js'),
+      import(FFMPEG_CDN + '/@ffmpeg/util@0.12/dist/esm/index.js')
+    ]);
+    const ff = new FFmpeg();
+    const baseURL = FFMPEG_CDN + '/@ffmpeg/core@0.12/dist/esm';
+    await ff.load({
+      coreURL: await toBlobURL(baseURL + '/ffmpeg-core.js', 'text/javascript'),
+      wasmURL: await toBlobURL(baseURL + '/ffmpeg-core.wasm', 'application/wasm')
+    });
+    ffmpegInstance = ff;
+    return ff;
+  })();
+  return ffmpegLoading.catch(e => { ffmpegLoading = null; throw e; });
+}
+// Converte un file video in MP4 H.264/AAC compatibile, restituendo il
+// Blob risultante. onProgress riceve un numero da 0 a 1.
+async function convertVideo(file, onProgress) {
+  if (file.size > VIDEO_CONVERT_MAX_MB * 1024 * 1024) {
+    throw new Error('Il file supera i ' + VIDEO_CONVERT_MAX_MB + ' MB: troppo grande per convertirlo qui nel browser.');
+  }
+  const { fetchFile } = await import(FFMPEG_CDN + '/@ffmpeg/util@0.12/dist/esm/index.js');
+  const ff = await getFfmpeg();
+  const tag = uid().slice(0, 6);
+  const inExt = (/\.[a-z0-9]+$/i.exec(file.name || '') || ['.mp4'])[0];
+  const inName = 'in_' + tag + inExt, outName = 'out_' + tag + '.mp4';
+  const onProg = ({ progress }) => { if (onProgress && isFinite(progress)) onProgress(Math.max(0, Math.min(1, progress))); };
+  ff.on('progress', onProg);
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    await ff.exec([
+      '-i', inName,
+      '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(VIDEO_CRF),
+      '-vf', "scale='min(" + VIDEO_MAX_W + ",iw)':-2",
+      '-c:a', 'aac', '-b:a', VIDEO_AUDIO_KBPS, '-ac', '1',
+      '-movflags', '+faststart',
+      outName
+    ]);
+    const data = await ff.readFile(outName);
+    return new Blob([data.buffer], { type: 'video/mp4' });
+  } finally {
+    ff.off('progress', onProg);
+    try { await ff.deleteFile(inName); } catch (e) {}
+    try { await ff.deleteFile(outName); } catch (e) {}
+  }
+}
+async function addImages(files, target) {
+  if (!imgOK) return toast('Questo browser non consente di salvare le foto qui. Scrivi il percorso di un file già nel sito.', 'err');
+  files = files.filter(f => /^image\//.test(f.type));
+  if (!files.length) return toast('Scegli file immagine: JPG, PNG, WebP.', 'err');
+  busy('Ottimizzo ' + files.length + (files.length === 1 ? ' foto…' : ' foto…'));
+  const done = [];
+  for (const f of files) {
+    try { done.push(await storeImage(f)); } catch (e) { console.error(e); toast('Non riesco a leggere «' + f.name + '».', 'err'); }
+  }
+  busy(false);
+  if (!done.length) return;
+  if (target.kind === 'cover') { const p = curPage(); if (p) p.cover = done[0].path; }
+  else if (target.kind === 'siteimg') { S.siteImages[target.key] = done[0].path; }
+  else { const f = findSec(target.sid); if (f) done.forEach(d => f.s.images.push({ path: d.path, alt: '' })); }
+  const before = done.reduce((a, d) => a + d.orig, 0), after = done.reduce((a, d) => a + d.size, 0);
+  touch(); renderEditor();
+  toast(done.length + (done.length === 1 ? ' foto aggiunta' : ' foto aggiunte') + ': ' + fmtBytes(before) + ' → ' + fmtBytes(after));
+}
+
+let pending = null;
+const imgPick = $('#imgPick');
+function pickImages(target, multiple) { pending = target; imgPick.multiple = multiple; imgPick.value = ''; imgPick.click(); }
+imgPick.addEventListener('change', () => { const f = Array.from(imgPick.files); if (f.length && pending) addImages(f, pending); });
+
+let pendingVideo = null;
+$('#vidPick').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = '';
+  if (!f || !pendingVideo) return;
+  const found = findSec(pendingVideo); if (!found) return;
+
+  busy('Preparo la conversione di «' + f.name + '»…');
+  let toStore = f, converted = false, convertErr = null;
+  try {
+    const blob = await convertVideo(f, p => busy('Converto «' + f.name + '»… ' + Math.round(p * 100) + '%' +
+      (p < 0.05 ? ' (la prima volta scarico anche la libreria di conversione, ~30 MB)' : '')));
+    toStore = new File([blob], (f.name || 'video').replace(/\.[^.]+$/, '') + '.mp4', { type: 'video/mp4' });
+    converted = true;
+  } catch (err) {
+    console.error(err);
+    convertErr = err;
+  }
+
+  try {
+    busy('Salvo il video…');
+    const { path, size } = await storeVideo(toStore);
+    found.s.url = path;
+    touch(); renderEditor(); renderPreview();
+    const big = size > 90 * 1024 * 1024;
+    if (converted) {
+      toast('Video «' + f.name + '» convertito e pronto (' + fmtBytes(f.size) + ' → ' + fmtBytes(size) + '): ora è in un formato compatibile con tutti i browser ed entrerà da solo nel pacchetto e nella pubblicazione.');
+    } else {
+      toast('Non sono riuscito a convertirlo (' + (convertErr && convertErr.message || 'errore sconosciuto') + '): ho salvato il file originale così com’è (' + fmtBytes(size) + ').' +
+        (big ? ' È piuttosto pesante: valuta di comprimerlo prima con claude/comprimi-video.py.' : ' Se poi non si vede bene su qualche browser, comprimilo prima con claude/comprimi-video.py e ricaricalo.'), 'err');
+    }
+  } catch (err) {
+    console.error(err);
+    toast('Non riesco a leggere il video «' + f.name + '».', 'err');
+  }
+  busy(false);
+});
+
+/* drag & drop file */
+['dragover', 'drop'].forEach(t => document.addEventListener(t, e => { if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files')) e.preventDefault(); }));
+document.addEventListener('dragenter', e => { const z = e.target.closest && e.target.closest('[data-drop]'); if (z) z.classList.add('over'); });
+document.addEventListener('dragleave', e => { const z = e.target.closest && e.target.closest('[data-drop]'); if (z && !z.contains(e.relatedTarget)) z.classList.remove('over'); });
+document.addEventListener('drop', e => {
+  const z = e.target.closest && e.target.closest('[data-drop]');
+  $$('.over').forEach(x => x.classList.remove('over'));
+  if (!z || !e.dataTransfer || !e.dataTransfer.files.length) return;
+  const kindMap = { cover: () => ({ kind: 'cover' }), siteimg: () => ({ kind: 'siteimg', key: z.dataset.key }), gallery: () => ({ kind: 'gallery', sid: z.dataset.sid }) };
+  addImages(Array.from(e.dataTransfer.files), (kindMap[z.dataset.drop] || kindMap.gallery)());
+});
+
+/* =========================================================
+   ZIP (senza compressione: le foto sono già WebP)
+========================================================= */
+const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(buf) { let c = -1; for (let i = 0; i < buf.length; i++) c = CRC[(c ^ buf[i]) & 0xFF] ^ (c >>> 8); return (c ^ -1) >>> 0; }
+function makeZip(files) {
+  const enc = new TextEncoder(), parts = [], central = [];
+  const d = new Date();
+  const dosTime = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const dosDate = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  let offset = 0;
+  files.forEach(f => {
+    const name = enc.encode(f.name), crc = crc32(f.data), size = f.data.length;
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+    lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, size, true); lh.setUint32(22, size, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(new Uint8Array(lh.buffer), name, f.data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint16(12, dosTime, true); ch.setUint16(14, dosDate, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, size, true); ch.setUint32(24, size, true); ch.setUint16(28, name.length, true);
+    ch.setUint32(42, offset, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    offset += 30 + name.length + size;
+  });
+  const cdSize = central.reduce((a, c) => a + c.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
+  return new Blob(parts.concat(central, [new Uint8Array(end.buffer)]), { type: 'application/zip' });
+}
+function download(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+function markExported() {
+  S.meta.exportedSlugs = publicPages().map(p => p.slug);
+  S.meta.exportedHash = hashStr(contentJs());
+  // Registra l'indirizzo con cui ogni pagina è stata appena pubblicata:
+  // se in futuro cambia, buildPlan() lo scopre confrontandolo con questo
+  // e prepara da solo un reindirizzamento dal vecchio al nuovo.
+  publicPages().forEach(p => { p.publishedSlug = p.slug; });
+  persist(); renderTop();
+}
+function readmeText(plan) {
+  const L = ['PACCHETTO DI PUBBLICAZIONE — GPJ VISUALS', 'Creato il ' + new Date().toLocaleString('it-IT'), '',
+    '1. Copia le cartelle projects, images, data e dati nella cartella del sito.', '   Accetta di sostituire i file con lo stesso nome.'];
+  if (plan.vids.length) { L.push('2. Copia questi video nella cartella del sito:'); plan.vids.forEach(v => L.push('   - ' + v)); }
+  if (plan.extraPages.length) {
+    L.push('', 'Raccolte aggiunte a pagine già presenti (sono dentro data/content.js):');
+    plan.extraPages.forEach(k => { const l = legacyOf(k); L.push('   - ' + (l ? l.title : k) + ' (projects/' + k + '.html)'); });
+    L.push('   Le pagine già presenti devono caricare i tre script del pannello: se una raccolta non compare, controlla GUIDA-ADMIN.txt (punto 9).');
+  }
+  if (plan.redirects && plan.redirects.length) {
+    L.push('', 'Indirizzi cambiati: al vecchio posto trovi ora una pagina che reindirizza da sola al nuovo indirizzo (nessun link vecchio si rompe):');
+    plan.redirects.forEach(r => L.push('   - ' + r.from + ' → projects/' + r.to));
+  }
+  L.push('', 'sitemap.xml è stata rigenerata da sola con le pagine davvero pubblicate: sostituiscila insieme al resto.');
+  const redirectedFrom = new Set((plan.redirects || []).map(r => r.from));
+  const gone = (S.meta.exportedSlugs || []).filter(s => !plan.pub.some(p => p.slug === s) && !redirectedFrom.has('projects/' + s + '.html'));
+  if (gone.length) { L.push('', 'Da eliminare dal sito (pagine non più pubblicate):'); gone.forEach(s => L.push('   - projects/' + s + '.html')); }
+  return L.join('\r\n') + '\r\n';
+}
+/* =========================================================
+   PUBBLICAZIONE AUTOMATICA SU GITHUB
+   Scrive i file direttamente sul repository via GitHub REST API
+   (Contents), cosi' "Pubblica" non richiede piu' scaricare uno zip
+   e caricarlo a mano: il token resta solo in questo browser
+   (localStorage, impostazioni), non transita mai altrove.
+========================================================= */
+function u8ToBase64(u8) {
+  let binary = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < u8.length; i += chunk) {
+    binary += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
+  }
+  return btoa(binary);
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+// Chiama l'API di GitHub, riprovando da solo se la richiesta fallisce per
+// motivi transitori: "Failed to fetch" (la connessione è caduta o GitHub
+// l'ha chiusa a metà — capita pubblicando siti con tante foto, dove si
+// mandano tante richieste una via l'altra molto in fretta) oppure un
+// limite di richieste raggiunto (risposta 403/429). Prima riprovava e
+// basta, e alla prima di queste interruzioni tutta la pubblicazione si
+// fermava con l'errore in inglese "Failed to fetch" — ora aspetta un
+// attimo e riprova fino a 4 volte prima di arrendersi davvero.
+async function ghApi(method, path, body, tentativo) {
+  tentativo = tentativo || 1;
+  const MAX = 4;
+  let res;
+  try {
+    res = await fetch('https://api.github.com/repos/' + settings.ghOwner + '/' + settings.ghRepo + path, {
+      method,
+      headers: Object.assign(
+        { 'Authorization': 'Bearer ' + settings.ghToken, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+        body ? { 'Content-Type': 'application/json' } : {}
+      ),
+      body: body ? JSON.stringify(body) : undefined
+    });
+  } catch (networkErr) {
+    if (tentativo >= MAX) {
+      throw new Error('Connessione a GitHub interrotta (' + (networkErr && networkErr.message || 'Failed to fetch') +
+        '). I file già caricati restano pubblicati: controlla la connessione e premi di nuovo «Pubblica», riprenderà da quelli mancanti.');
+    }
+    await sleep(900 * tentativo);
+    return ghApi(method, path, body, tentativo + 1);
+  }
+  if ((res.status === 403 || res.status === 429) && tentativo < MAX) {
+    const remaining = res.headers.get('x-ratelimit-remaining');
+    const retryAfter = Number(res.headers.get('retry-after')) || 0;
+    if (retryAfter || remaining === '0' || res.status === 429) {
+      await sleep(Math.max(retryAfter * 1000, 1500) * tentativo);
+      return ghApi(method, path, body, tentativo + 1);
+    }
+  }
+  return res;
+}
+// Impronta di un file identica a quella che usa git per lo "sha" dei
+// file (blob SHA-1: sha1("blob " + lunghezza + "\0" + contenuto)). Serve
+// solo a capire se un file è già uguale a quello online, non per la
+// sicurezza — per questo va benissimo anche se SHA-1 non è più
+// considerato sicuro per altri usi.
+async function gitBlobSha1(bytes) {
+  const testa = new TextEncoder().encode('blob ' + bytes.length + '\0');
+  const intero = new Uint8Array(testa.length + bytes.length);
+  intero.set(testa, 0);
+  intero.set(bytes, testa.length);
+  const digest = await crypto.subtle.digest('SHA-1', intero);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+// Scrive un file su GitHub, ma prima controlla se è già uguale a quello
+// online (stesso contenuto = stesso blob SHA-1 git): se sì, salta
+// l'upload invece di riscrivere qualcosa che non è cambiato. Così
+// "Pubblica" pubblica solo quello che è davvero nuovo o modificato,
+// invece di ricaricare ogni volta tutte le foto e le pagine di tutto
+// il sito anche quando aggiungi una cosa sola. Restituisce true se ha
+// davvero scritto qualcosa, false se ha saltato perché già uguale.
+async function ghPutFile(filePath, bytes, message) {
+  const branch = settings.ghBranch || 'main';
+  const encPath = filePath.split('/').map(encodeURIComponent).join('/');
+  let sha;
+  const getRes = await ghApi('GET', '/contents/' + encPath + '?ref=' + encodeURIComponent(branch));
+  if (getRes.status === 200) {
+    const info = await getRes.json();
+    sha = info.sha;
+    try {
+      const localSha = await gitBlobSha1(bytes);
+      if (localSha === sha) return false; // già identico online: niente da fare
+    } catch (e) {
+      // Se per qualche motivo non riesco a calcolare l'impronta (browser
+      // molto vecchio, pagina aperta non in https...), non blocco la
+      // pubblicazione: procedo e ricarico il file per sicurezza.
+    }
+  }
+  else if (getRes.status === 401) throw new Error('Token GitHub non valido o scaduto. Controlla le Impostazioni.');
+  else if (getRes.status !== 404) {
+    const j = await getRes.json().catch(() => ({}));
+    throw new Error('Errore leggendo ' + filePath + ' (' + getRes.status + '): ' + (j.message || getRes.statusText));
+  }
+  const putRes = await ghApi('PUT', '/contents/' + encPath, Object.assign(
+    { message, content: u8ToBase64(bytes), branch }, sha ? { sha } : {}
+  ));
+  if (!putRes.ok) {
+    const j = await putRes.json().catch(() => ({}));
+    if (putRes.status === 401) throw new Error('Token GitHub non valido o scaduto. Controlla le Impostazioni.');
+    if (putRes.status === 404) throw new Error('Repository non trovato: controlla utente/organizzazione e nome del repository nelle Impostazioni.');
+    throw new Error('Errore scrivendo ' + filePath + ' (' + putRes.status + '): ' + (j.message || putRes.statusText));
+  }
+  return true;
+}
+async function publishToGitHub() {
+  const plan = buildPlan();
+  if (plan.errors.length) return;
+  if (!settings.ghToken || !settings.ghOwner || !settings.ghRepo) {
+    toast('Imposta prima utente, repository e token in Impostazioni.', 'err'); goto('settings'); return;
+  }
+  busy('Preparo la pubblicazione…');
+  try {
+    const enc = new TextEncoder();
+    const message = 'Aggiornamento dal pannello admin — ' + new Date().toLocaleString('it-IT');
+    const files = [];
+    files.push({ name: 'data/content.js', data: enc.encode(contentJs()) });
+    files.push({ name: 'dati/recensioni-generali.json', data: enc.encode(reviewsJson()) });
+    files.push({ name: 'dati/recensioni-generali.js', data: enc.encode(reviewsJs()) });
+    files.push({ name: 'sitemap.xml', data: enc.encode(buildSitemapXml(plan)) });
+    plan.pub.forEach(p => files.push({ name: 'projects/' + p.slug + '.html', data: enc.encode(R.projectPage(p, { pages: plan.pub, legacy: LEGACY })) }));
+    plan.redirects.forEach(r => files.push({ name: r.from, data: enc.encode(redirectHtml(r.to)) }));
+    for (const f of plan.files) {
+      const rec = imgs.get(f.name) || vidStore.get(f.name);
+      if (rec) files.push({ name: f.name, data: new Uint8Array(await rec.blob.arrayBuffer()) });
+    }
+    let scritti = 0, saltati = 0;
+    for (let i = 0; i < files.length; i++) {
+      busy('Controllo GitHub… (' + (i + 1) + '/' + files.length + ') ' + files[i].name);
+      const scritto = await ghPutFile(files[i].name, files[i].data, message);
+      if (scritto) { scritti++; await sleep(150); } else saltati++; // piccola pausa tra un file scritto e l'altro: con siti pieni di foto, mandare tutte le richieste una via l'altra senza respiro fa scattare il limite anti-abuso di GitHub, che a volte si presenta come "Failed to fetch" invece di un errore leggibile
+    }
+    markExported(); renderEditor();
+    toast(
+      scritti === 0
+        ? 'Già tutto aggiornato: nessun file era cambiato, non ho ricaricato nulla.'
+        : 'Pubblicato su GitHub (' + scritti + (scritti === 1 ? ' file aggiornato' : ' file aggiornati') +
+          (saltati ? ', ' + saltati + ' già a posto e saltati' : '') +
+          '): il sito si aggiorna da solo entro un minuto o due.'
+    );
+  } catch (e) {
+    console.error(e);
+    toast(e.message || 'Non sono riuscito a pubblicare su GitHub.', 'err');
+  }
+  busy(false);
+}
+
+async function exportZip() {
+  const plan = buildPlan();
+  if (plan.errors.length) return;
+  busy('Preparo il pacchetto…');
+  try {
+    const enc = new TextEncoder(), files = [];
+    files.push({ name: 'LEGGIMI.txt', data: enc.encode(readmeText(plan)) });
+    files.push({ name: 'data/content.js', data: enc.encode(contentJs()) });
+    files.push({ name: 'dati/recensioni-generali.json', data: enc.encode(reviewsJson()) });
+    files.push({ name: 'dati/recensioni-generali.js', data: enc.encode(reviewsJs()) });
+    files.push({ name: 'sitemap.xml', data: enc.encode(buildSitemapXml(plan)) });
+    plan.pub.forEach(p => files.push({ name: 'projects/' + p.slug + '.html', data: enc.encode(R.projectPage(p, { pages: plan.pub, legacy: LEGACY })) }));
+    plan.redirects.forEach(r => files.push({ name: r.from, data: enc.encode(redirectHtml(r.to)) }));
+    for (const f of plan.files) {
+      const rec = imgs.get(f.name) || vidStore.get(f.name);
+      if (rec) files.push({ name: f.name, data: new Uint8Array(await rec.blob.arrayBuffer()) });
+    }
+    download(makeZip(files), 'pacchetto-gpj-' + new Date().toISOString().slice(0, 10) + '.zip');
+    markExported(); renderEditor();
+    toast('Pacchetto scaricato');
+  } catch (e) { console.error(e); toast('Non sono riuscito a creare il pacchetto.', 'err'); }
+  busy(false);
+}
+
+/* =========================================================
+   BACKUP
+========================================================= */
+const blobToDataUrl = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(b); });
+function dataUrlToBlob(u) {
+  const [head, data] = u.split(','), type = (head.match(/:(.*?);/) || [])[1] || 'application/octet-stream';
+  const bin = atob(data), arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type });
+}
+async function backup() {
+  busy('Preparo il backup…');
+  try {
+    const paths = new Set(), vids = new Set();
+    S.pages.forEach(p => { if (p.cover) paths.add(p.cover); collectPaths(p.sections, paths, vids); });
+    collectPaths(S.home.sections, paths, vids);
+    Object.keys(S.extras).forEach(k => collectPaths(S.extras[k].sections, paths, vids));
+    Object.keys(S.siteImages).forEach(k => { if (S.siteImages[k]) paths.add(S.siteImages[k]); });
+    const images = [];
+    for (const path of paths) { const r = imgs.get(path); if (r) images.push({ path, w: r.w, h: r.h, orig: r.orig, data: await blobToDataUrl(r.blob) }); }
+    const videos = [];
+    for (const path of vids) { const r = vidStore.get(path); if (r) videos.push({ path, orig: r.orig, data: await blobToDataUrl(r.blob) }); }
+    download(new Blob([JSON.stringify({ format: 'gpj-admin-backup', v: 2, data: S, images, videos })], { type: 'application/json' }), 'backup-gpj-' + new Date().toISOString().slice(0, 10) + '.json');
+    toast('Backup scaricato');
+  } catch (e) { console.error(e); toast('Non sono riuscito a creare il backup.', 'err'); }
+  busy(false);
+}
+$('#bkPick').addEventListener('change', async e => {
+  const file = e.target.files[0]; e.target.value = '';
+  if (!file) return;
+  try {
+    const j = JSON.parse(await file.text());
+    if (j.format !== 'gpj-admin-backup') throw new Error('format');
+    if (!(await askConfirm('Ripristinare il backup?', 'La bozza attuale verrà sostituita da quella del backup.', 'Ripristina'))) return;
+    busy('Ripristino…');
+    for (const im of (j.images || [])) {
+      const blob = dataUrlToBlob(im.data);
+      const rec = { path: im.path, blob, w: im.w, h: im.h, orig: im.orig || blob.size, size: blob.size };
+      if (imgOK) { try { await idb.put('images', rec); } catch (e) {} }
+      imgs.set(im.path, Object.assign({ url: URL.createObjectURL(blob) }, rec));
+    }
+    for (const vi of (j.videos || [])) {
+      const blob = dataUrlToBlob(vi.data);
+      const rec = { path: vi.path, blob, orig: vi.orig || blob.size, size: blob.size };
+      if (imgOK) { try { await idb.put('videos', rec); } catch (e) {} }
+      vidStore.set(vi.path, Object.assign({ url: URL.createObjectURL(blob) }, rec));
+    }
+    S = normalize(j.data);
+    ui.pageId = S.pages[0] ? S.pages[0].id : null; ui.view = 'page';
+    persist(); busy(false); renderAll(); toast('Backup ripristinato');
+  } catch (err) { busy(false); toast('Questo file non è un backup valido.', 'err'); }
+});
+
+/* =========================================================
+   CAMPI: lettura dei valori
+========================================================= */
+function ref(path) {
+  const parts = path.split('.');
+  const head = parts.shift();
+  let obj = null;
+  if (head === 'page') obj = curPage();
+  else if (head === 'sec') { const f = findSec(parts.shift()); obj = f && f.s; }
+  else if (head === 'cfg') obj = settings;
+  else if (head === 'ext') obj = ui.legacy ? extrasOf(ui.legacy) : null;
+  else if (head === 'home') obj = S.home;
+  else if (head === 'lmeta') obj = ui.legacy ? legacyMetaOf(ui.legacy) : null;
+  else if (head === 'rev') obj = REVIEWS[parseInt(parts.shift(), 10)];
+  if (!obj) return null;
+  while (parts.length > 1) { obj = obj[parts.shift()]; if (obj == null) return null; }
+  return { obj, key: parts[0] };
+}
+function onField(e) {
+  const el = e.target.closest && e.target.closest('[data-path]');
+  if (!el) return;
+  const path = el.dataset.path, r = ref(path);
+  if (!r) return;
+  let v;
+  if (el.type === 'checkbox') v = el.checked;
+  else if (el.type === 'radio') { if (!el.checked) return; v = el.value; }
+  else v = el.value;
+  const t = el.dataset.type;
+  if (t === 'number') v = Number(v); else if (t === 'boolstr') v = v === 'true';
+
+  if (path === 'page.slug') {
+    const p = curPage();
+    if (e.type === 'input') { v = v.toLowerCase().replace(/[^a-z0-9-]+/g, '-'); p.slugAuto = false; }
+    else {
+      v = R.slugify(v);
+      if (!el.value.trim()) { p.slugAuto = true; v = R.slugify(p.title); }
+      v = uniqueSlug(v, p.id);
+    }
+    if (el.value !== v) el.value = v;
+  }
+  r.obj[r.key] = v;
+  afterField(path, e.type, el);
+  touch();
+}
+function afterField(path, type, el) {
+  const p = curPage();
+  if (path === 'page.title' && p) {
+    if (p.slugAuto) { p.slug = uniqueSlug(R.slugify(p.title), p.id); const si = $('[data-path="page.slug"]'); if (si) si.value = p.slug; }
+    const vt = $('#vtTitle'); if (vt) vt.textContent = p.title || 'Nuova pagina';
+  }
+  if ((path === 'page.title' || path === 'page.slug') && p) { const vu = $('#vtUrl'); if (vu) vu.textContent = 'projects/' + (p.slug || '…') + '.html'; }
+  if (path === 'page.cover' && type === 'change') renderEditor();
+  if (path.indexOf('sec.') === 0) {
+    const [, sid, key] = path.split('.');
+    if (['title', 'eyebrow', 'collapsible', 'visible'].includes(key)) refreshBlockHead(sid);
+    if (key === 'collapsible') { const o = $('[data-path="sec.' + sid + '.open"]'); if (o) o.disabled = !el.checked; }
+  }
+  if (path.indexOf('cfg.') === 0) {
+    ls.set(KEY_SET, settings);
+    const out = $('#rangeOut'); if (out && path === 'cfg.q') out.textContent = Math.round(settings.q * 100) + '%';
+  }
+  if (path.indexOf('rev.') === 0) { persistReviews(); renderEditor(); }
+}
+function refreshBlockHead(sid) {
+  const f = findSec(sid), el = $('.blk[data-sid="' + sid + '"]');
+  if (!f || !el) return;
+  el.querySelector('.blk-title').textContent = f.s.title || TYPE_META[f.s.type].label;
+  el.querySelector('.blk-badges').innerHTML = badges(f.s);
+}
+document.addEventListener('input', onField);
+document.addEventListener('change', onField);
+$('#editor').addEventListener('toggle', e => { const d = e.target; if (d.classList && d.classList.contains('blk') && d.dataset.sid) ui.open[d.dataset.sid] = d.open; }, true);
+const rq = () => $('#rangeQ');
+document.addEventListener('input', e => { if (e.target === rq()) { const o = $('#rangeOut'); if (o) o.textContent = Math.round(Number(e.target.value) * 100) + '%'; } });
+
+/* =========================================================
+   AZIONI
+========================================================= */
+function goto(view, pageId) {
+  ui.view = view;
+  if (pageId !== undefined) ui.pageId = pageId;
+  $('#app').classList.remove('menu-open');
+  renderAll();
+  window.scrollTo(0, 0);
+}
+function scrollToBlock(id) {
+  const el = $('.blk[data-sid="' + id + '"]');
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const inp = el.querySelector('input[type=text]'); if (inp) setTimeout(() => inp.focus({ preventScroll: true }), 350);
+}
+
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-action]');
+  if (!el || el.tagName === 'INPUT') return;
+  const a = el.dataset.action;
+  if (el.closest('summary')) e.preventDefault();
+  const sid = el.dataset.sid, idx = Number(el.dataset.idx);
+  const found = sid ? findSec(sid) : null;
+
+  switch (a) {
+    case 'menu': $('#app').classList.toggle('menu-open'); break;
+    case 'view': goto(el.dataset.view); break;
+    case 'lock': lock(); break;
+    case 'open-page': goto('page', el.dataset.id); break;
+    case 'open-legacy': ui.legacy = el.dataset.slug; goto('legacy'); break;
+    case 'open-extra': ui.legacy = el.dataset.slug; goto('extra'); break;
+    case 'toggle-preview': ui.pv = !ui.pv; renderTop(); renderPreview(); break;
+
+    case 'new-page': {
+      const p = newPage(); S.pages.push(p); ui.open = {}; goto('page', p.id); touch();
+      setTimeout(() => { const i = $('[data-path="page.title"]'); if (i) i.focus(); }, 60);
+      break;
+    }
+    case 'dup-page': {
+      const p = curPage(); if (!p) break;
+      const c = clone(p); c.id = uid(); c.title = (p.title || 'Pagina') + ' (copia)'; c.slugAuto = true;
+      c.slug = uniqueSlug(R.slugify(c.title), c.id); c.published = false;
+      c.sections.forEach(s => s.id = uid());
+      S.pages.splice(S.pages.indexOf(p) + 1, 0, c); goto('page', c.id); touch(); toast('Pagina duplicata come bozza');
+      break;
+    }
+    case 'del-page': {
+      const p = curPage(); if (!p) break;
+      if (!(await askConfirm('Eliminare la pagina?', '«' + (p.title || 'Senza titolo') + '» sparisce dall\u2019admin. Se l\u2019hai già pubblicata, dovrai togliere a mano projects/' + (p.slug || '…') + '.html dal sito.', 'Elimina'))) break;
+      const i = S.pages.indexOf(p); S.pages.splice(i, 1);
+      goto('page', S.pages[Math.min(i, S.pages.length - 1)] ? S.pages[Math.min(i, S.pages.length - 1)].id : null); touch(); toast('Pagina eliminata');
+      break;
+    }
+    case 'page-up': case 'page-down': {
+      const p = curPage(); if (p && move(S.pages, S.pages.indexOf(p), a === 'page-up' ? -1 : 1)) { renderEditor(); touch(); }
+      break;
+    }
+
+    case 'add-section': {
+      const s = newSection(el.dataset.type, ui.view === 'home', ui.view === 'legacy');
+      if (ui.view === 'legacy' && extrasOf(ui.legacy).addAt === 'start') curList().unshift(s); else curList().push(s);
+      ui.open[s.id] = true; renderEditor(); renderSide(); touch(); scrollToBlock(s.id);
+      break;
+    }
+    case 'sec-up': case 'sec-down': if (found && move(found.list, found.i, a === 'sec-up' ? -1 : 1)) { renderEditor(); touch(); } break;
+    case 'sec-dup': if (found) {
+      const c = clone(found.s); c.id = uid(); if (c.title) c.title += ' (copia)';
+      found.list.splice(found.i + 1, 0, c); ui.open[c.id] = true; renderEditor(); renderSide(); touch(); scrollToBlock(c.id);
+    } break;
+    case 'sec-del': if (found) {
+      if (!(await askConfirm('Eliminare la sezione?', '«' + (found.s.title || TYPE_META[found.s.type].label) + '» verrà rimossa.', 'Elimina'))) break;
+      found.list.splice(found.i, 1); renderEditor(); renderSide(); touch();
+    } break;
+    case 'collapse-all': curList().forEach(s => ui.open[s.id] = false); renderEditor(); break;
+    case 'expand-all':   curList().forEach(s => ui.open[s.id] = true);  renderEditor(); break;
+
+    case 'add-fact': if (found && found.s.facts.length < 8) { found.s.facts.push({ k: '', v: '' }); renderEditor(); touch(); } break;
+    case 'del-fact': if (found) { found.s.facts.splice(idx, 1); renderEditor(); touch(); } break;
+    case 'add-item': if (found) { found.s.items.push({ meta: '', title: '', text: '', link: '', label: '' }); renderEditor(); touch(); } break;
+    case 'del-item': if (found) { found.s.items.splice(idx, 1); renderEditor(); touch(); } break;
+    case 'item-up': case 'item-down': if (found && move(found.s.items, idx, a === 'item-up' ? -1 : 1)) { renderEditor(); touch(); } break;
+
+    case 'pick-images': pickImages({ kind: 'gallery', sid }, true); break;
+    case 'pick-cover': pickImages({ kind: 'cover' }, false); break;
+    case 'pick-siteimg': pickImages({ kind: 'siteimg', key: el.dataset.key }, false); break;
+    case 'set-siteimg-path': {
+      const inp = $('[data-role="simgpath"][data-key="' + el.dataset.key + '"]'), v = (inp.value || '').trim();
+      if (!v) return toast('Scrivi il percorso di un\u2019immagine già nel sito.', 'err');
+      S.siteImages[el.dataset.key] = v.replace(/^(\.\.?\/)+/, ''); renderEditor(); touch();
+      break;
+    }
+    case 'reset-siteimg': S.siteImages[el.dataset.key] = ''; renderEditor(); touch(); toast('Ripristinata l\u2019immagine originale'); break;
+    case 'clear-cover': { const p = curPage(); if (p) { p.cover = ''; renderEditor(); touch(); } break; }
+    case 'pick-video': pendingVideo = sid; $('#vidPick').value = ''; $('#vidPick').click(); break;
+    case 'add-img-path': if (found) {
+      const inp = $('[data-role="pathin"][data-sid="' + sid + '"]'), v = (inp.value || '').trim();
+      if (!v) return toast('Scrivi il percorso di un\u2019immagine già nel sito.', 'err');
+      found.s.images.push({ path: v.replace(/^(\.\.?\/)+/, ''), alt: '' }); renderEditor(); touch();
+    } break;
+    case 'img-up': case 'img-down': if (found && move(found.s.images, idx, a === 'img-up' ? -1 : 1)) { renderEditor(); touch(); } break;
+    case 'img-del': if (found) { found.s.images.splice(idx, 1); renderEditor(); touch(); } break;
+
+    case 'add-cat': {
+      const inp = $('#catIn'), label = (inp.value || '').trim();
+      if (!label) return toast('Scrivi il nome della categoria.', 'err');
+      const key = R.slugify(label);
+      if (BUILTIN_CATS.concat(S.categories).some(c => c.key === key)) return toast('Esiste già una categoria con questo nome.', 'err');
+      S.categories.push({ key, label }); renderEditor(); touch(); toast('Categoria aggiunta');
+      break;
+    }
+    case 'del-cat': S.categories = S.categories.filter(c => c.key !== el.dataset.key); renderEditor(); touch(); break;
+
+    case 'export-zip': exportZip(); break;
+    case 'publish-github': publishToGitHub(); break;
+    case 'export-js': download(new Blob([contentJs()], { type: 'text/javascript' }), 'content.js'); markExported(); renderEditor(); toast('content.js scaricato'); break;
+    case 'backup': backup(); break;
+    case 'restore': $('#bkPick').click(); break;
+
+    case 'pw-change': {
+      const oldP = $('#pwOld').value, newP = $('#pwNew').value, auth = ls.get(KEY_AUTH, null);
+      if (!auth || (await hashPw(oldP, auth.salt)) !== auth.hash) return toast('La password attuale non è corretta.', 'err');
+      if (newP.length < 8) return toast('La nuova password deve avere almeno 8 caratteri.', 'err');
+      const salt = uid() + uid(); ls.set(KEY_AUTH, { salt, hash: await hashPw(newP, salt) });
+      $('#pwOld').value = ''; $('#pwNew').value = ''; toast('Password cambiata');
+      break;
+    }
+    case 'reload-site': {
+      const site = window.GPJ_CONTENT;
+      if (!site || !siteCount(site)) return toast('Non trovo contenuti pubblicati in data/content.js.', 'err');
+      if (!(await askConfirm('Scartare la bozza?', 'La bozza attuale viene sostituita dai contenuti pubblicati nel sito.', 'Scarta e ricarica'))) break;
+      S = normalize(clone(site)); S.meta.exportedSlugs = S.pages.map(p => p.slug); S.meta.exportedHash = hashStr(contentJs());
+      ui.pageId = S.pages[0] ? S.pages[0].id : null; ui.view = 'page'; persist(); renderAll(); toast('Bozza ricaricata dal sito');
+      break;
+    }
+    case 'reload-reviews': {
+      if (!(await askConfirm('Scartare le modifiche?', 'Le recensioni tornano come sono in dati/recensioni-generali.js.', 'Scarta e ricarica'))) break;
+      REVIEWS = Array.isArray(window.GPJ_REVIEWS) ? clone(window.GPJ_REVIEWS) : [];
+      persistReviews(); renderAll(); toast('Recensioni ricaricate dal file');
+      break;
+    }
+    case 'import-sheet-reviews': {
+      const url = (settings.reviewsSheetUrl || '').trim();
+      if (!url) { toast('Incolla prima il link del foglio pubblicato in CSV.', 'err'); break; }
+
+      let testo;
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('http ' + res.status);
+        testo = await res.text();
+      } catch (err) {
+        toast('Non riesco a leggere il foglio. Controlla il link «Pubblica sul web» (formato CSV) e la connessione.', 'err');
+        break;
+      }
+
+      const righe = parseCsv(testo);
+      if (!righe.length) { toast('Il foglio sembra vuoto.', 'err'); break; }
+
+      const header = righe[0].map(h => (h || '').trim());
+      const idx = {
+        inHome: header.indexOf('In home (SI/NO)'),
+        nome: header.indexOf('Nome'),
+        ruolo: header.indexOf('Ruolo o azienda'),
+        voto: header.indexOf('Voto'),
+        testo: header.indexOf('Recensione'),
+        anno: header.indexOf('Anno')
+      };
+      if (idx.nome === -1 || idx.testo === -1) {
+        toast('Non trovo le colonne «Nome» e «Recensione» nel foglio: controlla di aver aggiornato lo script (claude/google-sheet-recensioni.gs) e di aver pubblicato la scheda giusta.', 'err');
+        break;
+      }
+
+      const esistenti = {};
+      REVIEWS.forEach(r => { const k = (r.nome || '').trim().toLowerCase(); if (k) esistenti[k] = r; });
+
+      const nuove = [];
+      for (let i = 1; i < righe.length; i++) {
+        const riga = righe[i];
+
+        const nome = (riga[idx.nome] || '').trim();
+        const testoRec = (riga[idx.testo] || '').trim();
+        if (!nome || !testoRec || nome.toUpperCase().indexOf('(ESEMPIO)') > -1) continue;
+
+        const inHome = (idx.inHome > -1 ? (riga[idx.inHome] || '') : '').trim().toUpperCase();
+        let voto = parseInt(idx.voto > -1 ? riga[idx.voto] : '', 10);
+        if (!Number.isFinite(voto)) voto = 5;
+        voto = Math.max(1, Math.min(5, voto));
+
+        const prec = esistenti[nome.toLowerCase()] || {};
+        nuove.push({
+          nome, ruolo: (idx.ruolo > -1 ? (riga[idx.ruolo] || '') : '').trim(),
+          testo: testoRec, voto,
+          anno: (idx.anno > -1 ? (riga[idx.anno] || '').trim() : '') || String(new Date().getFullYear()),
+          pinned: inHome === 'SI' || inHome === 'SÌ',
+          avatar: prec.avatar || null, categoria: prec.categoria || null
+        });
+      }
+
+      if (!nuove.length) { toast('Non trovo righe complete (nome + testo) nel foglio.', 'err'); break; }
+
+      REVIEWS = nuove;
+      settings.reviewsSheetLast = { count: nuove.length, at: Date.now() };
+      ls.set(KEY_SET, settings);
+      persistReviews(); touch(); renderAll();
+      toast(nuove.length + ' recensioni importate dal foglio');
+      break;
+    }
+    case 'delete-media': {
+      const kind = el.dataset.kind, path = el.dataset.path;
+      const map = kind === 'vid' ? vidStore : imgs;
+      const used = allUsedPaths();
+      const stillUsed = kind === 'vid' ? used.vids.has(path) : used.paths.has(path);
+      const msg = stillUsed
+        ? 'È ancora agganciato a una pagina o sezione: se lo elimini, lì sparirà (o si romperà) alla prossima pubblicazione.'
+        : 'Non risulta più usato in nessuna pagina o sezione.';
+      if (!(await askConfirm('Eliminare «' + path + '»?', msg, 'Elimina'))) break;
+      const rec = map.get(path);
+      if (rec && rec.url) { try { URL.revokeObjectURL(rec.url); } catch (err) {} }
+      map.delete(path);
+      if (imgOK) { try { await idb.del(kind === 'vid' ? 'videos' : 'images', path); } catch (err) {} }
+      renderEditor();
+      toast('Eliminato.');
+      break;
+    }
+    case 'forget-device': {
+      if (!(await askConfirm('Dimenticare questo dispositivo?', 'Per rientrare da qui dovrai riaprire il link completo, con la chiave dopo il #.', 'Dimentica'))) break;
+      try { localStorage.removeItem('gpj_admin_gate'); } catch (err) {}
+      location.reload();
+      break;
+    }
+    case 'wipe': {
+      if (!(await askConfirm('Cancellare tutto?', 'Bozze, foto non pubblicate e password di questo browser verranno eliminate. Questa azione non si può annullare.', 'Cancella tutto'))) break;
+      ls.del(KEY_DATA); ls.del(KEY_AUTH); ls.del(KEY_SET);
+      try { await idb.clear('images'); await idb.clear('videos'); } catch (err) {}
+      imgs.clear(); vidStore.clear(); location.reload();
+      break;
+    }
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.drop')) { e.preventDefault(); e.target.click(); }
+  if (e.key === 'Escape') $('#app').classList.remove('menu-open');
+});
+$$('input[name="dev"]').forEach(r => r.addEventListener('change', () => { ui.device = r.value; fitPreview(); renderPreview(); }));
+window.addEventListener('beforeunload', () => { clearTimeout(tSave); if (S) ls.set(KEY_DATA, S); });
+
+/* =========================================================
+   AVVIO
+========================================================= */
+async function boot() {
+  if (!R) {
+    $('#lock').hidden = false; $('#lockForm').hidden = true;
+    const f = $('#lockFatal'); f.hidden = false;
+    f.textContent = 'Non trovo assets/js/gpj-render.js. Metti questo file nella cartella principale del sito, accanto alla cartella assets.';
+    return;
+  }
+  try {
+    await idb.open();
+    (await idb.all('images')).forEach(r => imgs.set(r.path, Object.assign({ url: URL.createObjectURL(r.blob) }, r)));
+    (await idb.all('videos')).forEach(r => vidStore.set(r.path, Object.assign({ url: URL.createObjectURL(r.blob) }, r)));
+  } catch (e) { imgOK = false; }
+  loadData();
+  loadReviews();
+  let ok = false; try { ok = sessionStorage.getItem(SESSION) === '1' && !!ls.get(KEY_AUTH, null); } catch (e) {}
+  if (ok) enter(); else showLock();
+}
+
+window.__gpjAdmin = { state: () => S, plan: buildPlan, zip: makeZip, contentJs, crc32 };
+boot();
+
+})();
+</script>
+</body>
+</html>

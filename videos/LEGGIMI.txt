@@ -1,0 +1,10 @@
+Questa cartella contiene i file video usati dal sito.
+
+Se aggiungi un video da admin con "Scegli file", il pannello lo salva e
+lo converte da solo: entra nel pacchetto o nella pubblicazione in
+automatico, con il nome che vedi scritto nel campo "Video" della
+sezione.
+
+Se invece scrivi qui sopra un percorso a mano (es. videos/nomefile.mp4)
+senza passare da "Scegli file", copia tu il file con quel nome esatto in
+questa cartella prima di pubblicare.
