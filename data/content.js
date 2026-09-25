@@ -564,7 +564,7 @@ window.GPJ_CONTENT = {
       "tag": "DRONE WORKS",
       "category": "drone",
       "wide": false,
-      "cover": "",
+      "cover": "images/uploads/dji-mini-2i1n.webp",
       "coverAlt": "",
       "description": "",
       "published": true,
