@@ -627,7 +627,8 @@ window.GPJ_CONTENT = {
           "description": "",
           "note": ""
         }
-      ]
+      ],
+      "publishedSlug": "il-limite-e-il-cielo"
     }
   ],
   "home": {
