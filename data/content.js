@@ -552,7 +552,7 @@ window.GPJ_CONTENT = {
               "alt": ""
             }
           ],
-          "columns": 4
+          "columns": 3
         }
       ],
       "publishedSlug": "dentro-la-competizione"
