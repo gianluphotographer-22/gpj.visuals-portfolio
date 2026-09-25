@@ -1,0 +1,454 @@
+GPJ VISUALS — GUIDA AL PANNELLO ADMIN
+======================================
+
+Cosa fa
+-------
+Il file admin-XXXX.html è un pannello privato per creare nuove pagine
+progetto e nuove sezioni della homepage senza toccare il codice. Ogni
+sezione può essere resa comprimibile (si apre e chiude con un clic sul sito).
+
+Non è un server: lavora dentro il tuo browser (in locale oppure online, con
+il link segreto). Prepara i file nuovi, poi tu li carichi nel sito.
+
+
+1) Installazione (una volta sola)
+---------------------------------
+Copia nella cartella del sito, mantenendo le stesse cartelle:
+
+  admin-XXXX.html               -> accanto a index.html (XXXX = codice segreto)
+  index.html                    -> sostituisce quello attuale
+  assets/css/pages.css          -> nuovo
+  assets/js/gpj-render.js       -> nuovo
+  assets/js/dynamic.js          -> nuovo
+  data/content.js               -> nuovo (all'inizio è vuoto)
+
+Se usi il pacchetto «sito completo» è già tutto a posto: copia e basta.
+Se invece aggiorni un sito che hai già online, ricordati anche le pagine
+dentro projects/ (vedi punto 8).
+
+
+2) Aprire il pannello
+---------------------
+IN LOCALE: doppio clic sul file admin-XXXX.html (Chrome, Edge, Safari o
+Firefox). Nessun controllo di accesso.
+
+ONLINE: il pannello risponde solo a chi ha il LINK COMPLETO:
+
+  https://IL-TUO-SITO/admin-XXXX.html#CHIAVE
+
+  - «XXXX» nel nome del file è un codice casuale, impossibile da indovinare.
+  - «CHIAVE» (dopo il #) è la seconda metà del segreto: non viaggia mai
+    verso il server, quindi non compare nei registri di accesso.
+  - Chi apre l'indirizzo senza la chiave vede un normale errore 404.
+  - La pagina non è collegata da nessuna parte del sito e non viene
+    indicizzata dai motori di ricerca.
+
+Salva il link completo nei preferiti. Dopo il primo ingresso quel
+dispositivo viene ricordato e puoi riaprire il pannello anche senza il #.
+Da Impostazioni > «Dimentica questo dispositivo» lo puoi escludere.
+
+Poi scegli una password (al primo accesso). Le bozze restano nel browser
+che usi: su un altro dispositivo il pannello parte vuoto. Per spostarle usa
+il backup (punto 7) oppure «Ricarica dal sito» nelle Impostazioni.
+
+COSA PUÒ E NON PUÒ FARE ONLINE
+  Il pannello NON può modificare il sito da solo. «Pubblica» scarica un
+  file: solo chi ha accesso al tuo hosting può caricarlo. Anche se qualcuno
+  trovasse il link, potrebbe al massimo vedere un pannello vuoto nel proprio
+  browser. Il link segreto serve a non esporre nemmeno quello.
+  Non condividere il link (chat, screenshot, schermo condiviso) e non
+  metterlo in nessuna pagina del sito.
+  Se il link finisce nelle mani sbagliate: cambia il nome del file
+  (ricaricalo con un altro codice) e cancella il vecchio.
+
+
+3) Creare una pagina progetto
+-----------------------------
+- «Nuova pagina» nella barra a sinistra.
+- Compila titolo, etichetta, categoria, copertina.
+- Aggiungi le sezioni: Testo, Info progetto, Galleria, Video, Schede.
+- Per ogni sezione puoi: riordinarla, duplicarla, nasconderla, cambiare
+  colore, e attivare «Comprimibile» (con scelta aperta/chiusa all'inizio).
+- L'anteprima a destra mostra la pagina esattamente come uscirà sul sito.
+- Lascia «Pubblicata» spenta se è ancora una bozza.
+
+
+4) Sezioni extra nella homepage
+-------------------------------
+«Sezioni homepage» permette di aggiungere blocchi in un punto a scelta
+(dopo l'intro, portfolio, chi sono, servizi, recensioni) e, se vuoi, una
+voce nel menu in alto che porta a quella sezione.
+
+
+4b) Testi fissi della homepage (hero, chi sono, servizi, contatti)
+--------------------------------------------------------------------
+Il titolo di apertura, «Chi sono», i cinque servizi e la parte contatti
+sono scritti nel codice di index.html, non sono sezioni: non si spostano
+e non si duplicano, ce n'è sempre e solo uno.
+
+Dentro «Sezioni homepage» trovi in cima quattro riquadri — Apertura
+(hero), Chi sono, Servizi, Contatti — con i campi corrispondenti.
+
+La regola è sempre la stessa, come per le immagini del sito: un campo
+lasciato VUOTO tiene il testo originale della pagina; scrivi solo quello
+che vuoi cambiare. Per i servizi il numero e l'ordine restano quelli del
+sito (5 servizi fissi): puoi cambiare solo titolo e descrizione di
+ciascuno. Per il titolo grande dell'hero, scrivi una riga per ogni riga
+del titolo (di solito due).
+
+Cambiando l'email di contatto aggiorno da solo sia il link «scrivimi
+direttamente a...» sia il pulsante del modulo.
+
+
+5) Aggiungere una raccolta a una pagina GIÀ nel sito
+----------------------------------------------------
+Esempio: sulla pagina T'IMMAGINI (Ideale Bari Calcio) vuoi aggiungere le
+foto di un'altra partita.
+
+Aprendo una di queste pagine trovi anche il riquadro «Testo di apertura
+della pagina»: titolo grande, etichetta sopra il titolo, il paragrafo
+introduttivo e i dati (Squadra, Formato, Servizi, Stato...). Stessa
+regola dei testi fissi della homepage (punto 4b): campo vuoto = testo
+originale, scrivi solo quello che vuoi cambiare. La pagina in sé non
+viene toccata finché non pubblichi.
+
+- Nella barra a sinistra, sotto «Pagine già nel sito», scegli la pagina.
+- Premi «Nuova raccolta».
+- Scrivi il titolo (es. «Bari – Juve Stabia»), la data o la competizione
+  e, se vuoi, due righe di descrizione.
+- Trascina le foto: le ottimizzo io.
+- Scegli dove compare: subito dopo le foto della pagina (consigliato),
+  dopo il video, oppure in fondo.
+
+Sul sito la raccolta si vede chiusa, con anteprima, titolo e numero di
+foto; un clic e si apre. La pagina originale non viene toccata.
+
+Per aggiornarla nel tempo:
+- riapri la stessa raccolta e trascina altre foto;
+- oppure crea una nuova raccolta: con «In cima» l'ultima partita aggiunta
+  è la prima che si vede, con «In fondo» va dopo le altre;
+- riordina con le frecce, nascondi con «Mostra sul sito» spento.
+Poi pubblica di nuovo (punto 6).
+
+
+5b) Aggiungere un CAPITOLO (Cuore Biancorosso, T'Immagini)
+------------------------------------------------------------
+Alcune pagine (per ora Cuore Biancorosso e T'Immagini) hanno in cima un
+indice «I CAPITOLI» scritto a mano, con le partite numerate (01, 02...).
+Una «raccolta» normale (punto 5) non entra in quell'indice: compare come
+blocco a parte, senza numero né titolo in vista. Per aggiungere una nuova
+partita che diventi un capitolo vero e proprio, con il suo numero
+nell'indice:
+
+- Apri la pagina dalla barra a sinistra («Pagine già nel sito»).
+- Premi «Nuovo capitolo» (compare solo sulle pagine che hanno i capitoli).
+- Scrivi il titolo (es. «Bari – Foggia»), la data o il luogo, e due o tre
+  righe di testo sulla partita: restano sempre in vista, non si aprono
+  a clic come le raccolte.
+- Trascina le foto.
+
+Il numero (03, 04, ...) e la voce nell'indice «I CAPITOLI» li calcolo da
+solo quando pubblichi: non c'è niente da scrivere a mano. Il capitolo va
+sempre in fondo all'indice, dopo l'ultimo già presente.
+
+
+6) Cambiare le immagini generali del sito
+------------------------------------------
+Nella barra a sinistra, «Immagini del sito», trovi tutte le foto che non
+appartengono a un singolo progetto: la foto grande in apertura, quella
+della sezione «Chi sono», le copertine dei progetti già presenti (si
+aggiornano insieme sulla homepage e sulla pagina del progetto) e le foto
+dei clienti in «Recensioni».
+
+Per ognuna:
+- «Cambia foto» per caricarne una nuova (la ottimizzo io);
+- oppure scrivi il percorso di un file già presente nel sito e premi
+  «Usa questo»;
+- «Ripristina l'originale» torna alla foto con cui il sito è partito.
+
+Le sostituzioni compaiono nel pacchetto di «Pubblica» insieme al resto.
+
+
+7) Pubblicare
+-------------
+- Apri «Pubblica». Il pannello controlla eventuali problemi.
+- «Scarica pacchetto (.zip)».
+- Decomprimi lo zip e copia il contenuto nella cartella del sito,
+  accettando di sovrascrivere data/content.js.
+  Dentro trovi anche projects/ (le pagine nuove), images/uploads/ (foto
+  già ottimizzate) e videos/ (i video caricati da «Scegli file», vedi
+  sotto).
+- Se il file LEGGIMI.txt dello zip elenca ancora dei video «da copiare a
+  mano», sono video scritti a mano come percorso (es. videos/nome.mp4)
+  senza passare da «Scegli file»: quelli vanno sempre copiati a mano
+  nella cartella videos/, come prima.
+- Carica poi la cartella aggiornata sul tuo hosting come sempre.
+
+Nota sui video caricati con «Scegli file»: da qui in poi, quando scegli un
+file video con «Scegli file», il pannello prima lo CONVERTE in automatico
+in MP4 (H.264/video, AAC/audio) — il formato che tutti i browser sanno
+riprodurre, ridimensionato per il web — e solo dopo lo salva in questo
+browser (come già succede con le foto) e te lo mostra nell'Anteprima. Non
+serve più copiarlo a mano da nessuna parte, né preoccuparsi del formato
+in cui l'hai girato (anche i .MOV dell'iPhone vanno bene): entra da solo
+nel pacchetto .zip (cartella videos/) e, se pubblichi direttamente su
+GitHub (impostando token e repository in «Impostazioni»), viene caricato
+insieme al resto, già pronto per il sito.
+
+La conversione avviene per intero nel tuo browser (nessun server
+coinvolto, il video non lascia mai il computer finché non pubblichi): la
+prima volta che la usi scarica una libreria di circa 30 MB, poi resta in
+cache e le volte successive parte subito. È più lenta di un programma
+installato sul computer — anche qualche minuto per una clip corta,
+soprattutto su computer meno recenti — il pannello mostra una barra di
+avanzamento in percentuale mentre lavora.
+
+Se la conversione non riesce (per esempio senza connessione internet, o
+con un file troppo grande — oltre 300 MB non viene nemmeno tentata), il
+pannello salva comunque il file originale così com'è e te lo dice con un
+avviso: in quel caso, se poi il video non si vede bene su qualche
+browser, comprimilo prima con claude/comprimi-video.py (richiede ffmpeg
+installato sul computer, ma è molto più veloce) e ricaricalo.
+
+
+8) Backup
+---------
+Da «Pubblica» puoi scaricare un backup (.json) con bozze, foto e video, e
+ripristinarlo su un altro computer o browser. Fallo ogni tanto: se cancelli
+i dati del browser, le bozze non pubblicate si perdono.
+
+
+9) Perché le pagine già presenti mostrano le raccolte
+---------------------------------------------------------
+Nel pacchetto «sito completo» le pagine dentro projects/ hanno già tre righe
+in più prima di main.js e una nel <head>. Se un giorno sostituisci una di
+quelle pagine con una versione vecchia, rimetti:
+
+  nel <head>, dopo style.css:
+    <link rel="stylesheet" href="../assets/css/pages.css">
+
+  in fondo, PRIMA di main.js:
+    <script src="../data/content.js"></script>
+    <script src="../assets/js/gpj-render.js"></script>
+    <script src="../assets/js/dynamic.js"></script>
+
+La stessa cosa vale per le cinque «pagine extra» (numeri.html,
+curiosita-e-record.html, il-mio-percorso.html, dietro-le-quinte.html,
+extra.html — punto 13): sono nella cartella principale, non dentro
+projects/, quindi i percorsi non hanno «../» davanti:
+
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <script src="data/content.js"></script>
+    <script src="assets/js/gpj-render.js"></script>
+    <script src="assets/js/dynamic.js"></script>
+
+
+10) Recensioni: quali mostrare in homepage
+-------------------------------------------
+Nella barra a sinistra, «Recensioni», trovi tutte le recensioni "generali"
+(quelle che arrivano dal modulo del sito o che aggiungi con l'Excel,
+aggiorna-da-excel.py). Per ognuna c'è un interruttore «Mostra anche in
+homepage»: acceso, quella recensione compare anche nella sezione
+recensioni della pagina principale, oltre che nella pagina Recensioni
+generali. Spento, resta solo lì.
+
+Le modifiche restano come bozza finché non premi «Pubblica» (punto 7 o
+11). «Scarta le modifiche e ricarica dal file» riporta tutto a come
+risulta in dati/recensioni-generali.js, l'ultima versione pubblicata.
+
+Le stesse informazioni si possono cambiare anche dall'Excel (colonna
+«In home (SI/NO)») o a mano nel JSON («pinned»: true/false): sono due
+strade diverse per la stessa cosa, usa quella che preferisci.
+
+La pagina Recensioni generali si aggiorna da sola, in automatico, ogni
+volta che pubblichi: non serve più rigenerarla a mano né lanciare
+aggiorna-recensioni.py (restava lì da prima che esistesse
+l'importazione dal Google Sheet — ora è superato, puoi ignorarlo).
+
+
+11) Pubblicazione automatica su GitHub (senza scaricare zip)
+----------------------------------------------------------------
+In alternativa al pacchetto da scaricare e caricare a mano (punto 7), il
+pannello può pubblicare da solo direttamente sul tuo repository GitHub.
+
+Impostazione (una volta sola), da «Impostazioni» > «Pubblicazione
+automatica su GitHub»:
+  - Utente/organizzazione GitHub e nome del repository (già precompilati
+    con i valori di questo sito).
+  - Branch (di solito "main").
+  - Un Personal Access Token che crei tu su GitHub: Settings > Developer
+    settings > Personal access tokens > Fine-grained tokens > Generate
+    new token. Dagli accesso in lettura E scrittura a «Contents», solo
+    per questo repository. Copialo e incollalo nel campo «Personal
+    Access Token»: resta salvato solo in questo browser (localStorage),
+    non viene mai inviato da nessuna parte se non a GitHub stesso quando
+    premi «Pubblica».
+
+Una volta impostato, in «Pubblica» trovi il pulsante «Pubblica su
+GitHub» al posto (o in aggiunta) allo zip: scrive pagine, foto
+modificate, data/content.js e le recensioni direttamente sul repository.
+GitHub Pages rileva la modifica e aggiorna il sito online da solo, di
+solito entro un minuto o due — niente più scaricare, decomprimere e
+ricaricare a mano.
+
+Se in futuro sospetti che il token sia finito nelle mani sbagliate:
+cancellalo da GitHub (Settings > Developer settings > Personal access
+tokens) e creane uno nuovo.
+
+Se durante «Pubblica su GitHub» compare l'errore «Failed to fetch»: di
+solito è una piccola interruzione di rete, o capita con siti che hanno
+molte foto da controllare una via l'altra molto in fretta (GitHub a
+volte blocca temporaneamente chi manda troppe richieste tutte insieme).
+Il pannello ora ritenta da solo un paio di volte prima di arrendersi, e
+se qualche file era già stato scritto resta pubblicato: basta premere
+di nuovo «Pubblica», riprende da quelli mancanti, non c'è nulla da
+sistemare a mano. Se l'errore persiste, controlla la connessione e
+riprova tra qualche minuto.
+
+
+12) Recensioni e contatti: vederli subito in un Google Sheet (senza copiarli a mano)
+--------------------------------------------------------------------------------------
+Oggi, quando qualcuno scrive una recensione o un messaggio dal modulo
+«Contattami», ti arriva solo un'email (tramite Web3Forms). Per la
+recensione, farla comparire online resta comunque un passaggio manuale
+— la aggiungi all'Excel o al JSON e ripubblichi, punto 10 — ma puoi
+evitare di doverla ricopiare a mano dall'email: collegando i moduli a un
+Google Sheet gratuito, ogni invio crea da sola una nuova riga nel
+foglio, pronta da leggere:
+- le recensioni finiscono nel foglio principale (data, nome, ruolo,
+  email, voto, testo), da cui poi comporre l'Excel di pubblicazione;
+- i messaggi di contatto finiscono in una scheda separata chiamata
+  «Contatti» dello stesso foglio, creata da sola al primo messaggio
+  (data, nome, email, messaggio) — solo per tenerli sott'occhio, senza
+  passaggi ulteriori da fare.
+
+Non serve alcun abbonamento: si usa Google Apps Script, gratuito con un
+normale account Google.
+
+Attivazione (una volta sola):
+- Crea un foglio Google nuovo e vuoto (sheets.google.com).
+- Dal menu del foglio: Estensioni > Apps Script.
+- Cancella il contenuto di esempio e incolla tutto il file
+  claude/google-sheet-recensioni.gs (i passaggi dettagliati sono scritti
+  come commento in cima al file stesso).
+- Pubblicalo come «app web» (Esegui il deployment > Nuovo deployment):
+  chi ha accesso «Chiunque», esegui come «Io».
+- Copia l'URL che ti viene dato (finisce con /exec) e mandalo a me: lo
+  incollo al posto giusto nel codice del sito (assets/js/main.js) e ti
+  preparo l'aggiornamento da pubblicare come al solito.
+
+Se avevi già attivato questa funzione solo per le recensioni: aggiorna
+lo script con la versione nuova del file (sostituisci tutto il
+contenuto in Apps Script), poi «Esegui il deployment» > «Gestisci
+deployment» > icona matita > Versione «Nuova versione» > «Esegui il
+deployment». L'URL /exec resta lo stesso, non serve cambiare altro. Al
+primo invio successivo lo script aggiunge da solo, nel foglio delle
+recensioni, due colonne nuove: «Pubblica (SI/NO)» e «In home (SI/NO)»
+(le stesse due che hai già nell'Excel).
+
+
+13) Pagine extra: numeri, curiosità, percorso, dietro le quinte
+------------------------------------------------------------------
+Nella barra a sinistra, sotto «Pagine extra», trovi le cinque pagine di
+testo del sito che non sono progetti (numeri.html, curiosita-e-record.html,
+il-mio-percorso.html, dietro-le-quinte.html, extra.html). Da qui puoi
+cambiare solo la loro apertura:
+- l'etichetta sopra il titolo (es. «EXTRA · BACKSTAGE»);
+- il titolo grande;
+- il paragrafo introduttivo sotto il titolo.
+
+Stessa regola di sempre: campo vuoto = testo originale, scrivi solo quello
+che vuoi cambiare. Il resto del contenuto di queste pagine — i numeri di
+numeri.html, le schede di curiosita-e-record.html e dietro-le-quinte.html,
+la cronologia di il-mio-percorso.html, le foto — NON si cambia da qui:
+resta da modificare a mano nel file, come sempre. Il paragrafo
+sull'«ATTREZZATURA» in dietro-le-quinte.html, per esempio, ha un commento
+nel codice apposta per essere personalizzato a mano.
+
+
+14) Foto e video salvati (libreria media)
+---------------------------------------------
+Nella barra a sinistra, «Foto e video salvati», elenca tutto quello che
+hai caricato da questo pannello e che vive in questo browser: ogni foto e
+ogni video, con quanto spazio occupa. Chi è ancora agganciato a una
+pagina o sezione è segnato come tale; chi non è più usato da nessuna
+parte (per esempio una foto tolta da una galleria, o un capitolo
+cancellato) ha un'etichetta «Non usata» ed è sicuro da eliminare col
+pulsante «Elimina» per liberare spazio nel browser. Se provi a eliminare
+qualcosa che è ancora agganciato a una pagina, te lo dice prima di
+chiedere conferma: eliminandolo comunque, quella foto o quel video
+sparirà (o si romperà) alla prossima pubblicazione.
+
+Utile soprattutto ora che anche i video si salvano qui per davvero
+(punto sulla anteprima video): sono file pesanti, quindi conviene
+controllare ogni tanto questa pagina.
+
+
+15) La sitemap si aggiorna da sola
+--------------------------------------
+Il file sitemap.xml (serve a Google per sapere quali pagine ha il sito)
+non va più scritto a mano: da qui viene rigenerato a ogni pubblicazione,
+con dentro solo le pagine davvero pubblicate — comprese quelle nuove
+create da questo pannello. Entra nel pacchetto .zip e nella pubblicazione
+su GitHub insieme al resto: basta sostituirlo come gli altri file.
+
+
+16) Se cambi l'indirizzo di una pagina già pubblicata
+----------------------------------------------------------
+Se rinomini l'indirizzo (lo slug) di una pagina creata da questo
+pannello dopo che era già stata pubblicata, alla pubblicazione
+successiva il pannello se ne accorge da solo: te lo segnala tra gli
+avvisi e mette, al posto del vecchio file, una paginetta che manda in
+automatico chi apre il vecchio indirizzo a quello nuovo. Così un vecchio
+link condiviso o già indicizzato da Google non porta più a un errore
+404.
+
+È un rimando semplice (dal vecchio indirizzo al più recente, un solo
+passaggio): se rinomini di nuovo la stessa pagina più avanti, il
+rimando punterà al nuovo indirizzo più recente, non a tutta la storia
+dei nomi passati. Riguarda solo le pagine create da questo pannello: le
+pagine «già nel sito» (elencate a sinistra) hanno un indirizzo fisso che
+non si cambia da qui.
+
+Da quel momento entrambi i moduli continuano a funzionare esattamente
+come prima (stessa email da Web3Forms) e in più scrivono ogni invio
+anche nel foglio. Se in futuro vuoi disattivarli, basta togliere l'URL
+da quella riga del codice.
+
+
+12bis) Pubblicare le recensioni direttamente dal foglio (senza Excel)
+-----------------------------------------------------------------------
+Una volta attivo il collegamento del punto 12, puoi scegliere quali
+recensioni mostrare direttamente dal pannello admin, senza più
+toccare l'Excel né il foglio:
+
+- Pubblica la scheda in formato CSV: nel foglio, File > Condividi >
+  Pubblica sul web > scegli la scheda giusta (quella con le
+  recensioni, di solito la prima) e come formato scegli «Valori
+  separati da virgola (.csv)» > Pubblica. Copia il link che ti dà
+  (finisce con «/pub?output=csv» o simile) — è diverso dal link di
+  condivisione normale. Serve una volta sola: il link resta salvato
+  nel pannello.
+- Nel pannello admin, sezione «Recensioni», incolla quel link nel
+  campo «Link CSV pubblicato» e premi «Importa dal foglio»: ogni
+  recensione con nome e testo viene importata (non serve più segnare
+  nulla nel foglio) e sostituisce l'elenco qui sotto con quelle.
+- Da qui, riga per riga, scegli tu con l'interruttore «Mostra anche
+  in homepage» quali vuoi in evidenza — tutte le altre restano comunque
+  visibili nella pagina «Recensioni generali».
+- Resta come qualunque altra modifica nel pannello: una bozza finché
+  non premi «Pubblica» (punto 7 o 11).
+
+Nota: il link pubblicato in formato CSV è pubblico — chiunque lo abbia
+può leggere (non modificare) il contenuto del foglio. Se preferisci
+restare con l'Excel, va benissimo lo stesso: sono due strade per la
+stessa cosa, usa quella che preferisci.
+
+
+Note
+----
+- Le pagine progetto già esistenti restano com'erano (file statici): il
+  pannello non le modifica, ci aggiunge sotto le raccolte (punto 5).
+  Titolo, testo e foto originali si cambiano ancora a mano nel file HTML.
+- Per togliere una pagina già pubblicata: spegni «Pubblicata», rifai la
+  pubblicazione e cancella a mano il suo file da projects/.
