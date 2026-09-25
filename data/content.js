@@ -140,10 +140,6 @@ window.GPJ_CONTENT = {
               "alt": ""
             },
             {
-              "path": "images/uploads/anna-cate-88-e7o6.webp",
-              "alt": ""
-            },
-            {
               "path": "images/uploads/anna-cate-90-42pb.webp",
               "alt": ""
             },
@@ -165,10 +161,6 @@ window.GPJ_CONTENT = {
             },
             {
               "path": "images/uploads/anna-cate-113-hkqu.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/anna-cate-114-mywu.webp",
               "alt": ""
             }
           ],
