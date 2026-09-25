@@ -138,5 +138,15 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Luca Ferrigni",
+    "ruolo": "",
+    "testo": "Professionale, affidabile e puntuale in sede dell’evento e nello sviluppo delle foto. Disponibile per qualsiasi richiesta e con grande attenzione verso il cliente. Consigliatissimo per qualsiasi tipo di evento.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
