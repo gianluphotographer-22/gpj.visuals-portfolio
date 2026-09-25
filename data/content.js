@@ -49,18 +49,6 @@ window.GPJ_CONTENT = {
           ]
         },
         {
-          "id": "emzwjav2v9",
-          "type": "gallery",
-          "eyebrow": "Gallery",
-          "title": "",
-          "theme": "light",
-          "collapsible": false,
-          "open": true,
-          "visible": true,
-          "images": [],
-          "columns": 4
-        },
-        {
           "id": "uq8mgdxiue",
           "type": "collection",
           "eyebrow": "UN GIORNO SPECIAL",
@@ -129,6 +117,58 @@ window.GPJ_CONTENT = {
             },
             {
               "path": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-h5l6.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-7-pzgo.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-29-x38u.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-66-l6ip.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-70-u70v.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-80-wan6.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-88-e7o6.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-90-42pb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-93-uguf.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-95-k2x5.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-96-ezp1.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-100-iuak.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-113-hkqu.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/anna-cate-114-mywu.webp",
               "alt": ""
             }
           ],
