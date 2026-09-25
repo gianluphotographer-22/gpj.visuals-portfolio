@@ -168,5 +168,35 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Antonio Fusco",
+    "ruolo": "",
+    "testo": "Gianluca non è semplicemente il fotografo della nostra squadra, è una persona che riesce a raccontare con le sue foto l’anima e le emozioni della nostra FC Marea.\nCon professionalità, passione e tanta disponibilità riesce a immortalare ogni momento: dalle partite ai festeggiamenti, dagli attimi di concentrazione a quelli più belli vissuti tutti insieme.\nLe sue foto non sono semplici immagini, ma ricordi che rimarranno nel tempo e che ci permettono di rivivere ogni emozione. Siamo davvero felici di averlo al nostro fianco e di poter contare sulla sua professionalità.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Francesco Mongiello",
+    "ruolo": "Wrestler",
+    "testo": "Chiaro esempio di voglia e determinazione a servizio del talento. Un professionista serio e una persona esemplare. Chiunque si affidi a lui si trova tra le mani creatività da vendere, tanta passione e attenzione ai dettagli.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Sebastiano Durante",
+    "ruolo": "",
+    "testo": "È un professionista dotato di una creatività pazzesca: sa proporre idee originali, sfruttare la luce in modo unico e cogliere dettagli che a chiunque altro sfuggirebbero.\nOltre alla grande bravura e alla padronanza tecnica, sa come metterti a tuo agio rendendo tutto naturale e divertente. Le foto finali sono semplicemente meravigliose. Consigliatissimo a chiunque cerchi un lavoro davvero di alto livello!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
