@@ -128,5 +128,15 @@
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Gianni Romita",
+    "ruolo": "Collaboratore tecnico Ideale Bari",
+    "testo": "Grande persona e soprattutto un fotografo eccezionale per eventi sportivi e non! Ha una capacità straordinaria di prevedere l'azione e catturare il momento perfetto. I suoi scatti trasmettono tutta la velocità, la fatica e la dinamicità di uno sport incredibile come il calcio. Professionista di altissimo livello!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ]
