@@ -148,5 +148,15 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Chicca",
+    "ruolo": "",
+    "testo": "per me è stato un piacere ed un onore poter avere Giangi come fotografo in un’occasione speciale come quella della mia laurea. È da sempre stato tra i miei più cari amici, ciò chiaramente ha reso l’esperienza ancora più importante e indelebile. È riuscito a dimostrare una grande professionalità ed è stato spettacolare nel cogliere tutti gli attimi più belli della giornata, non saprei consigliare fotografo migliore💓",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
