@@ -279,6 +279,24 @@ window.GPJ_CONTENT = {
         }
       ]
     },
+    "athlete-portraits": {
+      "sections": [
+        {
+          "id": "fezib919li",
+          "type": "video",
+          "eyebrow": "Motion",
+          "title": "Video",
+          "theme": "dark",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "url": "videos/gelsi.mp4",
+          "description": "",
+          "note": "Il goal che ha permesso agli Alpak di giocare la finale di KWCC",
+          "placement": "gallery"
+        }
+      ]
+    },
     "cuore-biancorosso": {
       "sections": [
         {
