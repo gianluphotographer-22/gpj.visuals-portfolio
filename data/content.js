@@ -887,7 +887,6 @@ window.GPJ_CONTENT = {
     "review-1": "images/uploads/davide-nore.webp",
     "review-2": "images/uploads/ale-gelsi-6j9r.webp",
     "review-3": "images/uploads/paul-sl2u.webp",
-    "review-4": "images/uploads/ale-marcone-79av.webp",
-    "cover-live-atmosphere": "images/uploads/win-or-go-homr-qtyf.webp"
+    "review-4": "images/uploads/ale-marcone-79av.webp"
   }
 };
