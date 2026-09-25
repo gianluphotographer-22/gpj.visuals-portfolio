@@ -118,6 +118,18 @@ window.GPJ_CONTENT = {
             {
               "path": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-9sse.webp",
               "alt": ""
+            },
+            {
+              "path": "images/uploads/foto-laurea-chicca-018-9xm7.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/foto-laurea-chicca-015-hdrd.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/foto-laurea-chicca-001-hrq4.webp",
+              "alt": ""
             }
           ],
           "columns": 3
