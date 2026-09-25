@@ -780,7 +780,7 @@ window.GPJ_CONTENT = {
           "columns": 3
         }
       ],
-      "publishedSlug": ""
+      "publishedSlug": "nothing-but-net"
     }
   ],
   "home": {
