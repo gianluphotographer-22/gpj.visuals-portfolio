@@ -15,7 +15,7 @@ window.GPJ_CONTENT = {
       "tag": "EVENTI",
       "category": "eventi",
       "wide": false,
-      "cover": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-l8bf.webp",
+      "cover": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-e5hb.webp",
       "coverAlt": "",
       "description": "Un giorno atteso, un traguardo da celebrare, emozioni da ricordare.\nRacconto ogni laurea attraverso immagini spontanee e curate, dai momenti di preparazione alla proclamazione, fino ai fes",
       "published": true,
@@ -72,54 +72,6 @@ window.GPJ_CONTENT = {
           "description": "",
           "images": [
             {
-              "path": "images/uploads/gpj1137-o4sn.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/gpj0602-6od7.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/gpj0674-ber0.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/gpj0648-bpad.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/gpj0500-jfv5.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/gpj1100-fl1l.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/gpj1060-vako.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/dsc03621-bknp.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/dsc03607-9oo2.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/dsc03930-0d0d.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/dsc03657-vub8.webp",
-              "alt": ""
-            },
-            {
-              "path": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-9sse.webp",
-              "alt": ""
-            },
-            {
               "path": "images/uploads/foto-laurea-chicca-018-9xm7.webp",
               "alt": ""
             },
@@ -129,6 +81,54 @@ window.GPJ_CONTENT = {
             },
             {
               "path": "images/uploads/foto-laurea-chicca-001-hrq4.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1137-8c1s.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0602-ummv.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0674-0b6w.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0648-jh44.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj0500-dy2p.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1100-ojcr.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1060-izjb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/dsc03621-xb2v.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/dsc03607-8fae.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/dsc03930-a21p.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/dsc03657-wt3g.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/whatsapp-image-2026-09-24-at-14-23-52-h5l6.webp",
               "alt": ""
             }
           ],
