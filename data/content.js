@@ -914,6 +914,277 @@ window.GPJ_CONTENT = {
           "description": "",
           "note": "Il goal vittoria, il 10 maggio 2026",
           "placement": "end"
+        },
+        {
+          "id": "hrmpwvncg0",
+          "type": "collection",
+          "eyebrow": "",
+          "title": "TRIGGIANO-IDEALE BARI",
+          "theme": "light",
+          "collapsible": true,
+          "open": false,
+          "visible": true,
+          "description": "",
+          "images": [
+            {
+              "path": "images/uploads/gpj6330-gaof.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6227-60gi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6299-9r9i.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6223-r7yd.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6328-4wzi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6309-pmgj.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6284-svxh.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6274-h51c.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6196-fwzv.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6192-w6u6.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5994-58um.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6141-wyii.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj6092-chic.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5941-jm2x.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5917-76iz.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5689-4z8c.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5679-fcsa.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5858-100c.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3,
+          "placement": "gallery"
+        },
+        {
+          "id": "owomv0o1fz",
+          "type": "collection",
+          "eyebrow": "",
+          "title": "IDEALE BARI-SAN MARCO IN LAMIS",
+          "theme": "light",
+          "collapsible": true,
+          "open": false,
+          "visible": true,
+          "description": "",
+          "images": [
+            {
+              "path": "images/uploads/gpj8092-dleh.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7967-zy0f.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8162-cx88.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj8032-q77h.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7894-4ulw.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7927-g85l.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7890-bl2t.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7559-16ra.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7816-4v4k.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7570-3g0d.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7793-pj79.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7814-on47.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj7720-n2e5.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3,
+          "placement": "gallery"
+        },
+        {
+          "id": "i89hgbounc",
+          "type": "collection",
+          "eyebrow": "",
+          "title": "CORATO-IDEALE BARI",
+          "theme": "light",
+          "collapsible": true,
+          "open": false,
+          "visible": true,
+          "description": "",
+          "images": [
+            {
+              "path": "images/uploads/gpj2155-424e.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2198-0vta.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2196-8dkj.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2024-va3q.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1812-lw5g.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2151-31om.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1688-3fon.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1988-p6sb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2015-82gi.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1905-27c7.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1635-5ckw.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1781-jjy8.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1723-sril.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1608-2n6i.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1617-besd.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1622-t7bw.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1602-fs5h.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1573-jjcd.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1571-ljan.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1528-5f0q.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1541-e3xv.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj1549-trcv.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3,
+          "placement": "gallery"
+        },
+        {
+          "id": "rv2ngnpjcp",
+          "type": "collection",
+          "eyebrow": "",
+          "title": "IDEALE BARI-TRIGGIANO",
+          "theme": "light",
+          "collapsible": true,
+          "open": false,
+          "visible": true,
+          "description": "",
+          "images": [],
+          "columns": 3,
+          "placement": "gallery"
         }
       ]
     },
