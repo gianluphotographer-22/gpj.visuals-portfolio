@@ -123,7 +123,7 @@ window.GPJ_CONTENT = {
           "columns": 3
         }
       ],
-      "publishedSlug": ""
+      "publishedSlug": "lauree"
     },
     {
       "id": "a0c1ebrix0",
@@ -239,7 +239,7 @@ window.GPJ_CONTENT = {
           "columns": 3
         }
       ],
-      "publishedSlug": ""
+      "publishedSlug": "padel-tra-leggende"
     }
   ],
   "home": {
