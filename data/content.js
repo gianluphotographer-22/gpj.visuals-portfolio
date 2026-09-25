@@ -272,7 +272,7 @@ window.GPJ_CONTENT = {
           "collapsible": false,
           "open": true,
           "visible": true,
-          "url": "videos/loop-bovio.mp4",
+          "url": "videos/0817.mp4",
           "description": "",
           "note": "Il goal vittoria, il 10 maggio 2026",
           "placement": "end"
