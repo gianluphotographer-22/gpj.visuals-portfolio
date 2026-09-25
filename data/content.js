@@ -556,6 +556,78 @@ window.GPJ_CONTENT = {
         }
       ],
       "publishedSlug": "dentro-la-competizione"
+    },
+    {
+      "id": "fagh9gzo5c",
+      "slug": "il-limite-e-il-cielo",
+      "title": "IL LIMITE E’ IL CIELO",
+      "tag": "DRONE WORKS",
+      "category": "drone",
+      "wide": false,
+      "cover": "",
+      "coverAlt": "",
+      "description": "",
+      "published": true,
+      "showInGrid": true,
+      "gridPosition": "end",
+      "next": "auto",
+      "sections": [
+        {
+          "id": "4xvoilzo5d",
+          "type": "info",
+          "eyebrow": "",
+          "title": "",
+          "theme": "white",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "intro": "",
+          "facts": [
+            {
+              "k": "Anno",
+              "v": ""
+            },
+            {
+              "k": "Cliente",
+              "v": ""
+            },
+            {
+              "k": "Servizi",
+              "v": ""
+            },
+            {
+              "k": "Output",
+              "v": ""
+            }
+          ]
+        },
+        {
+          "id": "uytnel0wu5",
+          "type": "video",
+          "eyebrow": "",
+          "title": "",
+          "theme": "light",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "url": "videos/0925-3-.mp4",
+          "description": "",
+          "note": ""
+        },
+        {
+          "id": "jkpghn9l38",
+          "type": "video",
+          "eyebrow": "",
+          "title": "",
+          "theme": "dark",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "url": "videos/DRONE1.mp4",
+          "description": "",
+          "note": ""
+        }
+      ]
     }
   ],
   "home": {
