@@ -244,6 +244,24 @@ window.GPJ_CONTENT = {
     "sections": []
   },
   "extras": {
+    "matchday-stories": {
+      "sections": [
+        {
+          "id": "2mj0pxzbll",
+          "type": "video",
+          "eyebrow": "Motion",
+          "title": "Video",
+          "theme": "dark",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "url": "videos/loop bovio.mp4",
+          "description": "Il goal che ha permesso all'ideal il salto di categoria",
+          "note": "Il goal decisivo del 10 maggio 2026",
+          "placement": "gallery"
+        }
+      ]
+    },
     "cuore-biancorosso": {
       "sections": [
         {
