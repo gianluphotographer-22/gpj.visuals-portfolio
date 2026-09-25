@@ -158,5 +158,15 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Gabriele Romanazzi",
+    "ruolo": "",
+    "testo": "Professionista eccellente, la passione che mette nel lavoro, traspare in ogni suo scatto. Dietro quella macchina fotografica, c'è un ragazzo che si sacrifica giornalmente per migliorare professionalmente ed il mio augurio è che un giorno possa arrivare il più in alto possibile, sarebbe tutto meritato! Sei grandioso...",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
