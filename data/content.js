@@ -902,275 +902,279 @@ window.GPJ_CONTENT = {
           "number": 2
         },
         {
-          "id": "hrmpwvncg0",
-          "type": "collection",
+          "id": "eb2uh179fx",
+          "type": "chapter",
           "eyebrow": "",
-          "title": "TRIGGIANO-IDEALE BARI",
+          "title": "TRIGGIANO-IDEALE",
           "theme": "light",
           "collapsible": false,
-          "open": false,
+          "open": true,
           "visible": true,
-          "description": "",
+          "note": "",
           "images": [
             {
-              "path": "images/uploads/gpj6330-gaof.webp",
+              "path": "images/uploads/gpj6330-7pp9.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6227-60gi.webp",
+              "path": "images/uploads/gpj6227-x3y3.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6299-9r9i.webp",
+              "path": "images/uploads/gpj6299-mee5.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6223-r7yd.webp",
+              "path": "images/uploads/gpj6223-q0jy.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6328-4wzi.webp",
+              "path": "images/uploads/gpj6328-80gl.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6309-pmgj.webp",
+              "path": "images/uploads/gpj6309-nz28.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6284-svxh.webp",
+              "path": "images/uploads/gpj6284-fv4u.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6274-h51c.webp",
+              "path": "images/uploads/gpj6274-o33e.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6196-fwzv.webp",
+              "path": "images/uploads/gpj6196-819c.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6192-w6u6.webp",
+              "path": "images/uploads/gpj6192-n5fb.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj5994-58um.webp",
+              "path": "images/uploads/gpj5994-5m0c.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6141-wyii.webp",
+              "path": "images/uploads/gpj6141-n9sv.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj6092-chic.webp",
+              "path": "images/uploads/gpj6092-4a94.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj5941-jm2x.webp",
+              "path": "images/uploads/gpj5941-lnz6.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj5917-76iz.webp",
+              "path": "images/uploads/gpj5917-4kt2.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj5689-4z8c.webp",
+              "path": "images/uploads/gpj5689-av8x.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj5679-fcsa.webp",
+              "path": "images/uploads/gpj5679-03m2.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj5858-100c.webp",
+              "path": "images/uploads/gpj5858-7ucn.webp",
               "alt": ""
             }
           ],
           "columns": 3,
-          "placement": "gallery"
+          "placement": "gallery",
+          "number": 3
         },
         {
-          "id": "owomv0o1fz",
-          "type": "collection",
+          "id": "kj420i7tq0",
+          "type": "chapter",
           "eyebrow": "",
-          "title": "IDEALE BARI-SAN MARCO IN LAMIS",
+          "title": "IDEALE - SAN MARCO IN LAMIS",
           "theme": "light",
           "collapsible": false,
-          "open": false,
+          "open": true,
           "visible": true,
-          "description": "",
+          "note": "",
           "images": [
             {
-              "path": "images/uploads/gpj8092-dleh.webp",
+              "path": "images/uploads/gpj8092-cvaw.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7967-zy0f.webp",
+              "path": "images/uploads/gpj7967-0opl.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj8162-cx88.webp",
+              "path": "images/uploads/gpj8162-rwzj.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj8032-q77h.webp",
+              "path": "images/uploads/gpj8032-3rl8.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7894-4ulw.webp",
+              "path": "images/uploads/gpj7894-g0mx.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7927-g85l.webp",
+              "path": "images/uploads/gpj7927-t9ki.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7890-bl2t.webp",
+              "path": "images/uploads/gpj7890-hvdg.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7559-16ra.webp",
+              "path": "images/uploads/gpj7559-o2dm.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7816-4v4k.webp",
+              "path": "images/uploads/gpj7816-wtys.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7570-3g0d.webp",
+              "path": "images/uploads/gpj7570-arc1.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7793-pj79.webp",
+              "path": "images/uploads/gpj7793-5e9g.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7814-on47.webp",
+              "path": "images/uploads/gpj7814-s7t4.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj7720-n2e5.webp",
+              "path": "images/uploads/gpj7720-97jr.webp",
               "alt": ""
             }
           ],
           "columns": 3,
-          "placement": "gallery"
+          "placement": "gallery",
+          "number": 4
         },
         {
-          "id": "i89hgbounc",
-          "type": "collection",
+          "id": "21f8b98zqh",
+          "type": "chapter",
           "eyebrow": "",
-          "title": "CORATO-IDEALE BARI",
+          "title": "CORATO-IDEALE",
           "theme": "light",
           "collapsible": false,
-          "open": false,
+          "open": true,
           "visible": true,
-          "description": "",
+          "note": "",
           "images": [
             {
-              "path": "images/uploads/gpj2155-424e.webp",
+              "path": "images/uploads/gpj2155-mf99.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj2198-0vta.webp",
+              "path": "images/uploads/gpj2198-mwpm.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj2196-8dkj.webp",
+              "path": "images/uploads/gpj2196-53f6.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj2024-va3q.webp",
+              "path": "images/uploads/gpj2024-ktf1.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1812-lw5g.webp",
+              "path": "images/uploads/gpj1812-tqjh.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj2151-31om.webp",
+              "path": "images/uploads/gpj2151-6vbb.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1688-3fon.webp",
+              "path": "images/uploads/gpj1688-18df.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1988-p6sb.webp",
+              "path": "images/uploads/gpj1988-vomr.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj2015-82gi.webp",
+              "path": "images/uploads/gpj2015-ex9l.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1905-27c7.webp",
+              "path": "images/uploads/gpj1905-sh39.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1635-5ckw.webp",
+              "path": "images/uploads/gpj1635-p2p2.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1781-jjy8.webp",
+              "path": "images/uploads/gpj1781-7e19.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1723-sril.webp",
+              "path": "images/uploads/gpj1723-jkgx.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1608-2n6i.webp",
+              "path": "images/uploads/gpj1608-r1ol.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1617-besd.webp",
+              "path": "images/uploads/gpj1617-fivh.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1622-t7bw.webp",
+              "path": "images/uploads/gpj1622-6ww7.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1602-fs5h.webp",
+              "path": "images/uploads/gpj1602-zd27.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1573-jjcd.webp",
+              "path": "images/uploads/gpj1573-mhc2.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1571-ljan.webp",
+              "path": "images/uploads/gpj1571-7eqj.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1528-5f0q.webp",
+              "path": "images/uploads/gpj1528-4cak.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1541-e3xv.webp",
+              "path": "images/uploads/gpj1541-ywsz.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj1549-trcv.webp",
+              "path": "images/uploads/gpj1549-6zoh.webp",
               "alt": ""
             }
           ],
           "columns": 3,
-          "placement": "gallery"
+          "placement": "gallery",
+          "number": 5
         },
         {
-          "id": "rv2ngnpjcp",
-          "type": "collection",
+          "id": "57nhd58j9f",
+          "type": "chapter",
           "eyebrow": "",
-          "title": "IDEALE BARI-TRIGGIANO",
+          "title": "IDEALE - TRIGGIANO",
           "theme": "light",
           "collapsible": false,
-          "open": false,
+          "open": true,
           "visible": true,
-          "description": "",
+          "note": "",
           "images": [],
           "columns": 3,
-          "placement": "gallery"
+          "placement": "gallery",
+          "number": 6
         },
         {
           "id": "j99vk49d0e",
