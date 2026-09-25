@@ -198,5 +198,25 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Marco Novembrino",
+    "ruolo": "",
+    "testo": "\"Bravissimo! Ha un occhio: riesce a catturare la grinta in campo, le esultanze e il divertimento nei momenti giusti. Foto bellissime e naturali. Numero UNO!\"",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Carlo V",
+    "ruolo": "Ideale",
+    "testo": "Cattura ogni attimo con estrema professionalità! Grande Gianlu continua così!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
