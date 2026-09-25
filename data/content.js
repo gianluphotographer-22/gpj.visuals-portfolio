@@ -144,7 +144,7 @@ window.GPJ_CONTENT = {
       "tag": "PADEL",
       "category": "sport",
       "wide": false,
-      "cover": "images/uploads/gpj9220-ze5m.webp",
+      "cover": "images/uploads/gpj9197-bha6.webp",
       "coverAlt": "Quando il calcio incontra il padel, le leggende tornano in campo. Ho avuto l'opportunità di raccontare attraverso la mia macchina fotografica una giornata speciale, fatta di sport, competizione, sorrisi e tanti volti che hanno scritto pagine importanti del calcio italiano.",
       "description": "Raccontare questo evento di padel è stato, prima di tutto, un'esperienza particolare per me. Trovarmi a fotografare alcune delle leggende che per anni ho visto sui campi da calcio mi ha permesso di vi",
       "published": true,
@@ -192,59 +192,59 @@ window.GPJ_CONTENT = {
           "visible": true,
           "images": [
             {
-              "path": "images/uploads/gpj9257-22a4.webp",
+              "path": "images/uploads/gpj9257-c2u4.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9260-vvbu.webp",
+              "path": "images/uploads/gpj9260-f9vy.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9252-26ux.webp",
+              "path": "images/uploads/gpj9252-etki.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9205-0rrt.webp",
+              "path": "images/uploads/gpj9205-a7g4.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9220-izmv.webp",
+              "path": "images/uploads/gpj9220-8lt5.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9196-hfko.webp",
+              "path": "images/uploads/gpj9196-0ie4.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9194-7s6g.webp",
+              "path": "images/uploads/gpj9194-c4xf.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9190-tgtk.webp",
+              "path": "images/uploads/gpj9190-81oe.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9235-lq8c.webp",
+              "path": "images/uploads/gpj9235-z1x1.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9186-4hod.webp",
+              "path": "images/uploads/gpj9186-rz4h.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9197-3ppb.webp",
+              "path": "images/uploads/gpj9197-0vs0.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9180-ocu7.webp",
+              "path": "images/uploads/gpj9180-8gh3.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9191-9isa.webp",
+              "path": "images/uploads/gpj9191-70dk.webp",
               "alt": ""
             },
             {
-              "path": "images/uploads/gpj9183-tqdh.webp",
+              "path": "images/uploads/gpj9183-thhs.webp",
               "alt": ""
             }
           ],
