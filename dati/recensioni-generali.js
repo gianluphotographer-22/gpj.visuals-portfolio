@@ -228,5 +228,25 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Massimo",
+    "ruolo": "",
+    "testo": "Professionista con la ‘P’ maiuscola e persona vera che mette passione in tutto ciò che fa.\nGrande Gianluca!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Alessandro Perrino",
+    "ruolo": "ideale",
+    "testo": "grande persona , sempre disponibile. Numero 1.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
