@@ -6,8 +6,8 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": "images/reviews/persona-01.jpg",
-    "categoria": "Sport Photography"
+    "avatar": null,
+    "categoria": null
   },
   {
     "nome": "Alessandro Gelsi",
@@ -16,8 +16,8 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": "images/reviews/persona-02.jpg",
-    "categoria": "Portrait / Content"
+    "avatar": null,
+    "categoria": null
   },
   {
     "nome": "Paolo Scienza",
@@ -26,8 +26,8 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": "images/reviews/persona-03.jpg",
-    "categoria": "SSD BAVENO STRESA - FULGOR CHIAVAZZESE"
+    "avatar": null,
+    "categoria": null
   },
   {
     "nome": "Alessio Marcone",
@@ -36,7 +36,127 @@ window.GPJ_REVIEWS = [
     "voto": 5,
     "anno": "2026",
     "pinned": true,
-    "avatar": "images/reviews/persona-04.jpg",
-    "categoria": "Sport Photography"
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Vincenzo Alessio Nitti",
+    "ruolo": "Consulente Immobiliare e organizzatore di eventi sportivi",
+    "testo": "Prima l'uomo, poi il professionista.\nCollaborare con Gianluca, in ambito immobiliare e sportivo, rappresenta per me una CERTEZZA.\nGianluca è innovativo, moderno, ambizioso, fantasioso ma soprattutto EMPATICO.\nLa sua passione è smisurata, cresce giorno dopo giorno e sono sicuro che il futuro sarà ricco di soddisfazioni e risultati.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Francesco Marzano",
+    "ruolo": "Content creator",
+    "testo": "Ho avuto il piacere di conoscerlo per un torneo a Bari e sono rimasto davvero soddisfatto. È una persona professionale, disponibile e soprattutto capace di catturare momenti ed emozioni in modo naturale e autentico. Impeccabile. \n\nLe foto sono semplicemente bellissime, curate nei dettagli e con un tocco davvero personale. Si vede la passione e la dedizione che mette nel suo lavoro.\n\nLo consiglio assolutamente a chi cerca un fotografo competente, creativo e affidabile!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "michele perrelli",
+    "ruolo": "",
+    "testo": "Con noi dal giorno 0,una crescita professionale,OTTIMO",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Michele Tritone",
+    "ruolo": "Centrocampista Ideale Bari",
+    "testo": "Creativo, disponibile e con tanta voglia di prendersi il mondo.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Giuseppe Pappagallo",
+    "ruolo": "One Soccer",
+    "testo": "Dal giorno 0 nostro collaboratore e staffista. Una mente geniale e creativa che ha imparato ad offrire e inventare prodotti di qualità in tempo celere. Continuando così, finalmente, avrà i risultati che merita.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Miky Bonerba",
+    "ruolo": "",
+    "testo": "Una persona sempre disponibile, capace di ascoltare e soprattutto di tirare fuori idee davvero strabilianti. Riesce sempre a trovare qualcosa di originale e diverso dal solito, con una creatività che secondo me lo rende unico nel suo genere. È una di quelle persone con cui sai di poter contare e che riesce a sorprenderti ogni volta. Per me, semplicemente, il migliore.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Nicola Bonerba",
+    "ruolo": "",
+    "testo": "Fotografo eccezzionale! Riesce sempre a catturare i momenti più belli delle partite, trasmettendo attraverso ogni scatto tutta la passione e le emozioni che si vivono in campo. Sempre disponibile, professionale e attento ai dettagli. Ogni volta che vedo le sue foto rimango davvero soddisfatto. Numero uno!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Alessandro Grandolfo",
+    "ruolo": "",
+    "testo": "sempre disponibile, qualità delle foto e dei video top",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Vincenzo Cacucciolo",
+    "ruolo": "",
+    "testo": "Un ragazzo d'oro oltre che un professionista serio e fortissimo. Sempre disponibile e pronto ad accogliere le richieste. Super consigliato",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Gianni Romita",
+    "ruolo": "Collaboratore tecnico Ideale Bari",
+    "testo": "Grande persona e soprattutto un fotografo eccezionale per eventi sportivi e non! Ha una capacità straordinaria di prevedere l'azione e catturare il momento perfetto. I suoi scatti trasmettono tutta la velocità, la fatica e la dinamicità di uno sport incredibile come il calcio. Professionista di altissimo livello!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Luca Ferrigni",
+    "ruolo": "",
+    "testo": "Professionale, affidabile e puntuale in sede dell’evento e nello sviluppo delle foto. Disponibile per qualsiasi richiesta e con grande attenzione verso il cliente. Consigliatissimo per qualsiasi tipo di evento.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Chicca",
+    "ruolo": "",
+    "testo": "per me è stato un piacere ed un onore poter avere Giangi come fotografo in un’occasione speciale come quella della mia laurea. È da sempre stato tra i miei più cari amici, ciò chiaramente ha reso l’esperienza ancora più importante e indelebile. È riuscito a dimostrare una grande professionalità ed è stato spettacolare nel cogliere tutti gli attimi più belli della giornata, non saprei consigliare fotografo migliore💓",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
