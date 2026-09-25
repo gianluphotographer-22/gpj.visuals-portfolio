@@ -1,0 +1,13 @@
+Questa cartella deve contenere i file video usati dal sito.
+
+Al momento mancano questi due (le pagine li richiamano ma il file
+vero e proprio non è mai stato caricato qui):
+
+  - GELSI.MP4   (usato da: projects/athlete-portraits.html)
+  - BOVIO.MP4   (usato da: projects/matchday-stories.html)
+
+Copia qui i file con questi nomi esatti (maiuscole comprese) prima di
+pubblicare, altrimenti il video su quella pagina resterà vuoto.
+
+Se in futuro aggiungi un video da admin con "Scegli file", il pannello
+ti dirà il nome esatto da usare: copia il file qui con quel nome.
