@@ -210,7 +210,7 @@ window.GPJ_REVIEWS = [
     "categoria": null
   },
   {
-    "nome": "Carlo V",
+    "nome": "Carlo Vox",
     "ruolo": "Ideale",
     "testo": "Cattura ogni attimo con estrema professionalità! Grande Gianlu continua così!",
     "voto": 5,
@@ -230,7 +230,7 @@ window.GPJ_REVIEWS = [
     "categoria": null
   },
   {
-    "nome": "Massimo",
+    "nome": "Massimo Schirone",
     "ruolo": "",
     "testo": "Professionista con la ‘P’ maiuscola e persona vera che mette passione in tutto ciò che fa.\nGrande Gianluca!",
     "voto": 5,
@@ -243,6 +243,36 @@ window.GPJ_REVIEWS = [
     "nome": "Alessandro Perrino",
     "ruolo": "ideale",
     "testo": "grande persona , sempre disponibile. Numero 1.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Mirko ferro",
+    "ruolo": "",
+    "testo": "Grande persona , grande professionista con un’umiltà pazzesca e tanta voglia di migliorarsi … ti auguro di arrivare più in alto possibile , te lo meriti",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Luca Fiore",
+    "ruolo": "Ideale Bari",
+    "testo": "Gianluca è davvero bravo nel suo lavoro: foto bellissime, naturali e sempre capaci di catturare i momenti migliori della partita. Una persona disponibile e soprattutto appassionata. Consigliatissimo!",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Simone Liberti",
+    "ruolo": "Presidente FC Marea",
+    "testo": "Consigliarvi Gianluca semplicemente per la qualità delle sue foto sarebbe riduttivo.\n\nNon ve lo consiglio soltanto se cercate foto bellissime, puntualità nella consegna, professionalità e coerenza. Tutte queste cose ci sono, e anche in abbondanza. Ma ciò che rende davvero speciale Gianluca va oltre il risultato finale.\n\nVe lo consiglio per la persona che è, per il modo in cui riesce a entrare in punta di piedi nei momenti più importanti, mettendovi a vostro agio senza mai essere invadente. Per la sensibilità con cui osserva, ascolta e riesce a cogliere attimi che spesso, mentre li viviamo, nemmeno ci accorgiamo di quanto siano preziosi.\n\nLe sue fotografie non sono semplicemente belle: raccontano. E quando le riguardi, non ricordi soltanto com’era quel momento, ma torni a sentire quello che provavi.\n\nPer questo consigliarvi Gianluca solo come fotografo sarebbe, appunto, riduttivo. Per noi è stato molto di più, e non potremmo essere più felici di averlo scelto.",
     "voto": 5,
     "anno": "2026",
     "pinned": false,
