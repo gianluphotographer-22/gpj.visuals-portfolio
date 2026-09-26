@@ -1203,7 +1203,104 @@ window.GPJ_CONTENT = {
           "open": true,
           "visible": true,
           "note": "",
-          "images": [],
+          "images": [
+            {
+              "path": "images/uploads/gpj3416-z293.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3433-g015.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3428-rt2k.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3392-zdha.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3384-o65m.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3372-iud2.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3363-zug0.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3362-ig7d.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3278-4x2c.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3258-97v2.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3218-7ldw.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3194-l28d.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3176-n4rk.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3150-o78v.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3133-j0hh.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3008-8y6f.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3123-lrkb.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2929-bn43.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2928-8kif.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2890-ijnq.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2915-oq3u.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2794-bhlj.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2768-eiin.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj2721-mpxi.webp",
+              "alt": ""
+            }
+          ],
           "columns": 3,
           "placement": "gallery",
           "number": 6
