@@ -298,5 +298,15 @@ window.GPJ_REVIEWS = [
     "pinned": true,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Massimo Morelli",
+    "ruolo": "Ideale Bari",
+    "testo": "Professionale e competente oltre ad essere una persona splendida. Scatti memorabili, riesce sempre a cogliere il momento giusto.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
