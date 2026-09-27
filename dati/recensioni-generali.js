@@ -278,5 +278,15 @@ window.GPJ_REVIEWS = [
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Daniele Amoruso",
+    "ruolo": "Collaboratore tecnico Ideale Bari",
+    "testo": "Ragazzo professionale e disponibile. Farà molta strada",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
   }
 ];
