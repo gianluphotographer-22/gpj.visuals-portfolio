@@ -288,5 +288,15 @@
     "pinned": false,
     "avatar": null,
     "categoria": null
+  },
+  {
+    "nome": "Leonardo Mendicino",
+    "ruolo": "Centrocampista SSC BARI",
+    "testo": "Ragazzo di cuore super disponibile e fotografo da 10 e lode.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": true,
+    "avatar": null,
+    "categoria": null
   }
 ]
