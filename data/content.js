@@ -1197,7 +1197,7 @@ window.GPJ_CONTENT = {
           "id": "57nhd58j9f",
           "type": "chapter",
           "eyebrow": "",
-          "title": "IDEALE - TRIGGIANO",
+          "title": "IDEALE BARI - TRIGGIANO",
           "theme": "light",
           "collapsible": false,
           "open": true,
