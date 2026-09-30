@@ -1318,6 +1318,194 @@ window.GPJ_CONTENT = {
           "description": "",
           "note": "Il goal vittoria, il 10 maggio 2026",
           "placement": "end"
+        },
+        {
+          "id": "5xjto5g3z5",
+          "type": "chapter",
+          "eyebrow": "",
+          "title": "IDEALE BARI - ATLETICO GARGANO",
+          "theme": "light",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "note": "",
+          "images": [
+            {
+              "path": "images/uploads/gpj5460-xv99.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5452-c2wj.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5437-mzes.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5425-w7h0.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5422-n7d8.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5419-l12w.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5415-w1h2.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5412-6g8m.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5408-lgat.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5403-3d1m.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5300-lxd5.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5297-dzzg.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5303-qlfw.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5360-aft0.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5331-c5ex.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5309-5fpl.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5306-puo5.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5216-nm0t.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5198-rsoj.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5208-7yfz.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5200-afkc.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5085-lq3o.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5171-abks.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5135-bv3l.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5120-334h.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5117-7lj4.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5083-vfti.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5042-wxce.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4951-jkdq.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5035-0uff.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj5032-k4le.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4957-7fzz.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4923-yede.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4922-qitj.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4870-459f.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4906-vfqo.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4914-iypa.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4884-luq0.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4844-ymim.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4859-jiw4.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4797-3uez.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4793-w9yy.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4811-atpb.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3,
+          "placement": "gallery",
+          "number": 7
         }
       ]
     },
