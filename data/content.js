@@ -1516,6 +1516,150 @@ window.GPJ_CONTENT = {
           "columns": 4,
           "placement": "gallery",
           "number": 3
+        },
+        {
+          "id": "0qc4t8afu2",
+          "type": "chapter",
+          "eyebrow": "",
+          "title": "BARI COSENZA",
+          "theme": "light",
+          "collapsible": false,
+          "open": true,
+          "visible": true,
+          "note": "",
+          "images": [
+            {
+              "path": "images/uploads/gpj4345-6v4t.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4177-pza9.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4182-q9ol.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4338-uoku.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4178-vong.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3700-ebf2.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3689-o25v.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4096-u7z9.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4134-wa0g.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4121-kc9a.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3803-vw93.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3745-f6bf.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4017-pqk6.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj4024-ioml.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3890-lans.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3711-81fq.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3783-q7gt.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3781-mlqe.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3766-hnfm.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3627-mz3a.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3747-vowe.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3740-lbpp.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3724-rl6l.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3688-47ws.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3659-4vj4.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3575-0pet.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3714-0sjp.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3606-s9tl.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3614-fexk.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3535-xhtg.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3569-96zx.webp",
+              "alt": ""
+            },
+            {
+              "path": "images/uploads/gpj3563-pgxl.webp",
+              "alt": ""
+            }
+          ],
+          "columns": 3,
+          "placement": "gallery",
+          "number": 4
         }
       ]
     }
