@@ -295,7 +295,7 @@ window.GPJ_REVIEWS = [
     "testo": "Ragazzo di cuore super disponibile e fotografo da 10 e lode.",
     "voto": 5,
     "anno": "2026",
-    "pinned": true,
+    "pinned": false,
     "avatar": null,
     "categoria": null
   },
@@ -303,6 +303,16 @@ window.GPJ_REVIEWS = [
     "nome": "Massimo Morelli",
     "ruolo": "Ideale Bari",
     "testo": "Professionale e competente oltre ad essere una persona splendida. Scatti memorabili, riesce sempre a cogliere il momento giusto.",
+    "voto": 5,
+    "anno": "2026",
+    "pinned": false,
+    "avatar": null,
+    "categoria": null
+  },
+  {
+    "nome": "Michele Nitti",
+    "ruolo": "",
+    "testo": "Professionale e creativo. Attraverso i suoi  scatti regala emozioni. I suoi lavori diventano capolavori perché fotografati con passione e tecniche moderne. Educato, sensibile e disponibile riesce a colpire i cuori di chiunque. Ha espresso massimo valore per due miei festeggiamenti donandomi attraverso il suo drone immagini bellissime con grande maestria.",
     "voto": 5,
     "anno": "2026",
     "pinned": false,
